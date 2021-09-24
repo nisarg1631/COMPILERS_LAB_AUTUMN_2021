@@ -1,23 +1,13 @@
 %{
-    #define KEYWORD                 10
-    #define IDENTIFIER              11
-    #define INTEGER_CONSTANT        12
-    #define FLOATING_CONSTANT       13
-    #define ENUMERATION_CONSTANT    14
-    #define CHARACTER_CONSTANT      15
-    #define STRING_LITERAL          16
-    #define PUNCTUATOR              17
-    #define MULTI_LINE_COMMENT      18
-    #define SINGLE_LINE_COMMENT     19
-    #define INVALID_TOKEN           20
+    #include <stdio.h>
+    #include "y.tab.h"
+    int lineCount = 1;
 %}
 
 %x MULTI_LINE_COMMENT_BODY
 %x SINGLE_LINE_COMMENT_BODY
 
-KEYWORD                 "auto"|"break"|"case"|"char"|"const"|"continue"|"default"|"do"|"double"|"else"|"enum"|"extern"|"float"|"for"|"goto"|"if"|"inline"|"int"|"long"|"register"|"restrict"|"return"|"short"|"signed"|"sizeof"|"static"|"struct"|"switch"|"typedef"|"union"|"unsigned"|"void"|"volatile"|"while"|"_Bool"|"_Complex"|"_Imaginary"
 ESCAPE_SEQUENCE         "\\\'"|"\\\""|"\\?"|"\\\\"|"\\a"|"\\b"|"\\f"|"\\n"|"\\r"|"\\t"|"\\v"
-PUNCTUATOR              "["|"++"|"/"|"?"|"="|","|"]"|"("|"{"|"}"|"."|"->"|"*"|"+"|"-"|"~"|"!"|"%"|"<<"|">>"|"<"|">"|"<="|">="|":"|";"|"..."|"*="|"/="|"%="|"+="|"-="|"<<="|"#"|"--"|")"|"&"|"=="|"^"|"|"|"&&"|">>="|"!="|"&="|"^="|"||"|"|"
 
 IDENTIFIER              [A-Za-z_][A-Za-z0-9_]*
 
@@ -40,17 +30,102 @@ S_CHAR                  [^\"\n\\]|{ESCAPE_SEQUENCE}
 S_CHAR_SEQUENCE         {S_CHAR}+
 STRING_LITERAL          \"({S_CHAR_SEQUENCE}?)\"
 
-WHITESPACE              [ \n\t]
+WHITESPACE              [ \t]
+NEWLINE                 \n
 
 %%
 
-{KEYWORD}                       { return KEYWORD; }
+"auto"                          { return AUTO; }
+"break"                         { return BREAK; }
+"case"                          { return CASE; }
+"char"                          { return CHAR; }
+"const"                         { return CONST; }
+"continue"                      { return CONTINUE; }
+"default"                       { return DEFAULT; }
+"do"                            { return DO; }
+"double"                        { return DOUBLE; }
+"else"                          { return ELSE; }
+"enum"                          { return ENUM; }
+"extern"                        { return EXTERN; }
+"float"                         { return FLOAT; }
+"for"                           { return FOR; }
+"goto"                          { return GOTO; }
+"if"                            { return IF; }
+"inline"                        { return INLINE; }
+"int"                           { return INT; }
+"long"                          { return LONG; }
+"register"                      { return REGISTER; }
+"restrict"                      { return RESTRICT; }
+"return"                        { return RETURN; }
+"short"                         { return SHORT; }
+"signed"                        { return SIGNED; }
+"sizeof"                        { return SIZEOF; }
+"static"                        { return STATIC; }
+"struct"                        { return STRUCT; }
+"switch"                        { return SWITCH; }
+"typedef"                       { return TYPEDEF; }
+"union"                         { return UNION; }
+"unsigned"                      { return UNSIGNED; }
+"void"                          { return VOID; }
+"volatile"                      { return VOLATILE; }
+"while"                         { return WHILE; }
+"_Bool"                         { return _BOOL; }
+"_Complex"                      { return _COMPLEX; }
+"_Imaginary"                    { return _IMAGINARY; }
+
 {IDENTIFIER}                    { return IDENTIFIER; }
 {INTEGER_CONSTANT}              { return INTEGER_CONSTANT; }
 {FLOATING_CONSTANT}             { return FLOATING_CONSTANT; }
 {CHARACTER_CONSTANT}            { return CHARACTER_CONSTANT; }
 {STRING_LITERAL}                { return STRING_LITERAL; }
-{PUNCTUATOR}                    { return PUNCTUATOR; }
+
+"["                             { return LEFT_SQUARE_BRACKET; }
+"++"                            { return INCREMENT; }
+"/"                             { return SLASH; }
+"?"                             { return QUESTION_MARK; }
+"="                             { return ASSIGNMENT; }
+","                             { return COMMA; }
+"]"                             { return RIGHT_SQUARE_BRACKET; }
+"("                             { return LEFT_PARENTHESES; }
+"{"                             { return LEFT_CURLY_BRACKET; }
+"}"                             { return RIGHT_CURLY_BRACKET; }
+"."                             { return DOT; }
+"->"                            { return ARROW; }
+"*"                             { return ASTERISK; }
+"+"                             { return PLUS; }
+"-"                             { return MINUS; }
+"~"                             { return TILDE; }
+"!"                             { return EXCLAMATION; }
+"%"                             { return PERCENT; }
+"<<"                            { return LEFT_SHIFT; }
+">>"                            { return RIGHT_SHIFT; }
+"<"                             { return LESS_THAN; }
+">"                             { return GREATER_THAN; }
+"<="                            { return LESS_EQUAL_THAN; }
+">="                            { return GREATER_EQUAL_THAN; }
+":"                             { return COLON; }
+";"                             { return SEMI_COLON; }
+"..."                           { return ELLIPSIS; }
+"*="                            { return ASTERISK_ASSIGNMENT; }
+"/="                            { return SLASH_ASSIGNMENT; }
+"%="                            { return PERCENT_ASSIGNMENT; }
+"+="                            { return PLUS_ASSIGNMENT; }
+"-="                            { return MINUS_ASSIGNMENT; }
+"<<="                           { return LEFT_SHIFT_ASSIGNMENT; }
+"#"                             { return HASH; }
+"--"                            { return DECREMENT; }
+")"                             { return RIGHT_PARENTHESES; }
+"&"                             { return BITWISE_AND; }
+"=="                            { return EQUALS; }
+"^"                             { return BITWISE_XOR; }
+"|"                             { return BITWISE_OR; }
+"&&"                            { return LOGICAL_AND; }
+"||"                            { return LOGICAL_OR; }
+">>="                           { return RIGHT_SHIFT_ASSIGNMENT; }
+"!="                            { return NOT_EQUALS; }
+"&="                            { return BITWISE_AND_ASSIGNMENT; }
+"|="                            { return BITWISE_OR_ASSIGNMENT; }
+"^="                            { return BITWISE_XOR_ASSIGNMENT; }
 
 "/*"                            { BEGIN(MULTI_LINE_COMMENT_BODY); }
 <MULTI_LINE_COMMENT_BODY>"*/"   { BEGIN(INITIAL); return MULTI_LINE_COMMENT; }
@@ -62,6 +137,7 @@ WHITESPACE              [ \n\t]
 <SINGLE_LINE_COMMENT_BODY>.     { }
 
 {WHITESPACE}                    { }
+{NEWLINE}                       { lineCount++; printf("-------------------- Parsing Line No. %d  --------------------\n", lineCount); }
 .                               { return INVALID_TOKEN; }
 
 %%
