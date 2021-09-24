@@ -96,7 +96,7 @@ NEWLINE                 \n
 "-"                             { return MINUS; }
 "~"                             { return TILDE; }
 "!"                             { return EXCLAMATION; }
-"%"                             { return PERCENT; }
+"%"                             { return MODULO; }
 "<<"                            { return LEFT_SHIFT; }
 ">>"                            { return RIGHT_SHIFT; }
 "<"                             { return LESS_THAN; }
@@ -108,7 +108,7 @@ NEWLINE                 \n
 "..."                           { return ELLIPSIS; }
 "*="                            { return ASTERISK_ASSIGNMENT; }
 "/="                            { return SLASH_ASSIGNMENT; }
-"%="                            { return PERCENT_ASSIGNMENT; }
+"%="                            { return MODULO_ASSIGNMENT; }
 "+="                            { return PLUS_ASSIGNMENT; }
 "-="                            { return MINUS_ASSIGNMENT; }
 "<<="                           { return LEFT_SHIFT_ASSIGNMENT; }

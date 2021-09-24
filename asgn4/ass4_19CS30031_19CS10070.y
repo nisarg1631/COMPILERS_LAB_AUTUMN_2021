@@ -72,7 +72,7 @@
 %token MINUS
 %token TILDE
 %token EXCLAMATION
-%token PERCENT
+%token MODULO
 %token LEFT_SHIFT
 %token RIGHT_SHIFT
 %token LESS_THAN
@@ -84,7 +84,7 @@
 %token ELLIPSIS
 %token ASTERISK_ASSIGNMENT
 %token SLASH_ASSIGNMENT
-%token PERCENT_ASSIGNMENT
+%token MODULO_ASSIGNMENT
 %token PLUS_ASSIGNMENT
 %token MINUS_ASSIGNMENT
 %token LEFT_SHIFT_ASSIGNMENT
@@ -106,6 +106,79 @@
 %token MULTI_LINE_COMMENT
 %token SINGLE_LINE_COMMENT
 
+%start translation_unit
+
 %%
+
+primary_expression: 
+                    IDENTIFIER
+                    | INTEGER_CONSTANT
+                    | FLOATING_CONSTANT
+                    | CHARACTER_CONSTANT
+                    | STRING_LITERAL
+                    | LEFT_PARENTHESES expression RIGHT_PARENTHESES
+                    ;
+
+postfix_expression:
+                    primary_expression
+                    | postfix_expression LEFT_SQUARE_BRACKET expression RIGHT_SQUARE_BRACKET
+                    | postfix_expression LEFT_PARENTHESES argument_expression_list_opt RIGHT_PARENTHESES
+                    | postfix_expression DOT IDENTIFIER
+                    | postfix_expression ARROW IDENTIFIER
+                    | postfix_expression INCREMENT
+                    | postfix_expression DECREMENT
+                    | LEFT_PARENTHESES type_name RIGHT_PARENTHESES LEFT_CURLY_BRACKET initialiser_list RIGHT_CURLY_BRACKET
+                    | LEFT_PARENTHESES type_name RIGHT_PARENTHESES LEFT_CURLY_BRACKET initialiser_list COMMA RIGHT_CURLY_BRACKET
+                    ;
+
+argument_expression_list_opt:
+                                argument_expression_list
+                                | 
+                                ;
+
+argument_expression_list:
+                            assignment_expression
+                            | argument_expression_list COMMA assignment_expression
+                            ;
+
+unary_expression:
+                    postfix_expression
+                    | INCREMENT unary_expression
+                    | DECREMENT unary_expression
+                    | unary_operator cast_expression
+                    | SIZEOF unary_expression
+                    | SIZEOF LEFT_PARENTHESES type_name RIGHT_PARENTHESES
+                    ;
+
+unary_operator:
+                BITWISE_AND
+                | ASTERISK
+                | PLUS
+                | MINUS
+                | TILDE
+                | EXCLAMATION
+                ;
+
+cast_expression:
+                unary_expression
+                | LEFT_PARENTHESES type_name RIGHT_PARENTHESES cast_expression
+                ;
+
+multiplicative_expression:
+                            cast_expression
+                            | multiplicative_expression ASTERISK cast_expression
+                            | multiplicative_expression SLASH cast_expression
+                            | multiplicative_expression MODULO cast_expression
+                            ;
+
+additive_expression:
+                    multiplicative_expression
+                    | additive_expression PLUS multiplicative_expression
+                    | additive_expression MINUS multiplicative_expression
+                    ;
+
+shift_expression:
+                    additive_expression
+                    | shift_expression LEFT_SHIFT additive_expression
 
 %%
