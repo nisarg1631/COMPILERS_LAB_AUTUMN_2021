@@ -9,8 +9,9 @@
 %union {
     int intVal;
     float floatVal;
-    char charVal;
+    char *charVal;
     char *stringVal;
+    char *identifierVal;
 }
 
 %token AUTO
@@ -105,8 +106,7 @@
 %token BITWISE_OR_ASSIGNMENT
 %token BITWISE_XOR_ASSIGNMENT
 
-%token MULTI_LINE_COMMENT
-%token SINGLE_LINE_COMMENT
+%token INVALID_TOKEN
 
 %nonassoc RIGHT_PARENTHESES
 %nonassoc ELSE
@@ -118,11 +118,11 @@
 /* Expressions */
 
 primary_expression: 
-                    IDENTIFIER
-                    | INTEGER_CONSTANT
-                    | FLOATING_CONSTANT
-                    | CHARACTER_CONSTANT
-                    | STRING_LITERAL
+                    IDENTIFIER { yyinfo("primary_expression -> IDENTIFIER"); printf("\t\t\t\tIDENTIFIER = %s\n", $1); }
+                    | INTEGER_CONSTANT { yyinfo("primary_expression -> INTEGER_CONSTANT"); printf("\t\t\t\tINTEGER_CONSTANT = %d\n", $1); }
+                    | FLOATING_CONSTANT { yyinfo("primary_expression -> FLOATING_CONSTANT"); printf("\t\t\t\tFLOATING_CONSTANT = %f\n", $1); }
+                    | CHARACTER_CONSTANT { yyinfo("primary_expression -> CHARACTER_CONSTANT"); printf("\t\t\t\tCHARACTER_CONSTANT = %s\n", $1); }
+                    | STRING_LITERAL { yyinfo("primary_expression -> STRING_LITERAL"); printf("\t\t\t\tSTRING_LITERAL = %s\n", $1); }
                     | LEFT_PARENTHESES expression RIGHT_PARENTHESES
                     ;
 
@@ -369,7 +369,7 @@ pointer_opt:
             ;
 
 direct_declarator:
-                    IDENTIFIER
+                    IDENTIFIER { yyinfo("direct_declarator -> IDENTIFIER"); printf("\t\t\t\tIDENTIFIER = %s\n", $1); }
                     | LEFT_PARENTHESES declarator RIGHT_PARENTHESES
                     | direct_declarator LEFT_SQUARE_BRACKET type_qualifier_list_opt assignment_expression_opt RIGHT_SQUARE_BRACKET
                     | direct_declarator LEFT_SQUARE_BRACKET STATIC type_qualifier_list_opt assignment_expression RIGHT_SQUARE_BRACKET
@@ -420,7 +420,7 @@ parameter_declaration:
                         ;
 
 identifier_list:
-                IDENTIFIER
+                IDENTIFIER { yyinfo("identifier_list -> IDENTIFIER"); }
                 | identifier_list COMMA IDENTIFIER
                 ;
 

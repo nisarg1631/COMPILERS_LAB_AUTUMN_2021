@@ -1,5 +1,6 @@
 %{
     #include <stdio.h>
+    #include <stdlib.h>
     #include "y.tab.h"
     int lineCount = 1;
 %}
@@ -73,11 +74,11 @@ NEWLINE                 \n
 "_Complex"                      { return _COMPLEX; }
 "_Imaginary"                    { return _IMAGINARY; }
 
-{IDENTIFIER}                    { return IDENTIFIER; }
-{INTEGER_CONSTANT}              { return INTEGER_CONSTANT; }
-{FLOATING_CONSTANT}             { return FLOATING_CONSTANT; }
-{CHARACTER_CONSTANT}            { return CHARACTER_CONSTANT; }
-{STRING_LITERAL}                { return STRING_LITERAL; }
+{IDENTIFIER}                    { yylval.identifierVal = strdup(yytext); return IDENTIFIER; }
+{INTEGER_CONSTANT}              { yylval.intVal = atoi(yytext); return INTEGER_CONSTANT; }
+{FLOATING_CONSTANT}             { yylval.floatVal = atof(yytext); return FLOATING_CONSTANT; }
+{CHARACTER_CONSTANT}            { yylval.charVal = strdup(yytext); return CHARACTER_CONSTANT; }
+{STRING_LITERAL}                { yylval.stringVal = strdup(yytext); return STRING_LITERAL; }
 
 "["                             { return LEFT_SQUARE_BRACKET; }
 "++"                            { return INCREMENT; }
@@ -128,16 +129,16 @@ NEWLINE                 \n
 "^="                            { return BITWISE_XOR_ASSIGNMENT; }
 
 "/*"                            { BEGIN(MULTI_LINE_COMMENT_BODY); }
-<MULTI_LINE_COMMENT_BODY>"*/"   { BEGIN(INITIAL); return MULTI_LINE_COMMENT; }
+<MULTI_LINE_COMMENT_BODY>"*/"   { BEGIN(INITIAL); }
 <MULTI_LINE_COMMENT_BODY>.      { }
 <MULTI_LINE_COMMENT_BODY>"\n"   { }
 
 "//"                            { BEGIN(SINGLE_LINE_COMMENT_BODY); }
-<SINGLE_LINE_COMMENT_BODY>"\n"  { BEGIN(INITIAL); return SINGLE_LINE_COMMENT; }
+<SINGLE_LINE_COMMENT_BODY>"\n"  { BEGIN(INITIAL); }
 <SINGLE_LINE_COMMENT_BODY>.     { }
 
 {WHITESPACE}                    { }
 {NEWLINE}                       { lineCount++; printf("-------------------- Parsing Line No. %d  --------------------\n", lineCount); }
-.                               { printf("Invalid token %s encountered.\n", yytext); }
+.                               { printf("ERROR [Line %d] : Invalid token %s\n", lineCount, yytext); return INVALID_TOKEN; }
 
 %%
