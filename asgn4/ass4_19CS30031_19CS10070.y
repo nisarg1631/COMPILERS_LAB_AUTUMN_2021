@@ -108,6 +108,9 @@
 %token MULTI_LINE_COMMENT
 %token SINGLE_LINE_COMMENT
 
+%nonassoc RIGHT_PARENTHESES
+%nonassoc ELSE
+
 %start translation_unit
 
 %%

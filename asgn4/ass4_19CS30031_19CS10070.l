@@ -138,6 +138,6 @@ NEWLINE                 \n
 
 {WHITESPACE}                    { }
 {NEWLINE}                       { lineCount++; printf("-------------------- Parsing Line No. %d  --------------------\n", lineCount); }
-.                               { return INVALID_TOKEN; }
+.                               { printf("Invalid token %s encountered.\n", yytext); }
 
 %%
