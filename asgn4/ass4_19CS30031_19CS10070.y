@@ -290,21 +290,21 @@ logical_OR_expression:
                             { yyinfo("logical_OR_expression => logical_OR_expression || logical_AND_expression"); }
                         ;
 
-conditional_expression: /* { yyinfo("conditional_expression => "); } */
+conditional_expression:
                         logical_OR_expression
                             { yyinfo("conditional_expression => logical_OR_expression"); }
                         | logical_OR_expression QUESTION_MARK expression COLON conditional_expression
                             { yyinfo("conditional_expression => logical_OR_expression ? expression : conditional_expression"); }
                         ;
 
-assignment_expression:  /* { yyinfo("assignment_expression => "); } */
+assignment_expression:
                         conditional_expression
                             { yyinfo("assignment_expression => conditional_expression"); }
                         | unary_expression assignment_operator assignment_expression
                             { yyinfo("assignment_expression => unary_expression assignment_operator assignment_expression"); }
                         ;
 
-assignment_operator:    /* { yyinfo("assignment_operator => "); } */
+assignment_operator:
                     ASSIGNMENT
                         { yyinfo("assignment_operator => ="); }
                     | ASTERISK_ASSIGNMENT
@@ -329,33 +329,33 @@ assignment_operator:    /* { yyinfo("assignment_operator => "); } */
                         { yyinfo("assignment_operator => |="); }
                     ;
 
-expression: /* { yyinfo("expression => "); } */
+expression:
             assignment_expression
                 { yyinfo("expression => assignment_expression"); }
             | expression COMMA assignment_expression
-                { yyinfo("expression => expression, assignment_expression"); }
+                { yyinfo("expression => expression , assignment_expression"); }
             ;
 
-constant_expression:    /* { yyinfo("constant_expression => "); } */
+constant_expression:
                     conditional_expression
                         { yyinfo("constant_expression => conditional_expression"); }
                     ;
 
 /* Declarations */
 
-declaration:    /* { yyinfo("declaration => "); } */
+declaration:
             declaration_specifiers init_declarator_list_opt SEMI_COLON
                 { yyinfo("declaration => declaration_specifiers init_declarator_list_opt ;"); }
             ;
 
-init_declarator_list_opt:   /* { yyinfo("init_declarator_list_opt => "); } */
+init_declarator_list_opt:
                             init_declarator_list
                                 { yyinfo("init_declarator_list_opt => init_declarator_list"); }
                             |
                                 { yyinfo("init_declarator_list_opt => epsilon"); }
                             ;
 
-declaration_specifiers: /* { yyinfo("declaration_specifiers => "); } */
+declaration_specifiers:
                         storage_class_specifier declaration_specifiers_opt
                             { yyinfo("declaration_specifiers => storage_class_specifier declaration_specifiers_opt"); }
                         | type_specifier declaration_specifiers_opt
@@ -366,28 +366,28 @@ declaration_specifiers: /* { yyinfo("declaration_specifiers => "); } */
                             { yyinfo("declaration_specifiers => function_specifier declaration_specifiers_opt"); }
                         ;
 
-declaration_specifiers_opt: /* { yyinfo("declaration_specifiers_opt => "); } */
+declaration_specifiers_opt:
                             declaration_specifiers
                                 { yyinfo("declaration_specifiers_opt => declaration_specifiers"); }
                             |
                                 { yyinfo("declaration_specifiers_opt => epsilon "); }
                             ;
 
-init_declarator_list:   /* { yyinfo("init_declarator_list => "); } */
+init_declarator_list:
                         init_declarator
                             { yyinfo("init_declarator_list => init_declarator"); }
                         | init_declarator_list COMMA init_declarator
-                            { yyinfo("init_declarator_list => init_declarator_list, init_declarator"); }
+                            { yyinfo("init_declarator_list => init_declarator_list , init_declarator"); }
                         ;
 
-init_declarator:    /* { yyinfo("init_declarator => "); } */
+init_declarator:
                 declarator
                     { yyinfo("init_declarator => declarator"); }
                 | declarator ASSIGNMENT initialiser
                     { yyinfo("init_declarator => declarator = initialiser"); }
                 ;
 
-storage_class_specifier:    /* { yyinfo("storage_class_specifier => "); } */
+storage_class_specifier:
                         EXTERN
                             { yyinfo("storage_class_specifier => extern"); }
                         | STATIC
@@ -398,7 +398,7 @@ storage_class_specifier:    /* { yyinfo("storage_class_specifier => "); } */
                             { yyinfo("storage_class_specifier => register"); }
                         ;
 
-type_specifier: /* { yyinfo("type_specifier => "); } */
+type_specifier:
                 VOID
                     { yyinfo("type_specifier => void"); }
                 | CHAR
@@ -427,51 +427,51 @@ type_specifier: /* { yyinfo("type_specifier => "); } */
                     { yyinfo("type_specifier => enum_specifier"); }
                 ;
 
-specifier_qualifier_list:   /* { yyinfo("specifier_qualifier_list => "); } */
+specifier_qualifier_list:
                             type_specifier specifier_qualifier_list_opt
                                 { yyinfo("specifier_qualifier_list => type_specifier specifier_qualifier_list_opt"); }
                             | type_qualifier specifier_qualifier_list_opt
                                 { yyinfo("specifier_qualifier_list => type_qualifier specifier_qualifier_list_opt"); }
                             ;
 
-specifier_qualifier_list_opt:   /* { yyinfo("specifier_qualifier_list_opt => "); } */
+specifier_qualifier_list_opt:
                                 specifier_qualifier_list
                                     { yyinfo("specifier_qualifier_list_opt => specifier_qualifier_list"); }
                                 | 
                                     { yyinfo("specifier_qualifier_list_opt => epsilon"); }
                                 ;
 
-enum_specifier: /* { yyinfo("enum_specifier => "); } */
+enum_specifier:
                 ENUM identifier_opt LEFT_CURLY_BRACKET enumerator_list RIGHT_CURLY_BRACKET 
                     { yyinfo("enum_specifier => enum identifier_opt { enumerator_list }"); }
                 | ENUM identifier_opt LEFT_CURLY_BRACKET enumerator_list COMMA RIGHT_CURLY_BRACKET
-                    { yyinfo("enum_specifier => enum identifier_opt { enumerator_list, }"); }
+                    { yyinfo("enum_specifier => enum identifier_opt { enumerator_list , }"); }
                 | ENUM IDENTIFIER
-                    { yyinfo("enum_specifier => enum IDENTIFIER"); }
+                    { yyinfo("enum_specifier => enum IDENTIFIER"); printf("\t\t\t\tIDENTIFIER = %s\n", $2); }
                 ;
 
-identifier_opt: /* { yyinfo("identifier_opt => "); } */
+identifier_opt:
                 IDENTIFIER 
                     { yyinfo("identifier_opt => IDENTIFIER"); printf("\t\t\t\tIDENTIFIER = %s\n", $1); }
                 | 
                     { yyinfo("identifier_opt => epsilon"); }
                 ;
 
-enumerator_list:    /* { yyinfo("enumerator_list => "); } */
+enumerator_list:
                 enumerator 
                     { yyinfo("enumerator_list => enumerator"); }
                 | enumerator_list COMMA enumerator
-                    { yyinfo("enumerator_list => enumerator_list, enumerator"); }
+                    { yyinfo("enumerator_list => enumerator_list , enumerator"); }
                 ;
 
-enumerator: /* { yyinfo("enumerator => "); } */
+enumerator:
             IDENTIFIER 
                 { yyinfo("enumerator => ENUMERATION_CONSTANT"); printf("\t\t\t\tENUMERATION_CONSTANT = %s\n", $1); }
             | IDENTIFIER ASSIGNMENT constant_expression
                 { yyinfo("enumerator => ENUMERATION_CONSTANT = constant_expression"); printf("\t\t\t\tENUMERATION_CONSTANT = %s\n", $1); }
             ;
 
-type_qualifier: /* { yyinfo("type_qualifier => "); } */
+type_qualifier:
                 CONST
                     { yyinfo("type_qualifier => const"); }
                 | RESTRICT
@@ -480,24 +480,24 @@ type_qualifier: /* { yyinfo("type_qualifier => "); } */
                     { yyinfo("type_qualifier => volatile"); }
                 ;
 
-function_specifier: /* { yyinfo("function_specifier => "); } */
+function_specifier:
                     INLINE
                         { yyinfo("function_specifier => inline"); }
                     ;
 
-declarator: /* { yyinfo("declarator => "); } */
+declarator:
             pointer_opt direct_declarator
                 { yyinfo("declarator => pointer_opt direct_declarator"); }
             ;
 
-pointer_opt:    /* { yyinfo("pointer_opt => "); } */
+pointer_opt:
             pointer
                 { yyinfo("pointer_opt => pointer"); }
             |
                 { yyinfo("pointer_opt => epsilon"); }
             ;
 
-direct_declarator:  /* { yyinfo("direct_declarator => "); } */
+direct_declarator:
                     IDENTIFIER 
                         { yyinfo("direct_declarator => IDENTIFIER"); printf("\t\t\t\tIDENTIFIER = %s\n", $1); }
                     | LEFT_PARENTHESES declarator RIGHT_PARENTHESES
@@ -516,119 +516,119 @@ direct_declarator:  /* { yyinfo("direct_declarator => "); } */
                         { yyinfo("direct_declarator => direct_declarator ( identifier_list_opt )"); }
                     ;
 
-type_qualifier_list_opt:    /* { yyinfo("type_qualifier_list_opt => "); } */
+type_qualifier_list_opt:
                         type_qualifier_list
                             { yyinfo("type_qualifier_list_opt => type_qualifier_list"); }
                         |
                             { yyinfo("type_qualifier_list_opt => epsilon"); }
                         ;
 
-assignment_expression_opt:  /* { yyinfo("assignment_expression_opt => "); } */
+assignment_expression_opt:
                             assignment_expression
                                 { yyinfo("assignment_expression_opt => assignment_expression"); }
                             |
                                 { yyinfo("assignment_expression_opt => epsilon"); }
                             ;
 
-identifier_list_opt:    /* { yyinfo("identifier_list_opt => "); } */
+identifier_list_opt:
                     identifier_list
                         { yyinfo("identifier_list_opt => identifier_list"); }
                     |
                         { yyinfo("identifier_list_opt => epsilon"); }
                     ;
 
-pointer:    /* { yyinfo("pointer => "); } */
+pointer:
         ASTERISK type_qualifier_list_opt
             { yyinfo("pointer => * type_qualifier_list_opt"); }
         | ASTERISK type_qualifier_list_opt pointer
             { yyinfo("pointer => * type_qualifier_list_opt pointer"); }
         ;
 
-type_qualifier_list:    /* { yyinfo("type_qualifier_list => "); } */
+type_qualifier_list:
                     type_qualifier
                         { yyinfo("type_qualifier_list => type_qualifier"); }
                     | type_qualifier_list type_qualifier
                         { yyinfo("type_qualifier_list => type_qualifier_list type_qualifier"); }
                     ;
 
-parameter_type_list:    /* { yyinfo("parameter_type_list => "); } */
+parameter_type_list:
                     parameter_list
                         { yyinfo("parameter_type_list => parameter_list"); }
                     | parameter_list COMMA ELLIPSIS
-                        { yyinfo("parameter_type_list => parameter_list, ..."); }
+                        { yyinfo("parameter_type_list => parameter_list , ..."); }
                     ;
 
-parameter_list: /* { yyinfo("parameter_list => "); } */
+parameter_list:
                 parameter_declaration
                     { yyinfo("parameter_list => parameter_declaration"); }
                 | parameter_list COMMA parameter_declaration
-                    { yyinfo("parameter_list => parameter_list, parameter_declaration"); }
+                    { yyinfo("parameter_list => parameter_list , parameter_declaration"); }
                 ;
 
-parameter_declaration:  /* { yyinfo("parameter_declaration => "); } */
+parameter_declaration:
                         declaration_specifiers declarator
                             { yyinfo("parameter_declaration => declaration_specifiers declarator"); }
                         | declaration_specifiers
                             { yyinfo("parameter_declaration => declaration_specifiers"); }
                         ;
 
-identifier_list:    /* { yyinfo("identifier_list => "); } */
+identifier_list:
                 IDENTIFIER 
                     { yyinfo("identifier_list => IDENTIFIER"); printf("\t\t\t\tIDENTIFIER = %s\n", $1); }
                 | identifier_list COMMA IDENTIFIER
-                    { yyinfo("identifier_list => identifier_list, IDENTIFIER"); printf("\t\t\t\tIDENTIFIER = %s\n", $3); }
+                    { yyinfo("identifier_list => identifier_list , IDENTIFIER"); printf("\t\t\t\tIDENTIFIER = %s\n", $3); }
                 ;
 
-type_name:  /* { yyinfo("type_name => "); } */
+type_name:
             specifier_qualifier_list
                 { yyinfo("type_name => specifier_qualifier_list"); }
             ;
 
-initialiser:    /* { yyinfo("initialiser => "); } */
+initialiser:
             assignment_expression
                 { yyinfo("initialiser => assignment_expression"); }
             | LEFT_CURLY_BRACKET initialiser_list RIGHT_CURLY_BRACKET
                 { yyinfo("initialiser => { initialiser_list }"); }  
             | LEFT_CURLY_BRACKET initialiser_list COMMA RIGHT_CURLY_BRACKET
-                { yyinfo("initialiser => { initialiser_list, }"); }
+                { yyinfo("initialiser => { initialiser_list , }"); }
             ;
 
-initialiser_list:   /* { yyinfo("initialiser_list => "); } */
+initialiser_list:
                     designation_opt initialiser
                         { yyinfo("initialiser_list => designation_opt initialiser"); }
                     | initialiser_list COMMA designation_opt initialiser
-                        { yyinfo("initialiser_list => initialiser_list, designation_opt initialiser"); }
+                        { yyinfo("initialiser_list => initialiser_list , designation_opt initialiser"); }
                     ;
 
-designation_opt:    /* { yyinfo("designation_opt => "); } */
+designation_opt:
                 designation
                     { yyinfo("designation_opt => designation"); }
                 |
                     { yyinfo("designation_opt => epsilon"); }
                 ;
 
-designation:    /* { yyinfo("designation => "); } */
+designation:
             designator_list ASSIGNMENT
                 { yyinfo("designation => designator_list ="); }
             ;
 
-designator_list:    /* { yyinfo("designator_list => "); } */
+designator_list:
                 designator
                     { yyinfo("designator_list => designator"); }
                 | designator_list designator
                     { yyinfo("designator_list => designator_list designator"); }
                 ;
 
-designator: /* { yyinfo("designator => "); } */
+designator:
             LEFT_SQUARE_BRACKET constant_expression RIGHT_SQUARE_BRACKET
                 { yyinfo("designator => [ constant_expression ]"); }
             | DOT IDENTIFIER
-                { yyinfo("designator => . IDENTIFIER"); }   
+                { yyinfo("designator => . IDENTIFIER"); printf("\t\t\t\tIDENTIFIER = %s\n", $2); }   
             ;
 
 /* Statements */
 
-statement:  /* { yyinfo("statement => "); } */
+statement:
             labeled_statement
                 { yyinfo("statement => labeled_statement"); }
             | compound_statement
@@ -643,54 +643,54 @@ statement:  /* { yyinfo("statement => "); } */
                 { yyinfo("statement => jump_statement"); }
             ;
 
-labeled_statement:  /* { yyinfo("labeled_statement => "); } */
+labeled_statement:
                     IDENTIFIER COLON statement
-                        { yyinfo("labeled_statement => IDENTIFIER : statement"); }
+                        { yyinfo("labeled_statement => IDENTIFIER : statement"); printf("\t\t\t\tIDENTIFIER = %s\n", $1); }
                     | CASE constant_expression COLON statement
-                        { yyinfo("labeled_statement => CASE constant_expression : statement"); }    
+                        { yyinfo("labeled_statement => case constant_expression : statement"); }    
                     | DEFAULT COLON statement
-                        { yyinfo("labeled_statement => DEFAULT : statement"); }
+                        { yyinfo("labeled_statement => default : statement"); }
                     ;
 
-compound_statement: /* { yyinfo("compound_statement => "); } */
+compound_statement:
                     LEFT_CURLY_BRACKET block_item_list_opt RIGHT_CURLY_BRACKET
                         { yyinfo("compound_statement => { block_item_list_opt }"); }
                     ;
 
-block_item_list_opt:    /* { yyinfo("block_item_list_opt => "); } */
+block_item_list_opt:
                     block_item_list
                         { yyinfo("block_item_list_opt => block_item_list"); }
                     |
                         { yyinfo("block_item_list_opt => epsilon"); }
                     ;
 
-block_item_list:    /* { yyinfo("block_item_list => "); } */
+block_item_list:
                 block_item
                     { yyinfo("block_item_list => block_item"); }
                 | block_item_list block_item
                     { yyinfo("block_item_list => block_item_list block_item"); }
                 ;
 
-block_item: /* { yyinfo("block_item => "); } */
+block_item:
             declaration
                 { yyinfo("block_item => declaration"); }
             | statement
                 { yyinfo("block_item => statement"); }
             ;
 
-expression_statement:   /* { yyinfo("expression_statement => "); } */
+expression_statement:
                         expression_opt SEMI_COLON
-                            { yyinfo("expression_statement => expression;"); }
+                            { yyinfo("expression_statement => expression_opt ;"); }
                         ;
 
-expression_opt: /* { yyinfo("expression_opt => "); } */
+expression_opt:
                 expression
                     { yyinfo("expression_opt => expression"); }
                 |
                     { yyinfo("expression_opt => epsilon"); }
                 ;
 
-selection_statement:    /* { yyinfo("selection_statement => "); } */
+selection_statement:
                     IF LEFT_PARENTHESES expression RIGHT_PARENTHESES statement
                         { yyinfo("selection_statement => if ( expression ) statement"); }
                     | IF LEFT_PARENTHESES expression RIGHT_PARENTHESES statement ELSE statement
@@ -699,57 +699,57 @@ selection_statement:    /* { yyinfo("selection_statement => "); } */
                         { yyinfo("selection_statement => switch ( expression ) statement"); }
                     ;
 
-iteration_statement:    /* { yyinfo("iteration_statement => "); } */
+iteration_statement:
                     WHILE LEFT_PARENTHESES expression RIGHT_PARENTHESES statement
                         { yyinfo("iteration_statement => while ( expression ) statement"); }
                     | DO statement WHILE LEFT_PARENTHESES expression RIGHT_PARENTHESES SEMI_COLON
-                        { yyinfo("iteration_statement => do statement while ( expression );"); }
+                        { yyinfo("iteration_statement => do statement while ( expression ) ;"); }
                     | FOR LEFT_PARENTHESES expression_opt SEMI_COLON expression_opt SEMI_COLON expression_opt RIGHT_PARENTHESES statement
-                        { yyinfo("iteration_statement => for ( expression ; expression ; expression ) statement"); }
+                        { yyinfo("iteration_statement => for ( expression_opt ; expression_opt ; expression_opt ) statement"); }
                     | FOR LEFT_PARENTHESES declaration expression_opt SEMI_COLON expression_opt RIGHT_PARENTHESES statement
-                        { yyinfo("iteration_statement => for ( declaration expression ; expression ) statement"); }
+                        { yyinfo("iteration_statement => for ( declaration expression_opt ; expression_opt ) statement"); }
                     ;
 
-jump_statement: /* { yyinfo("jump_statement => "); } */
+jump_statement:
                 GOTO IDENTIFIER SEMI_COLON
-                    { yyinfo("jump_statement => goto IDENTIFIER;"); }    
+                    { yyinfo("jump_statement => goto IDENTIFIER ;"); printf("\t\t\t\tIDENTIFIER = %s\n", $2); }    
                 | CONTINUE SEMI_COLON
-                    { yyinfo("jump_statement => continue;"); }
+                    { yyinfo("jump_statement => continue ;"); }
                 | BREAK SEMI_COLON
-                    { yyinfo("jump_statement => break;"); }
+                    { yyinfo("jump_statement => break ;"); }
                 | RETURN expression_opt SEMI_COLON
-                    { yyinfo("jump_statement => return expression;"); }
+                    { yyinfo("jump_statement => return expression_opt ;"); }
                 ;
 
 /* External definitions */
 
-translation_unit:   /* { yyinfo("translation_unit => "); } */
+translation_unit:
                     external_declaration
                         { yyinfo("translation_unit => external_declaration"); }
                     | translation_unit external_declaration
                         { yyinfo("translation_unit => translation_unit external_declaration"); }
                     ;
 
-external_declaration:   /* { yyinfo("external_declaration => "); } */
+external_declaration:
                         function_definition
                             { yyinfo("external_declaration => function_definition"); }
                         | declaration
                             { yyinfo("external_declaration => declaration"); }
                         ;
 
-function_definition:    /* { yyinfo("function_definition => "); } */
+function_definition:
                     declaration_specifiers declarator declaration_list_opt compound_statement
                         { yyinfo("function_definition => declaration_specifiers declarator declaration_list_opt compound_statement"); }
                     ;
 
-declaration_list_opt:   /* { yyinfo("declaration_list_opt => "); } */
+declaration_list_opt:
                         declaration_list
                             { yyinfo("declaration_list_opt => declaration_list"); }
                         |
                             { yyinfo("declaration_list_opt => epsilon"); }
                         ;
 
-declaration_list:   /* { yyinfo("declaration_list => "); } */
+declaration_list:
                     declaration
                         { yyinfo("declaration_list => declaration"); }
                     | declaration_list declaration

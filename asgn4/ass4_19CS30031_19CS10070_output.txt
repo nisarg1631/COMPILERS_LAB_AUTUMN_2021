@@ -1,296 +1,1920 @@
 -------------------- Parsing Line No. 1  --------------------
+
+
 -------------------- Parsing Line No. 2  --------------------
+
+
 -------------------- Parsing Line No. 3  --------------------
+
+
 -------------------- Parsing Line No. 4  --------------------
+
+
 -------------------- Parsing Line No. 5  --------------------
+
+
 -------------------- Parsing Line No. 6  --------------------
+
+INFO [Line 6] : type_specifier => int
+INFO [Line 6] : declaration_specifiers_opt => epsilon 
+INFO [Line 6] : declaration_specifiers => type_specifier declaration_specifiers_opt
+INFO [Line 6] : init_declarator_list_opt => epsilon
+INFO [Line 6] : declaration => declaration_specifiers init_declarator_list_opt ;
+INFO [Line 6] : external_declaration => declaration
+INFO [Line 6] : translation_unit => external_declaration
+
 -------------------- Parsing Line No. 7  --------------------
+
+
 -------------------- Parsing Line No. 8  --------------------
-INFO [Line 8] : direct_declarator -> IDENTIFIER
+
+INFO [Line 8] : function_specifier => inline
+INFO [Line 8] : type_specifier => int
+INFO [Line 8] : declaration_specifiers_opt => epsilon 
+INFO [Line 8] : declaration_specifiers => type_specifier declaration_specifiers_opt
+INFO [Line 8] : declaration_specifiers_opt => declaration_specifiers
+INFO [Line 8] : declaration_specifiers => function_specifier declaration_specifiers_opt
+INFO [Line 8] : pointer_opt => epsilon
+INFO [Line 8] : direct_declarator => IDENTIFIER
 				IDENTIFIER = foo
-INFO [Line 8] : direct_declarator -> IDENTIFIER
+INFO [Line 8] : type_specifier => int
+INFO [Line 8] : declaration_specifiers_opt => epsilon 
+INFO [Line 8] : declaration_specifiers => type_specifier declaration_specifiers_opt
+INFO [Line 8] : type_qualifier => restrict
+INFO [Line 8] : type_qualifier_list => type_qualifier
+INFO [Line 8] : type_qualifier_list_opt => type_qualifier_list
+INFO [Line 8] : pointer => * type_qualifier_list_opt
+INFO [Line 8] : pointer_opt => pointer
+INFO [Line 8] : direct_declarator => IDENTIFIER
 				IDENTIFIER = p
+INFO [Line 8] : declarator => pointer_opt direct_declarator
+INFO [Line 8] : parameter_declaration => declaration_specifiers declarator
+INFO [Line 8] : parameter_list => parameter_declaration
+INFO [Line 8] : parameter_type_list => parameter_list , ...
+INFO [Line 8] : direct_declarator => direct_declarator ( parameter_type_list )
+INFO [Line 8] : declarator => pointer_opt direct_declarator
+INFO [Line 8] : declaration_list_opt => epsilon
+
 -------------------- Parsing Line No. 9  --------------------
-INFO [Line 9] : direct_declarator -> IDENTIFIER
+
+INFO [Line 9] : storage_class_specifier => auto
+INFO [Line 9] : type_specifier => int
+INFO [Line 9] : declaration_specifiers_opt => epsilon 
+INFO [Line 9] : declaration_specifiers => type_specifier declaration_specifiers_opt
+INFO [Line 9] : declaration_specifiers_opt => declaration_specifiers
+INFO [Line 9] : declaration_specifiers => storage_class_specifier declaration_specifiers_opt
+INFO [Line 9] : pointer_opt => epsilon
+INFO [Line 9] : direct_declarator => IDENTIFIER
 				IDENTIFIER = a
-INFO [Line 9] : primary_expression -> INTEGER_CONSTANT
+INFO [Line 9] : declarator => pointer_opt direct_declarator
+INFO [Line 9] : primary_expression => INTEGER_CONSTANT
 				INTEGER_CONSTANT = 1
+INFO [Line 9] : postfix_expression => primary_expression
+INFO [Line 9] : unary_expression => postfix_expression
+INFO [Line 9] : cast_expression => unary_expression
+INFO [Line 9] : multiplicative_expression => cast_expression
+INFO [Line 9] : additive_expression => multiplicative_expression
+INFO [Line 9] : shift_expression => additive_expression
+INFO [Line 9] : relational_expression => shift_expression
+INFO [Line 9] : equality_expression => relational_expression
+INFO [Line 9] : AND_expression => equality_expression
+INFO [Line 9] : exclusive_OR_expression => AND_expression
+INFO [Line 9] : inclusive_OR_expression => exclusive_OR_expression
+INFO [Line 9] : logical_AND_expression => inclusive_OR_expression
+INFO [Line 9] : logical_OR_expression => logical_AND_expression
+INFO [Line 9] : conditional_expression => logical_OR_expression
+INFO [Line 9] : assignment_expression => conditional_expression
+INFO [Line 9] : initialiser => assignment_expression
+INFO [Line 9] : init_declarator => declarator = initialiser
+INFO [Line 9] : init_declarator_list => init_declarator
+INFO [Line 9] : init_declarator_list_opt => init_declarator_list
+INFO [Line 9] : declaration => declaration_specifiers init_declarator_list_opt ;
+INFO [Line 9] : block_item => declaration
+INFO [Line 9] : block_item_list => block_item
+
 -------------------- Parsing Line No. 10  --------------------
-INFO [Line 10] : direct_declarator -> IDENTIFIER
+
+INFO [Line 10] : storage_class_specifier => register
+INFO [Line 10] : type_specifier => int
+INFO [Line 10] : declaration_specifiers_opt => epsilon 
+INFO [Line 10] : declaration_specifiers => type_specifier declaration_specifiers_opt
+INFO [Line 10] : declaration_specifiers_opt => declaration_specifiers
+INFO [Line 10] : declaration_specifiers => storage_class_specifier declaration_specifiers_opt
+INFO [Line 10] : pointer_opt => epsilon
+INFO [Line 10] : direct_declarator => IDENTIFIER
 				IDENTIFIER = b
+INFO [Line 10] : declarator => pointer_opt direct_declarator
+INFO [Line 10] : init_declarator => declarator
+INFO [Line 10] : init_declarator_list => init_declarator
+INFO [Line 10] : init_declarator_list_opt => init_declarator_list
+INFO [Line 10] : declaration => declaration_specifiers init_declarator_list_opt ;
+INFO [Line 10] : block_item => declaration
+INFO [Line 10] : block_item_list => block_item_list block_item
+
 -------------------- Parsing Line No. 11  --------------------
-INFO [Line 11] : direct_declarator -> IDENTIFIER
+
+INFO [Line 11] : storage_class_specifier => extern
+INFO [Line 11] : type_specifier => int
+INFO [Line 11] : declaration_specifiers_opt => epsilon 
+INFO [Line 11] : declaration_specifiers => type_specifier declaration_specifiers_opt
+INFO [Line 11] : declaration_specifiers_opt => declaration_specifiers
+INFO [Line 11] : declaration_specifiers => storage_class_specifier declaration_specifiers_opt
+INFO [Line 11] : pointer_opt => epsilon
+INFO [Line 11] : direct_declarator => IDENTIFIER
 				IDENTIFIER = c
+INFO [Line 11] : declarator => pointer_opt direct_declarator
+INFO [Line 11] : init_declarator => declarator
+INFO [Line 11] : init_declarator_list => init_declarator
+INFO [Line 11] : init_declarator_list_opt => init_declarator_list
+INFO [Line 11] : declaration => declaration_specifiers init_declarator_list_opt ;
+INFO [Line 11] : block_item => declaration
+INFO [Line 11] : block_item_list => block_item_list block_item
+
 -------------------- Parsing Line No. 12  --------------------
-INFO [Line 12] : direct_declarator -> IDENTIFIER
+
+INFO [Line 12] : type_qualifier => volatile
+INFO [Line 12] : type_specifier => int
+INFO [Line 12] : declaration_specifiers_opt => epsilon 
+INFO [Line 12] : declaration_specifiers => type_specifier declaration_specifiers_opt
+INFO [Line 12] : declaration_specifiers_opt => declaration_specifiers
+INFO [Line 12] : declaration_specifiers => type_qualifier declaration_specifiers_opt
+INFO [Line 12] : pointer_opt => epsilon
+INFO [Line 12] : direct_declarator => IDENTIFIER
 				IDENTIFIER = d
+INFO [Line 12] : declarator => pointer_opt direct_declarator
+INFO [Line 12] : init_declarator => declarator
+INFO [Line 12] : init_declarator_list => init_declarator
+INFO [Line 12] : init_declarator_list_opt => init_declarator_list
+INFO [Line 12] : declaration => declaration_specifiers init_declarator_list_opt ;
+INFO [Line 12] : block_item => declaration
+INFO [Line 12] : block_item_list => block_item_list block_item
+
 -------------------- Parsing Line No. 13  --------------------
-INFO [Line 13] : primary_expression -> IDENTIFIER
+
+INFO [Line 13] : primary_expression => IDENTIFIER
 				IDENTIFIER = a
+INFO [Line 13] : postfix_expression => primary_expression
+INFO [Line 13] : unary_expression => postfix_expression
+INFO [Line 13] : cast_expression => unary_expression
+INFO [Line 13] : multiplicative_expression => cast_expression
+INFO [Line 13] : additive_expression => multiplicative_expression
+INFO [Line 13] : shift_expression => additive_expression
+INFO [Line 13] : relational_expression => shift_expression
+INFO [Line 13] : equality_expression => relational_expression
+INFO [Line 13] : AND_expression => equality_expression
+INFO [Line 13] : exclusive_OR_expression => AND_expression
+INFO [Line 13] : inclusive_OR_expression => exclusive_OR_expression
+INFO [Line 13] : logical_AND_expression => inclusive_OR_expression
+INFO [Line 13] : logical_OR_expression => logical_AND_expression
+INFO [Line 13] : conditional_expression => logical_OR_expression
+INFO [Line 13] : assignment_expression => conditional_expression
+INFO [Line 13] : expression => assignment_expression
+INFO [Line 13] : expression_opt => expression
+INFO [Line 13] : jump_statement => return expression_opt ;
+INFO [Line 13] : statement => jump_statement
+INFO [Line 13] : block_item => statement
+INFO [Line 13] : block_item_list => block_item_list block_item
+
 -------------------- Parsing Line No. 14  --------------------
+
+INFO [Line 14] : block_item_list_opt => block_item_list
+INFO [Line 14] : compound_statement => { block_item_list_opt }
+INFO [Line 14] : function_definition => declaration_specifiers declarator declaration_list_opt compound_statement
+INFO [Line 14] : external_declaration => function_definition
+INFO [Line 14] : translation_unit => translation_unit external_declaration
+
 -------------------- Parsing Line No. 15  --------------------
+
+
 -------------------- Parsing Line No. 16  --------------------
-INFO [Line 16] : identifier_opt -> IDENTIFIER
+
+INFO [Line 16] : identifier_opt => IDENTIFIER
 				IDENTIFIER = myenum
+
 -------------------- Parsing Line No. 17  --------------------
-INFO [Line 17] : enumerator -> ENUMERATION_CONSTANT
+
+INFO [Line 17] : enumerator => ENUMERATION_CONSTANT
 				ENUMERATION_CONSTANT = TAG1
-INFO [Line 17] : enumerator_list -> enumerator
-INFO [Line 17] : enumerator -> ENUMERATION_CONSTANT
+INFO [Line 17] : enumerator_list => enumerator
+INFO [Line 17] : enumerator => ENUMERATION_CONSTANT
 				ENUMERATION_CONSTANT = TAG2
-INFO [Line 17] : enumerator -> ENUMERATION_CONSTANT
+INFO [Line 17] : enumerator_list => enumerator_list , enumerator
+INFO [Line 17] : enumerator => ENUMERATION_CONSTANT
 				ENUMERATION_CONSTANT = TAG3
+INFO [Line 17] : enumerator_list => enumerator_list , enumerator
+
 -------------------- Parsing Line No. 18  --------------------
-INFO [Line 18] : type_specifier -> enum_specifier
+
+INFO [Line 18] : enum_specifier => enum identifier_opt { enumerator_list , }
+INFO [Line 18] : type_specifier => enum_specifier
+INFO [Line 18] : declaration_specifiers_opt => epsilon 
+INFO [Line 18] : declaration_specifiers => type_specifier declaration_specifiers_opt
+INFO [Line 18] : init_declarator_list_opt => epsilon
+INFO [Line 18] : declaration => declaration_specifiers init_declarator_list_opt ;
+INFO [Line 18] : external_declaration => declaration
+INFO [Line 18] : translation_unit => translation_unit external_declaration
+
 -------------------- Parsing Line No. 19  --------------------
+
+
 -------------------- Parsing Line No. 20  --------------------
-INFO [Line 20] : direct_declarator -> IDENTIFIER
+
+INFO [Line 20] : storage_class_specifier => static
+INFO [Line 20] : type_specifier => int
+INFO [Line 20] : declaration_specifiers_opt => epsilon 
+INFO [Line 20] : declaration_specifiers => type_specifier declaration_specifiers_opt
+INFO [Line 20] : declaration_specifiers_opt => declaration_specifiers
+INFO [Line 20] : declaration_specifiers => storage_class_specifier declaration_specifiers_opt
+INFO [Line 20] : pointer_opt => epsilon
+INFO [Line 20] : direct_declarator => IDENTIFIER
 				IDENTIFIER = ms2
+INFO [Line 20] : declarator => pointer_opt direct_declarator
+INFO [Line 20] : init_declarator => declarator
+INFO [Line 20] : init_declarator_list => init_declarator
+INFO [Line 20] : init_declarator_list_opt => init_declarator_list
+INFO [Line 20] : declaration => declaration_specifiers init_declarator_list_opt ;
+INFO [Line 20] : external_declaration => declaration
+INFO [Line 20] : translation_unit => translation_unit external_declaration
+
 -------------------- Parsing Line No. 21  --------------------
+
+
 -------------------- Parsing Line No. 22  --------------------
-INFO [Line 22] : direct_declarator -> IDENTIFIER
+
+INFO [Line 22] : type_specifier => void
+INFO [Line 22] : declaration_specifiers_opt => epsilon 
+INFO [Line 22] : declaration_specifiers => type_specifier declaration_specifiers_opt
+INFO [Line 22] : pointer_opt => epsilon
+INFO [Line 22] : direct_declarator => IDENTIFIER
 				IDENTIFIER = main
+INFO [Line 22] : identifier_list_opt => epsilon
+INFO [Line 22] : direct_declarator => direct_declarator ( identifier_list_opt )
+INFO [Line 22] : declarator => pointer_opt direct_declarator
+INFO [Line 22] : declaration_list_opt => epsilon
+
 -------------------- Parsing Line No. 23  --------------------
-INFO [Line 23] : direct_declarator -> IDENTIFIER
+
+INFO [Line 23] : type_specifier => int
+INFO [Line 23] : declaration_specifiers_opt => epsilon 
+INFO [Line 23] : declaration_specifiers => type_specifier declaration_specifiers_opt
+INFO [Line 23] : pointer_opt => epsilon
+INFO [Line 23] : direct_declarator => IDENTIFIER
 				IDENTIFIER = n1
-INFO [Line 23] : primary_expression -> INTEGER_CONSTANT
+INFO [Line 23] : declarator => pointer_opt direct_declarator
+INFO [Line 23] : primary_expression => INTEGER_CONSTANT
 				INTEGER_CONSTANT = 4
+INFO [Line 23] : postfix_expression => primary_expression
+INFO [Line 23] : unary_expression => postfix_expression
+INFO [Line 23] : cast_expression => unary_expression
+INFO [Line 23] : multiplicative_expression => cast_expression
+INFO [Line 23] : type_specifier => int
+INFO [Line 23] : specifier_qualifier_list_opt => epsilon
+INFO [Line 23] : specifier_qualifier_list => type_specifier specifier_qualifier_list_opt
+INFO [Line 23] : type_name => specifier_qualifier_list
+INFO [Line 23] : unary_expression => sizeof ( type_name )
+INFO [Line 23] : cast_expression => unary_expression
+INFO [Line 23] : multiplicative_expression => multiplicative_expression * cast_expression
+INFO [Line 23] : additive_expression => multiplicative_expression
+INFO [Line 23] : shift_expression => additive_expression
+INFO [Line 23] : relational_expression => shift_expression
+INFO [Line 23] : equality_expression => relational_expression
+INFO [Line 23] : AND_expression => equality_expression
+INFO [Line 23] : exclusive_OR_expression => AND_expression
+INFO [Line 23] : inclusive_OR_expression => exclusive_OR_expression
+INFO [Line 23] : logical_AND_expression => inclusive_OR_expression
+INFO [Line 23] : logical_OR_expression => logical_AND_expression
+INFO [Line 23] : conditional_expression => logical_OR_expression
+INFO [Line 23] : assignment_expression => conditional_expression
+INFO [Line 23] : initialiser => assignment_expression
+INFO [Line 23] : init_declarator => declarator = initialiser
+INFO [Line 23] : init_declarator_list => init_declarator
+INFO [Line 23] : init_declarator_list_opt => init_declarator_list
+INFO [Line 23] : declaration => declaration_specifiers init_declarator_list_opt ;
+INFO [Line 23] : block_item => declaration
+INFO [Line 23] : block_item_list => block_item
+
 -------------------- Parsing Line No. 24  --------------------
-INFO [Line 24] : direct_declarator -> IDENTIFIER
+
+INFO [Line 24] : type_specifier => int
+INFO [Line 24] : declaration_specifiers_opt => epsilon 
+INFO [Line 24] : declaration_specifiers => type_specifier declaration_specifiers_opt
+INFO [Line 24] : pointer_opt => epsilon
+INFO [Line 24] : direct_declarator => IDENTIFIER
 				IDENTIFIER = i
-INFO [Line 24] : primary_expression -> IDENTIFIER
+INFO [Line 24] : declarator => pointer_opt direct_declarator
+INFO [Line 24] : primary_expression => IDENTIFIER
 				IDENTIFIER = n1
-INFO [Line 24] : primary_expression -> IDENTIFIER
+INFO [Line 24] : postfix_expression => primary_expression
+INFO [Line 24] : unary_expression => postfix_expression
+INFO [Line 24] : cast_expression => unary_expression
+INFO [Line 24] : multiplicative_expression => cast_expression
+INFO [Line 24] : additive_expression => multiplicative_expression
+INFO [Line 24] : shift_expression => additive_expression
+INFO [Line 24] : relational_expression => shift_expression
+INFO [Line 24] : equality_expression => relational_expression
+INFO [Line 24] : AND_expression => equality_expression
+INFO [Line 24] : exclusive_OR_expression => AND_expression
+INFO [Line 24] : inclusive_OR_expression => exclusive_OR_expression
+INFO [Line 24] : logical_AND_expression => inclusive_OR_expression
+INFO [Line 24] : logical_OR_expression => logical_AND_expression
+INFO [Line 24] : conditional_expression => logical_OR_expression
+INFO [Line 24] : assignment_expression => conditional_expression
+INFO [Line 24] : initialiser => assignment_expression
+INFO [Line 24] : init_declarator => declarator = initialiser
+INFO [Line 24] : init_declarator_list => init_declarator
+INFO [Line 24] : init_declarator_list_opt => init_declarator_list
+INFO [Line 24] : declaration => declaration_specifiers init_declarator_list_opt ;
+INFO [Line 24] : primary_expression => IDENTIFIER
 				IDENTIFIER = i
-INFO [Line 24] : primary_expression -> IDENTIFIER
+INFO [Line 24] : postfix_expression => primary_expression
+INFO [Line 24] : unary_expression => postfix_expression
+INFO [Line 24] : cast_expression => unary_expression
+INFO [Line 24] : multiplicative_expression => cast_expression
+INFO [Line 24] : additive_expression => multiplicative_expression
+INFO [Line 24] : shift_expression => additive_expression
+INFO [Line 24] : relational_expression => shift_expression
+INFO [Line 24] : primary_expression => IDENTIFIER
 				IDENTIFIER = n1
-INFO [Line 24] : primary_expression -> IDENTIFIER
+INFO [Line 24] : postfix_expression => primary_expression
+INFO [Line 24] : unary_expression => postfix_expression
+INFO [Line 24] : cast_expression => unary_expression
+INFO [Line 24] : multiplicative_expression => cast_expression
+INFO [Line 24] : additive_expression => multiplicative_expression
+INFO [Line 24] : shift_expression => additive_expression
+INFO [Line 24] : relational_expression => relational_expression <= shift_expression
+INFO [Line 24] : equality_expression => relational_expression
+INFO [Line 24] : AND_expression => equality_expression
+INFO [Line 24] : exclusive_OR_expression => AND_expression
+INFO [Line 24] : inclusive_OR_expression => exclusive_OR_expression
+INFO [Line 24] : logical_AND_expression => inclusive_OR_expression
+INFO [Line 24] : primary_expression => IDENTIFIER
 				IDENTIFIER = i
-INFO [Line 24] : primary_expression -> INTEGER_CONSTANT
+INFO [Line 24] : postfix_expression => primary_expression
+INFO [Line 24] : unary_expression => postfix_expression
+INFO [Line 24] : cast_expression => unary_expression
+INFO [Line 24] : multiplicative_expression => cast_expression
+INFO [Line 24] : additive_expression => multiplicative_expression
+INFO [Line 24] : shift_expression => additive_expression
+INFO [Line 24] : relational_expression => shift_expression
+INFO [Line 24] : primary_expression => INTEGER_CONSTANT
 				INTEGER_CONSTANT = 0
-INFO [Line 24] : primary_expression -> IDENTIFIER
+INFO [Line 24] : postfix_expression => primary_expression
+INFO [Line 24] : unary_expression => postfix_expression
+INFO [Line 24] : cast_expression => unary_expression
+INFO [Line 24] : multiplicative_expression => cast_expression
+INFO [Line 24] : additive_expression => multiplicative_expression
+INFO [Line 24] : shift_expression => additive_expression
+INFO [Line 24] : relational_expression => relational_expression >= shift_expression
+INFO [Line 24] : equality_expression => relational_expression
+INFO [Line 24] : AND_expression => equality_expression
+INFO [Line 24] : exclusive_OR_expression => AND_expression
+INFO [Line 24] : inclusive_OR_expression => exclusive_OR_expression
+INFO [Line 24] : logical_AND_expression => logical_AND_expression && inclusive_OR_expression
+INFO [Line 24] : logical_OR_expression => logical_AND_expression
+INFO [Line 24] : conditional_expression => logical_OR_expression
+INFO [Line 24] : assignment_expression => conditional_expression
+INFO [Line 24] : expression => assignment_expression
+INFO [Line 24] : expression_opt => expression
+INFO [Line 24] : primary_expression => IDENTIFIER
 				IDENTIFIER = i
+INFO [Line 24] : postfix_expression => primary_expression
+INFO [Line 24] : postfix_expression => postfix_expression ++
+INFO [Line 24] : unary_expression => postfix_expression
+INFO [Line 24] : cast_expression => unary_expression
+INFO [Line 24] : multiplicative_expression => cast_expression
+INFO [Line 24] : additive_expression => multiplicative_expression
+INFO [Line 24] : shift_expression => additive_expression
+INFO [Line 24] : relational_expression => shift_expression
+INFO [Line 24] : equality_expression => relational_expression
+INFO [Line 24] : AND_expression => equality_expression
+INFO [Line 24] : exclusive_OR_expression => AND_expression
+INFO [Line 24] : inclusive_OR_expression => exclusive_OR_expression
+INFO [Line 24] : logical_AND_expression => inclusive_OR_expression
+INFO [Line 24] : logical_OR_expression => logical_AND_expression
+INFO [Line 24] : conditional_expression => logical_OR_expression
+INFO [Line 24] : assignment_expression => conditional_expression
+INFO [Line 24] : expression => assignment_expression
+INFO [Line 24] : expression_opt => expression
+
 -------------------- Parsing Line No. 25  --------------------
-INFO [Line 25] : primary_expression -> IDENTIFIER
+
+INFO [Line 25] : primary_expression => IDENTIFIER
 				IDENTIFIER = n1
-INFO [Line 25] : primary_expression -> INTEGER_CONSTANT
+INFO [Line 25] : postfix_expression => primary_expression
+INFO [Line 25] : unary_expression => postfix_expression
+INFO [Line 25] : assignment_operator => /=
+INFO [Line 25] : primary_expression => INTEGER_CONSTANT
 				INTEGER_CONSTANT = 2
+INFO [Line 25] : postfix_expression => primary_expression
+INFO [Line 25] : unary_expression => postfix_expression
+INFO [Line 25] : cast_expression => unary_expression
+INFO [Line 25] : multiplicative_expression => cast_expression
+INFO [Line 25] : additive_expression => multiplicative_expression
+INFO [Line 25] : shift_expression => additive_expression
+INFO [Line 25] : relational_expression => shift_expression
+INFO [Line 25] : equality_expression => relational_expression
+INFO [Line 25] : AND_expression => equality_expression
+INFO [Line 25] : exclusive_OR_expression => AND_expression
+INFO [Line 25] : inclusive_OR_expression => exclusive_OR_expression
+INFO [Line 25] : logical_AND_expression => inclusive_OR_expression
+INFO [Line 25] : logical_OR_expression => logical_AND_expression
+INFO [Line 25] : conditional_expression => logical_OR_expression
+INFO [Line 25] : assignment_expression => conditional_expression
+INFO [Line 25] : assignment_expression => unary_expression assignment_operator assignment_expression
+INFO [Line 25] : expression => assignment_expression
+INFO [Line 25] : expression_opt => expression
+INFO [Line 25] : expression_statement => expression_opt ;
+INFO [Line 25] : statement => expression_statement
+INFO [Line 25] : block_item => statement
+INFO [Line 25] : block_item_list => block_item
+
 -------------------- Parsing Line No. 26  --------------------
-INFO [Line 26] : primary_expression -> IDENTIFIER
+
+INFO [Line 26] : primary_expression => IDENTIFIER
 				IDENTIFIER = n1
-INFO [Line 26] : primary_expression -> INTEGER_CONSTANT
+INFO [Line 26] : postfix_expression => primary_expression
+INFO [Line 26] : unary_expression => postfix_expression
+INFO [Line 26] : assignment_operator => *=
+INFO [Line 26] : primary_expression => INTEGER_CONSTANT
 				INTEGER_CONSTANT = 2
+INFO [Line 26] : postfix_expression => primary_expression
+INFO [Line 26] : unary_expression => postfix_expression
+INFO [Line 26] : cast_expression => unary_expression
+INFO [Line 26] : multiplicative_expression => cast_expression
+INFO [Line 26] : additive_expression => multiplicative_expression
+INFO [Line 26] : shift_expression => additive_expression
+INFO [Line 26] : relational_expression => shift_expression
+INFO [Line 26] : equality_expression => relational_expression
+INFO [Line 26] : AND_expression => equality_expression
+INFO [Line 26] : exclusive_OR_expression => AND_expression
+INFO [Line 26] : inclusive_OR_expression => exclusive_OR_expression
+INFO [Line 26] : logical_AND_expression => inclusive_OR_expression
+INFO [Line 26] : logical_OR_expression => logical_AND_expression
+INFO [Line 26] : conditional_expression => logical_OR_expression
+INFO [Line 26] : assignment_expression => conditional_expression
+INFO [Line 26] : assignment_expression => unary_expression assignment_operator assignment_expression
+INFO [Line 26] : expression => assignment_expression
+INFO [Line 26] : expression_opt => expression
+INFO [Line 26] : expression_statement => expression_opt ;
+INFO [Line 26] : statement => expression_statement
+INFO [Line 26] : block_item => statement
+INFO [Line 26] : block_item_list => block_item_list block_item
+
 -------------------- Parsing Line No. 27  --------------------
-INFO [Line 27] : primary_expression -> IDENTIFIER
+
+INFO [Line 27] : primary_expression => IDENTIFIER
 				IDENTIFIER = n1
-INFO [Line 27] : primary_expression -> INTEGER_CONSTANT
+INFO [Line 27] : postfix_expression => primary_expression
+INFO [Line 27] : unary_expression => postfix_expression
+INFO [Line 27] : assignment_operator => += 
+INFO [Line 27] : primary_expression => INTEGER_CONSTANT
 				INTEGER_CONSTANT = 1
-INFO [Line 27] : primary_expression -> IDENTIFIER
+INFO [Line 27] : postfix_expression => primary_expression
+INFO [Line 27] : unary_expression => postfix_expression
+INFO [Line 27] : cast_expression => unary_expression
+INFO [Line 27] : multiplicative_expression => cast_expression
+INFO [Line 27] : additive_expression => multiplicative_expression
+INFO [Line 27] : shift_expression => additive_expression
+INFO [Line 27] : relational_expression => shift_expression
+INFO [Line 27] : equality_expression => relational_expression
+INFO [Line 27] : AND_expression => equality_expression
+INFO [Line 27] : exclusive_OR_expression => AND_expression
+INFO [Line 27] : inclusive_OR_expression => exclusive_OR_expression
+INFO [Line 27] : logical_AND_expression => inclusive_OR_expression
+INFO [Line 27] : logical_OR_expression => logical_AND_expression
+INFO [Line 27] : conditional_expression => logical_OR_expression
+INFO [Line 27] : assignment_expression => conditional_expression
+INFO [Line 27] : assignment_expression => unary_expression assignment_operator assignment_expression
+INFO [Line 27] : expression => assignment_expression
+INFO [Line 27] : primary_expression => IDENTIFIER
 				IDENTIFIER = n1
-INFO [Line 27] : primary_expression -> INTEGER_CONSTANT
+INFO [Line 27] : postfix_expression => primary_expression
+INFO [Line 27] : unary_expression => postfix_expression
+INFO [Line 27] : assignment_operator => -= 
+INFO [Line 27] : primary_expression => INTEGER_CONSTANT
 				INTEGER_CONSTANT = 1
+INFO [Line 27] : postfix_expression => primary_expression
+INFO [Line 27] : unary_expression => postfix_expression
+INFO [Line 27] : cast_expression => unary_expression
+INFO [Line 27] : multiplicative_expression => cast_expression
+INFO [Line 27] : additive_expression => multiplicative_expression
+INFO [Line 27] : shift_expression => additive_expression
+INFO [Line 27] : relational_expression => shift_expression
+INFO [Line 27] : equality_expression => relational_expression
+INFO [Line 27] : AND_expression => equality_expression
+INFO [Line 27] : exclusive_OR_expression => AND_expression
+INFO [Line 27] : inclusive_OR_expression => exclusive_OR_expression
+INFO [Line 27] : logical_AND_expression => inclusive_OR_expression
+INFO [Line 27] : logical_OR_expression => logical_AND_expression
+INFO [Line 27] : conditional_expression => logical_OR_expression
+INFO [Line 27] : assignment_expression => conditional_expression
+INFO [Line 27] : assignment_expression => unary_expression assignment_operator assignment_expression
+INFO [Line 27] : expression => expression , assignment_expression
+INFO [Line 27] : expression_opt => expression
+INFO [Line 27] : expression_statement => expression_opt ;
+INFO [Line 27] : statement => expression_statement
+INFO [Line 27] : block_item => statement
+INFO [Line 27] : block_item_list => block_item_list block_item
+
 -------------------- Parsing Line No. 28  --------------------
-INFO [Line 28] : primary_expression -> IDENTIFIER
+
+INFO [Line 28] : primary_expression => IDENTIFIER
 				IDENTIFIER = n1
-INFO [Line 28] : primary_expression -> IDENTIFIER
+INFO [Line 28] : postfix_expression => primary_expression
+INFO [Line 28] : unary_expression => postfix_expression
+INFO [Line 28] : assignment_operator => =
+INFO [Line 28] : primary_expression => IDENTIFIER
 				IDENTIFIER = n1
-INFO [Line 28] : primary_expression -> IDENTIFIER
+INFO [Line 28] : postfix_expression => primary_expression
+INFO [Line 28] : unary_expression => postfix_expression
+INFO [Line 28] : cast_expression => unary_expression
+INFO [Line 28] : multiplicative_expression => cast_expression
+INFO [Line 28] : additive_expression => multiplicative_expression
+INFO [Line 28] : shift_expression => additive_expression
+INFO [Line 28] : relational_expression => shift_expression
+INFO [Line 28] : equality_expression => relational_expression
+INFO [Line 28] : AND_expression => equality_expression
+INFO [Line 28] : exclusive_OR_expression => AND_expression
+INFO [Line 28] : primary_expression => IDENTIFIER
 				IDENTIFIER = n1
-INFO [Line 28] : primary_expression -> IDENTIFIER
+INFO [Line 28] : postfix_expression => primary_expression
+INFO [Line 28] : unary_expression => postfix_expression
+INFO [Line 28] : cast_expression => unary_expression
+INFO [Line 28] : multiplicative_expression => cast_expression
+INFO [Line 28] : additive_expression => multiplicative_expression
+INFO [Line 28] : shift_expression => additive_expression
+INFO [Line 28] : relational_expression => shift_expression
+INFO [Line 28] : equality_expression => relational_expression
+INFO [Line 28] : AND_expression => equality_expression
+INFO [Line 28] : exclusive_OR_expression => exclusive_OR_expression ^ AND_expression
+INFO [Line 28] : primary_expression => IDENTIFIER
 				IDENTIFIER = n1
+INFO [Line 28] : postfix_expression => primary_expression
+INFO [Line 28] : unary_expression => postfix_expression
+INFO [Line 28] : cast_expression => unary_expression
+INFO [Line 28] : multiplicative_expression => cast_expression
+INFO [Line 28] : additive_expression => multiplicative_expression
+INFO [Line 28] : shift_expression => additive_expression
+INFO [Line 28] : relational_expression => shift_expression
+INFO [Line 28] : equality_expression => relational_expression
+INFO [Line 28] : AND_expression => equality_expression
+INFO [Line 28] : exclusive_OR_expression => exclusive_OR_expression ^ AND_expression
+INFO [Line 28] : inclusive_OR_expression => exclusive_OR_expression
+INFO [Line 28] : logical_AND_expression => inclusive_OR_expression
+INFO [Line 28] : logical_OR_expression => logical_AND_expression
+INFO [Line 28] : conditional_expression => logical_OR_expression
+INFO [Line 28] : assignment_expression => conditional_expression
+INFO [Line 28] : assignment_expression => unary_expression assignment_operator assignment_expression
+INFO [Line 28] : expression => assignment_expression
+INFO [Line 28] : expression_opt => expression
+INFO [Line 28] : expression_statement => expression_opt ;
+INFO [Line 28] : statement => expression_statement
+INFO [Line 28] : block_item => statement
+INFO [Line 28] : block_item_list => block_item_list block_item
+
 -------------------- Parsing Line No. 29  --------------------
-INFO [Line 29] : primary_expression -> IDENTIFIER
+
+INFO [Line 29] : primary_expression => IDENTIFIER
 				IDENTIFIER = n1
-INFO [Line 29] : primary_expression -> IDENTIFIER
+INFO [Line 29] : postfix_expression => primary_expression
+INFO [Line 29] : unary_expression => postfix_expression
+INFO [Line 29] : assignment_operator => |=
+INFO [Line 29] : primary_expression => IDENTIFIER
 				IDENTIFIER = n1
+INFO [Line 29] : postfix_expression => primary_expression
+INFO [Line 29] : unary_expression => postfix_expression
+INFO [Line 29] : cast_expression => unary_expression
+INFO [Line 29] : multiplicative_expression => cast_expression
+INFO [Line 29] : additive_expression => multiplicative_expression
+INFO [Line 29] : shift_expression => additive_expression
+INFO [Line 29] : relational_expression => shift_expression
+INFO [Line 29] : equality_expression => relational_expression
+INFO [Line 29] : AND_expression => equality_expression
+INFO [Line 29] : exclusive_OR_expression => AND_expression
+INFO [Line 29] : inclusive_OR_expression => exclusive_OR_expression
+INFO [Line 29] : logical_AND_expression => inclusive_OR_expression
+INFO [Line 29] : logical_OR_expression => logical_AND_expression
+INFO [Line 29] : conditional_expression => logical_OR_expression
+INFO [Line 29] : assignment_expression => conditional_expression
+INFO [Line 29] : assignment_expression => unary_expression assignment_operator assignment_expression
+INFO [Line 29] : expression => assignment_expression
+INFO [Line 29] : expression_opt => expression
+INFO [Line 29] : expression_statement => expression_opt ;
+INFO [Line 29] : statement => expression_statement
+INFO [Line 29] : block_item => statement
+INFO [Line 29] : block_item_list => block_item_list block_item
+
 -------------------- Parsing Line No. 30  --------------------
-INFO [Line 30] : primary_expression -> IDENTIFIER
+
+INFO [Line 30] : primary_expression => IDENTIFIER
 				IDENTIFIER = n1
-INFO [Line 30] : primary_expression -> IDENTIFIER
+INFO [Line 30] : postfix_expression => primary_expression
+INFO [Line 30] : unary_expression => postfix_expression
+INFO [Line 30] : assignment_operator => &=
+INFO [Line 30] : primary_expression => IDENTIFIER
 				IDENTIFIER = n1
+INFO [Line 30] : postfix_expression => primary_expression
+INFO [Line 30] : unary_expression => postfix_expression
+INFO [Line 30] : cast_expression => unary_expression
+INFO [Line 30] : multiplicative_expression => cast_expression
+INFO [Line 30] : additive_expression => multiplicative_expression
+INFO [Line 30] : shift_expression => additive_expression
+INFO [Line 30] : relational_expression => shift_expression
+INFO [Line 30] : equality_expression => relational_expression
+INFO [Line 30] : AND_expression => equality_expression
+INFO [Line 30] : exclusive_OR_expression => AND_expression
+INFO [Line 30] : inclusive_OR_expression => exclusive_OR_expression
+INFO [Line 30] : logical_AND_expression => inclusive_OR_expression
+INFO [Line 30] : logical_OR_expression => logical_AND_expression
+INFO [Line 30] : conditional_expression => logical_OR_expression
+INFO [Line 30] : assignment_expression => conditional_expression
+INFO [Line 30] : assignment_expression => unary_expression assignment_operator assignment_expression
+INFO [Line 30] : expression => assignment_expression
+INFO [Line 30] : expression_opt => expression
+INFO [Line 30] : expression_statement => expression_opt ;
+INFO [Line 30] : statement => expression_statement
+INFO [Line 30] : block_item => statement
+INFO [Line 30] : block_item_list => block_item_list block_item
+
 -------------------- Parsing Line No. 31  --------------------
-INFO [Line 31] : primary_expression -> IDENTIFIER
+
+INFO [Line 31] : primary_expression => IDENTIFIER
 				IDENTIFIER = n1
-INFO [Line 31] : primary_expression -> INTEGER_CONSTANT
+INFO [Line 31] : postfix_expression => primary_expression
+INFO [Line 31] : unary_expression => postfix_expression
+INFO [Line 31] : cast_expression => unary_expression
+INFO [Line 31] : multiplicative_expression => cast_expression
+INFO [Line 31] : primary_expression => INTEGER_CONSTANT
 				INTEGER_CONSTANT = 2
-INFO [Line 31] : primary_expression -> INTEGER_CONSTANT
+INFO [Line 31] : postfix_expression => primary_expression
+INFO [Line 31] : unary_expression => postfix_expression
+INFO [Line 31] : cast_expression => unary_expression
+INFO [Line 31] : multiplicative_expression => multiplicative_expression % cast_expression
+INFO [Line 31] : additive_expression => multiplicative_expression
+INFO [Line 31] : shift_expression => additive_expression
+INFO [Line 31] : relational_expression => shift_expression
+INFO [Line 31] : equality_expression => relational_expression
+INFO [Line 31] : primary_expression => INTEGER_CONSTANT
 				INTEGER_CONSTANT = 0
+INFO [Line 31] : postfix_expression => primary_expression
+INFO [Line 31] : unary_expression => postfix_expression
+INFO [Line 31] : cast_expression => unary_expression
+INFO [Line 31] : multiplicative_expression => cast_expression
+INFO [Line 31] : additive_expression => multiplicative_expression
+INFO [Line 31] : shift_expression => additive_expression
+INFO [Line 31] : relational_expression => shift_expression
+INFO [Line 31] : equality_expression => equality_expression == relational_expression
+INFO [Line 31] : AND_expression => equality_expression
+INFO [Line 31] : exclusive_OR_expression => AND_expression
+INFO [Line 31] : inclusive_OR_expression => exclusive_OR_expression
+INFO [Line 31] : logical_AND_expression => inclusive_OR_expression
+INFO [Line 31] : logical_OR_expression => logical_AND_expression
+INFO [Line 31] : conditional_expression => logical_OR_expression
+INFO [Line 31] : assignment_expression => conditional_expression
+INFO [Line 31] : expression => assignment_expression
+
 -------------------- Parsing Line No. 32  --------------------
-INFO [Line 32] : primary_expression -> IDENTIFIER
+
+INFO [Line 32] : primary_expression => IDENTIFIER
 				IDENTIFIER = printf
-INFO [Line 32] : primary_expression -> STRING_LITERAL
+INFO [Line 32] : postfix_expression => primary_expression
+INFO [Line 32] : primary_expression => STRING_LITERAL
 				STRING_LITERAL = "n = %d\n"
-INFO [Line 32] : primary_expression -> IDENTIFIER
+INFO [Line 32] : postfix_expression => primary_expression
+INFO [Line 32] : unary_expression => postfix_expression
+INFO [Line 32] : cast_expression => unary_expression
+INFO [Line 32] : multiplicative_expression => cast_expression
+INFO [Line 32] : additive_expression => multiplicative_expression
+INFO [Line 32] : shift_expression => additive_expression
+INFO [Line 32] : relational_expression => shift_expression
+INFO [Line 32] : equality_expression => relational_expression
+INFO [Line 32] : AND_expression => equality_expression
+INFO [Line 32] : exclusive_OR_expression => AND_expression
+INFO [Line 32] : inclusive_OR_expression => exclusive_OR_expression
+INFO [Line 32] : logical_AND_expression => inclusive_OR_expression
+INFO [Line 32] : logical_OR_expression => logical_AND_expression
+INFO [Line 32] : conditional_expression => logical_OR_expression
+INFO [Line 32] : assignment_expression => conditional_expression
+INFO [Line 32] : argument_expression_list => assignment_expression
+INFO [Line 32] : primary_expression => IDENTIFIER
 				IDENTIFIER = n1
+INFO [Line 32] : postfix_expression => primary_expression
+INFO [Line 32] : unary_expression => postfix_expression
+INFO [Line 32] : cast_expression => unary_expression
+INFO [Line 32] : multiplicative_expression => cast_expression
+INFO [Line 32] : additive_expression => multiplicative_expression
+INFO [Line 32] : shift_expression => additive_expression
+INFO [Line 32] : relational_expression => shift_expression
+INFO [Line 32] : equality_expression => relational_expression
+INFO [Line 32] : AND_expression => equality_expression
+INFO [Line 32] : exclusive_OR_expression => AND_expression
+INFO [Line 32] : inclusive_OR_expression => exclusive_OR_expression
+INFO [Line 32] : logical_AND_expression => inclusive_OR_expression
+INFO [Line 32] : logical_OR_expression => logical_AND_expression
+INFO [Line 32] : conditional_expression => logical_OR_expression
+INFO [Line 32] : assignment_expression => conditional_expression
+INFO [Line 32] : argument_expression_list => argument_expression_list , assignment_expression
+INFO [Line 32] : argument_expression_list_opt => argument_expression_list
+INFO [Line 32] : postfix_expression => postfix_expression ( argument_expression_list_opt )
+INFO [Line 32] : unary_expression => postfix_expression
+INFO [Line 32] : cast_expression => unary_expression
+INFO [Line 32] : multiplicative_expression => cast_expression
+INFO [Line 32] : additive_expression => multiplicative_expression
+INFO [Line 32] : shift_expression => additive_expression
+INFO [Line 32] : relational_expression => shift_expression
+INFO [Line 32] : equality_expression => relational_expression
+INFO [Line 32] : AND_expression => equality_expression
+INFO [Line 32] : exclusive_OR_expression => AND_expression
+INFO [Line 32] : inclusive_OR_expression => exclusive_OR_expression
+INFO [Line 32] : logical_AND_expression => inclusive_OR_expression
+INFO [Line 32] : logical_OR_expression => logical_AND_expression
+INFO [Line 32] : conditional_expression => logical_OR_expression
+INFO [Line 32] : assignment_expression => conditional_expression
+INFO [Line 32] : expression => assignment_expression
+INFO [Line 32] : expression_opt => expression
+INFO [Line 32] : expression_statement => expression_opt ;
+INFO [Line 32] : statement => expression_statement
+
 -------------------- Parsing Line No. 33  --------------------
+
+
 -------------------- Parsing Line No. 34  --------------------
-INFO [Line 34] : primary_expression -> IDENTIFIER
+
+INFO [Line 34] : primary_expression => IDENTIFIER
 				IDENTIFIER = n1
-INFO [Line 34] : primary_expression -> IDENTIFIER
+INFO [Line 34] : postfix_expression => primary_expression
+INFO [Line 34] : unary_expression => postfix_expression
+INFO [Line 34] : assignment_operator => =
+INFO [Line 34] : primary_expression => IDENTIFIER
 				IDENTIFIER = n1
-INFO [Line 34] : primary_expression -> IDENTIFIER
+INFO [Line 34] : postfix_expression => primary_expression
+INFO [Line 34] : unary_expression => postfix_expression
+INFO [Line 34] : cast_expression => unary_expression
+INFO [Line 34] : multiplicative_expression => cast_expression
+INFO [Line 34] : additive_expression => multiplicative_expression
+INFO [Line 34] : primary_expression => IDENTIFIER
 				IDENTIFIER = n1
-INFO [Line 34] : primary_expression -> IDENTIFIER
+INFO [Line 34] : postfix_expression => primary_expression
+INFO [Line 34] : unary_expression => postfix_expression
+INFO [Line 34] : cast_expression => unary_expression
+INFO [Line 34] : multiplicative_expression => cast_expression
+INFO [Line 34] : additive_expression => additive_expression + multiplicative_expression
+INFO [Line 34] : unary_operator => -
+INFO [Line 34] : primary_expression => IDENTIFIER
 				IDENTIFIER = n1
-INFO [Line 34] : primary_expression -> INTEGER_CONSTANT
+INFO [Line 34] : postfix_expression => primary_expression
+INFO [Line 34] : unary_expression => postfix_expression
+INFO [Line 34] : cast_expression => unary_expression
+INFO [Line 34] : unary_expression => unary_operator cast_expression
+INFO [Line 34] : cast_expression => unary_expression
+INFO [Line 34] : multiplicative_expression => cast_expression
+INFO [Line 34] : additive_expression => multiplicative_expression
+INFO [Line 34] : shift_expression => additive_expression
+INFO [Line 34] : relational_expression => shift_expression
+INFO [Line 34] : equality_expression => relational_expression
+INFO [Line 34] : AND_expression => equality_expression
+INFO [Line 34] : exclusive_OR_expression => AND_expression
+INFO [Line 34] : inclusive_OR_expression => exclusive_OR_expression
+INFO [Line 34] : logical_AND_expression => inclusive_OR_expression
+INFO [Line 34] : logical_OR_expression => logical_AND_expression
+INFO [Line 34] : conditional_expression => logical_OR_expression
+INFO [Line 34] : assignment_expression => conditional_expression
+INFO [Line 34] : expression => assignment_expression
+INFO [Line 34] : primary_expression => ( expression )
+INFO [Line 34] : postfix_expression => primary_expression
+INFO [Line 34] : unary_expression => postfix_expression
+INFO [Line 34] : cast_expression => unary_expression
+INFO [Line 34] : multiplicative_expression => cast_expression
+INFO [Line 34] : primary_expression => INTEGER_CONSTANT
 				INTEGER_CONSTANT = 1
+INFO [Line 34] : postfix_expression => primary_expression
+INFO [Line 34] : unary_expression => postfix_expression
+INFO [Line 34] : cast_expression => unary_expression
+INFO [Line 34] : multiplicative_expression => multiplicative_expression / cast_expression
+INFO [Line 34] : additive_expression => additive_expression + multiplicative_expression
+INFO [Line 34] : shift_expression => additive_expression
+INFO [Line 34] : relational_expression => shift_expression
+INFO [Line 34] : equality_expression => relational_expression
+INFO [Line 34] : AND_expression => equality_expression
+INFO [Line 34] : exclusive_OR_expression => AND_expression
+INFO [Line 34] : inclusive_OR_expression => exclusive_OR_expression
+INFO [Line 34] : logical_AND_expression => inclusive_OR_expression
+INFO [Line 34] : logical_OR_expression => logical_AND_expression
+INFO [Line 34] : conditional_expression => logical_OR_expression
+INFO [Line 34] : assignment_expression => conditional_expression
+INFO [Line 34] : assignment_expression => unary_expression assignment_operator assignment_expression
+INFO [Line 34] : expression => assignment_expression
+INFO [Line 34] : expression_opt => expression
+INFO [Line 34] : expression_statement => expression_opt ;
+INFO [Line 34] : statement => expression_statement
+INFO [Line 34] : block_item => statement
+INFO [Line 34] : block_item_list => block_item
+
 -------------------- Parsing Line No. 35  --------------------
-INFO [Line 35] : primary_expression -> IDENTIFIER
+
+INFO [Line 35] : primary_expression => IDENTIFIER
 				IDENTIFIER = n1
-INFO [Line 35] : primary_expression -> INTEGER_CONSTANT
+INFO [Line 35] : postfix_expression => primary_expression
+INFO [Line 35] : unary_expression => postfix_expression
+INFO [Line 35] : assignment_operator => <<=
+INFO [Line 35] : primary_expression => INTEGER_CONSTANT
 				INTEGER_CONSTANT = 2
+INFO [Line 35] : postfix_expression => primary_expression
+INFO [Line 35] : unary_expression => postfix_expression
+INFO [Line 35] : cast_expression => unary_expression
+INFO [Line 35] : multiplicative_expression => cast_expression
+INFO [Line 35] : additive_expression => multiplicative_expression
+INFO [Line 35] : shift_expression => additive_expression
+INFO [Line 35] : relational_expression => shift_expression
+INFO [Line 35] : equality_expression => relational_expression
+INFO [Line 35] : AND_expression => equality_expression
+INFO [Line 35] : exclusive_OR_expression => AND_expression
+INFO [Line 35] : inclusive_OR_expression => exclusive_OR_expression
+INFO [Line 35] : logical_AND_expression => inclusive_OR_expression
+INFO [Line 35] : logical_OR_expression => logical_AND_expression
+INFO [Line 35] : conditional_expression => logical_OR_expression
+INFO [Line 35] : assignment_expression => conditional_expression
+INFO [Line 35] : assignment_expression => unary_expression assignment_operator assignment_expression
+INFO [Line 35] : expression => assignment_expression
+INFO [Line 35] : expression_opt => expression
+INFO [Line 35] : expression_statement => expression_opt ;
+INFO [Line 35] : statement => expression_statement
+INFO [Line 35] : block_item => statement
+INFO [Line 35] : block_item_list => block_item_list block_item
+
 -------------------- Parsing Line No. 36  --------------------
-INFO [Line 36] : primary_expression -> IDENTIFIER
+
+INFO [Line 36] : primary_expression => IDENTIFIER
 				IDENTIFIER = n1
-INFO [Line 36] : primary_expression -> INTEGER_CONSTANT
+INFO [Line 36] : postfix_expression => primary_expression
+INFO [Line 36] : unary_expression => postfix_expression
+INFO [Line 36] : assignment_operator => >>=
+INFO [Line 36] : primary_expression => INTEGER_CONSTANT
 				INTEGER_CONSTANT = 2
+INFO [Line 36] : postfix_expression => primary_expression
+INFO [Line 36] : unary_expression => postfix_expression
+INFO [Line 36] : cast_expression => unary_expression
+INFO [Line 36] : multiplicative_expression => cast_expression
+INFO [Line 36] : additive_expression => multiplicative_expression
+INFO [Line 36] : shift_expression => additive_expression
+INFO [Line 36] : relational_expression => shift_expression
+INFO [Line 36] : equality_expression => relational_expression
+INFO [Line 36] : AND_expression => equality_expression
+INFO [Line 36] : exclusive_OR_expression => AND_expression
+INFO [Line 36] : inclusive_OR_expression => exclusive_OR_expression
+INFO [Line 36] : logical_AND_expression => inclusive_OR_expression
+INFO [Line 36] : logical_OR_expression => logical_AND_expression
+INFO [Line 36] : conditional_expression => logical_OR_expression
+INFO [Line 36] : assignment_expression => conditional_expression
+INFO [Line 36] : assignment_expression => unary_expression assignment_operator assignment_expression
+INFO [Line 36] : expression => assignment_expression
+INFO [Line 36] : expression_opt => expression
+INFO [Line 36] : expression_statement => expression_opt ;
+INFO [Line 36] : statement => expression_statement
+INFO [Line 36] : block_item => statement
+INFO [Line 36] : block_item_list => block_item_list block_item
+
 -------------------- Parsing Line No. 37  --------------------
+
+INFO [Line 37] : block_item_list_opt => block_item_list
+INFO [Line 37] : compound_statement => { block_item_list_opt }
+INFO [Line 37] : statement => compound_statement
+INFO [Line 37] : selection_statement => if ( expression ) statement else statement
+INFO [Line 37] : statement => selection_statement
+INFO [Line 37] : block_item => statement
+INFO [Line 37] : block_item_list => block_item_list block_item
+
 -------------------- Parsing Line No. 38  --------------------
+
+INFO [Line 38] : block_item_list_opt => block_item_list
+INFO [Line 38] : compound_statement => { block_item_list_opt }
+INFO [Line 38] : statement => compound_statement
+INFO [Line 38] : iteration_statement => for ( declaration expression_opt ; expression_opt ) statement
+INFO [Line 38] : statement => iteration_statement
+INFO [Line 38] : block_item => statement
+INFO [Line 38] : block_item_list => block_item_list block_item
+
 -------------------- Parsing Line No. 39  --------------------
+
+
 -------------------- Parsing Line No. 40  --------------------
-INFO [Line 40] : direct_declarator -> IDENTIFIER
+
+INFO [Line 40] : type_specifier => double
+INFO [Line 40] : declaration_specifiers_opt => epsilon 
+INFO [Line 40] : declaration_specifiers => type_specifier declaration_specifiers_opt
+INFO [Line 40] : pointer_opt => epsilon
+INFO [Line 40] : direct_declarator => IDENTIFIER
 				IDENTIFIER = d1
-INFO [Line 40] : primary_expression -> FLOATING_CONSTANT
+INFO [Line 40] : declarator => pointer_opt direct_declarator
+INFO [Line 40] : primary_expression => FLOATING_CONSTANT
 				FLOATING_CONSTANT = 234.000000
+INFO [Line 40] : postfix_expression => primary_expression
+INFO [Line 40] : unary_expression => postfix_expression
+INFO [Line 40] : cast_expression => unary_expression
+INFO [Line 40] : multiplicative_expression => cast_expression
+INFO [Line 40] : additive_expression => multiplicative_expression
+INFO [Line 40] : shift_expression => additive_expression
+INFO [Line 40] : relational_expression => shift_expression
+INFO [Line 40] : equality_expression => relational_expression
+INFO [Line 40] : AND_expression => equality_expression
+INFO [Line 40] : exclusive_OR_expression => AND_expression
+INFO [Line 40] : inclusive_OR_expression => exclusive_OR_expression
+INFO [Line 40] : logical_AND_expression => inclusive_OR_expression
+INFO [Line 40] : logical_OR_expression => logical_AND_expression
+INFO [Line 40] : conditional_expression => logical_OR_expression
+INFO [Line 40] : assignment_expression => conditional_expression
+INFO [Line 40] : initialiser => assignment_expression
+INFO [Line 40] : init_declarator => declarator = initialiser
+INFO [Line 40] : init_declarator_list => init_declarator
+INFO [Line 40] : init_declarator_list_opt => init_declarator_list
+INFO [Line 40] : declaration => declaration_specifiers init_declarator_list_opt ;
+INFO [Line 40] : block_item => declaration
+INFO [Line 40] : block_item_list => block_item_list block_item
+
 -------------------- Parsing Line No. 41  --------------------
-INFO [Line 41] : direct_declarator -> IDENTIFIER
+
+INFO [Line 41] : type_specifier => double
+INFO [Line 41] : declaration_specifiers_opt => epsilon 
+INFO [Line 41] : declaration_specifiers => type_specifier declaration_specifiers_opt
+INFO [Line 41] : pointer_opt => epsilon
+INFO [Line 41] : direct_declarator => IDENTIFIER
 				IDENTIFIER = d2
-INFO [Line 41] : primary_expression -> FLOATING_CONSTANT
+INFO [Line 41] : declarator => pointer_opt direct_declarator
+INFO [Line 41] : primary_expression => FLOATING_CONSTANT
 				FLOATING_CONSTANT = 23400.000000
+INFO [Line 41] : postfix_expression => primary_expression
+INFO [Line 41] : unary_expression => postfix_expression
+INFO [Line 41] : cast_expression => unary_expression
+INFO [Line 41] : multiplicative_expression => cast_expression
+INFO [Line 41] : additive_expression => multiplicative_expression
+INFO [Line 41] : shift_expression => additive_expression
+INFO [Line 41] : relational_expression => shift_expression
+INFO [Line 41] : equality_expression => relational_expression
+INFO [Line 41] : AND_expression => equality_expression
+INFO [Line 41] : exclusive_OR_expression => AND_expression
+INFO [Line 41] : inclusive_OR_expression => exclusive_OR_expression
+INFO [Line 41] : logical_AND_expression => inclusive_OR_expression
+INFO [Line 41] : logical_OR_expression => logical_AND_expression
+INFO [Line 41] : conditional_expression => logical_OR_expression
+INFO [Line 41] : assignment_expression => conditional_expression
+INFO [Line 41] : initialiser => assignment_expression
+INFO [Line 41] : init_declarator => declarator = initialiser
+INFO [Line 41] : init_declarator_list => init_declarator
+INFO [Line 41] : init_declarator_list_opt => init_declarator_list
+INFO [Line 41] : declaration => declaration_specifiers init_declarator_list_opt ;
+INFO [Line 41] : block_item => declaration
+INFO [Line 41] : block_item_list => block_item_list block_item
+
 -------------------- Parsing Line No. 42  --------------------
-INFO [Line 42] : direct_declarator -> IDENTIFIER
+
+INFO [Line 42] : type_specifier => double
+INFO [Line 42] : declaration_specifiers_opt => epsilon 
+INFO [Line 42] : declaration_specifiers => type_specifier declaration_specifiers_opt
+INFO [Line 42] : pointer_opt => epsilon
+INFO [Line 42] : direct_declarator => IDENTIFIER
 				IDENTIFIER = d3
-INFO [Line 42] : primary_expression -> FLOATING_CONSTANT
+INFO [Line 42] : declarator => pointer_opt direct_declarator
+INFO [Line 42] : primary_expression => FLOATING_CONSTANT
 				FLOATING_CONSTANT = 0.000000
+INFO [Line 42] : postfix_expression => primary_expression
+INFO [Line 42] : unary_expression => postfix_expression
+INFO [Line 42] : cast_expression => unary_expression
+INFO [Line 42] : multiplicative_expression => cast_expression
+INFO [Line 42] : additive_expression => multiplicative_expression
+INFO [Line 42] : shift_expression => additive_expression
+INFO [Line 42] : relational_expression => shift_expression
+INFO [Line 42] : equality_expression => relational_expression
+INFO [Line 42] : AND_expression => equality_expression
+INFO [Line 42] : exclusive_OR_expression => AND_expression
+INFO [Line 42] : inclusive_OR_expression => exclusive_OR_expression
+INFO [Line 42] : logical_AND_expression => inclusive_OR_expression
+INFO [Line 42] : logical_OR_expression => logical_AND_expression
+INFO [Line 42] : conditional_expression => logical_OR_expression
+INFO [Line 42] : assignment_expression => conditional_expression
+INFO [Line 42] : initialiser => assignment_expression
+INFO [Line 42] : init_declarator => declarator = initialiser
+INFO [Line 42] : init_declarator_list => init_declarator
+INFO [Line 42] : init_declarator_list_opt => init_declarator_list
+INFO [Line 42] : declaration => declaration_specifiers init_declarator_list_opt ;
+INFO [Line 42] : block_item => declaration
+INFO [Line 42] : block_item_list => block_item_list block_item
+
 -------------------- Parsing Line No. 43  --------------------
-INFO [Line 43] : direct_declarator -> IDENTIFIER
+
+INFO [Line 43] : type_qualifier => const
+INFO [Line 43] : type_specifier => float
+INFO [Line 43] : declaration_specifiers_opt => epsilon 
+INFO [Line 43] : declaration_specifiers => type_specifier declaration_specifiers_opt
+INFO [Line 43] : declaration_specifiers_opt => declaration_specifiers
+INFO [Line 43] : declaration_specifiers => type_qualifier declaration_specifiers_opt
+INFO [Line 43] : pointer_opt => epsilon
+INFO [Line 43] : direct_declarator => IDENTIFIER
 				IDENTIFIER = f1
-INFO [Line 43] : primary_expression -> FLOATING_CONSTANT
+INFO [Line 43] : declarator => pointer_opt direct_declarator
+INFO [Line 43] : primary_expression => FLOATING_CONSTANT
 				FLOATING_CONSTANT = 0.234000
+INFO [Line 43] : postfix_expression => primary_expression
+INFO [Line 43] : unary_expression => postfix_expression
+INFO [Line 43] : cast_expression => unary_expression
+INFO [Line 43] : multiplicative_expression => cast_expression
+INFO [Line 43] : additive_expression => multiplicative_expression
+INFO [Line 43] : shift_expression => additive_expression
+INFO [Line 43] : relational_expression => shift_expression
+INFO [Line 43] : equality_expression => relational_expression
+INFO [Line 43] : AND_expression => equality_expression
+INFO [Line 43] : exclusive_OR_expression => AND_expression
+INFO [Line 43] : inclusive_OR_expression => exclusive_OR_expression
+INFO [Line 43] : logical_AND_expression => inclusive_OR_expression
+INFO [Line 43] : logical_OR_expression => logical_AND_expression
+INFO [Line 43] : conditional_expression => logical_OR_expression
+INFO [Line 43] : assignment_expression => conditional_expression
+INFO [Line 43] : initialiser => assignment_expression
+INFO [Line 43] : init_declarator => declarator = initialiser
+INFO [Line 43] : init_declarator_list => init_declarator
+INFO [Line 43] : init_declarator_list_opt => init_declarator_list
+INFO [Line 43] : declaration => declaration_specifiers init_declarator_list_opt ;
+INFO [Line 43] : block_item => declaration
+INFO [Line 43] : block_item_list => block_item_list block_item
+
 -------------------- Parsing Line No. 44  --------------------
-INFO [Line 44] : direct_declarator -> IDENTIFIER
+
+INFO [Line 44] : type_specifier => float
+INFO [Line 44] : declaration_specifiers_opt => epsilon 
+INFO [Line 44] : declaration_specifiers => type_specifier declaration_specifiers_opt
+INFO [Line 44] : pointer_opt => epsilon
+INFO [Line 44] : direct_declarator => IDENTIFIER
 				IDENTIFIER = f2
-INFO [Line 44] : primary_expression -> FLOATING_CONSTANT
+INFO [Line 44] : declarator => pointer_opt direct_declarator
+INFO [Line 44] : primary_expression => FLOATING_CONSTANT
 				FLOATING_CONSTANT = 0.002340
+INFO [Line 44] : postfix_expression => primary_expression
+INFO [Line 44] : unary_expression => postfix_expression
+INFO [Line 44] : cast_expression => unary_expression
+INFO [Line 44] : multiplicative_expression => cast_expression
+INFO [Line 44] : additive_expression => multiplicative_expression
+INFO [Line 44] : shift_expression => additive_expression
+INFO [Line 44] : relational_expression => shift_expression
+INFO [Line 44] : equality_expression => relational_expression
+INFO [Line 44] : AND_expression => equality_expression
+INFO [Line 44] : exclusive_OR_expression => AND_expression
+INFO [Line 44] : inclusive_OR_expression => exclusive_OR_expression
+INFO [Line 44] : logical_AND_expression => inclusive_OR_expression
+INFO [Line 44] : logical_OR_expression => logical_AND_expression
+INFO [Line 44] : conditional_expression => logical_OR_expression
+INFO [Line 44] : assignment_expression => conditional_expression
+INFO [Line 44] : initialiser => assignment_expression
+INFO [Line 44] : init_declarator => declarator = initialiser
+INFO [Line 44] : init_declarator_list => init_declarator
+INFO [Line 44] : init_declarator_list_opt => init_declarator_list
+INFO [Line 44] : declaration => declaration_specifiers init_declarator_list_opt ;
+INFO [Line 44] : block_item => declaration
+INFO [Line 44] : block_item_list => block_item_list block_item
+
 -------------------- Parsing Line No. 45  --------------------
-INFO [Line 45] : direct_declarator -> IDENTIFIER
+
+INFO [Line 45] : type_specifier => float
+INFO [Line 45] : declaration_specifiers_opt => epsilon 
+INFO [Line 45] : declaration_specifiers => type_specifier declaration_specifiers_opt
+INFO [Line 45] : pointer_opt => epsilon
+INFO [Line 45] : direct_declarator => IDENTIFIER
 				IDENTIFIER = f3
-INFO [Line 45] : primary_expression -> FLOATING_CONSTANT
+INFO [Line 45] : declarator => pointer_opt direct_declarator
+INFO [Line 45] : primary_expression => FLOATING_CONSTANT
 				FLOATING_CONSTANT = 23.400000
+INFO [Line 45] : postfix_expression => primary_expression
+INFO [Line 45] : unary_expression => postfix_expression
+INFO [Line 45] : cast_expression => unary_expression
+INFO [Line 45] : multiplicative_expression => cast_expression
+INFO [Line 45] : additive_expression => multiplicative_expression
+INFO [Line 45] : shift_expression => additive_expression
+INFO [Line 45] : relational_expression => shift_expression
+INFO [Line 45] : equality_expression => relational_expression
+INFO [Line 45] : AND_expression => equality_expression
+INFO [Line 45] : exclusive_OR_expression => AND_expression
+INFO [Line 45] : inclusive_OR_expression => exclusive_OR_expression
+INFO [Line 45] : logical_AND_expression => inclusive_OR_expression
+INFO [Line 45] : logical_OR_expression => logical_AND_expression
+INFO [Line 45] : conditional_expression => logical_OR_expression
+INFO [Line 45] : assignment_expression => conditional_expression
+INFO [Line 45] : initialiser => assignment_expression
+INFO [Line 45] : init_declarator => declarator = initialiser
+INFO [Line 45] : init_declarator_list => init_declarator
+INFO [Line 45] : init_declarator_list_opt => init_declarator_list
+INFO [Line 45] : declaration => declaration_specifiers init_declarator_list_opt ;
+INFO [Line 45] : block_item => declaration
+INFO [Line 45] : block_item_list => block_item_list block_item
+
 -------------------- Parsing Line No. 46  --------------------
-INFO [Line 46] : direct_declarator -> IDENTIFIER
+
+INFO [Line 46] : type_specifier => float
+INFO [Line 46] : declaration_specifiers_opt => epsilon 
+INFO [Line 46] : declaration_specifiers => type_specifier declaration_specifiers_opt
+INFO [Line 46] : pointer_opt => epsilon
+INFO [Line 46] : direct_declarator => IDENTIFIER
 				IDENTIFIER = f4
-INFO [Line 46] : primary_expression -> FLOATING_CONSTANT
+INFO [Line 46] : declarator => pointer_opt direct_declarator
+INFO [Line 46] : primary_expression => FLOATING_CONSTANT
 				FLOATING_CONSTANT = 122.339996
+INFO [Line 46] : postfix_expression => primary_expression
+INFO [Line 46] : unary_expression => postfix_expression
+INFO [Line 46] : cast_expression => unary_expression
+INFO [Line 46] : multiplicative_expression => cast_expression
+INFO [Line 46] : additive_expression => multiplicative_expression
+INFO [Line 46] : shift_expression => additive_expression
+INFO [Line 46] : relational_expression => shift_expression
+INFO [Line 46] : equality_expression => relational_expression
+INFO [Line 46] : AND_expression => equality_expression
+INFO [Line 46] : exclusive_OR_expression => AND_expression
+INFO [Line 46] : inclusive_OR_expression => exclusive_OR_expression
+INFO [Line 46] : logical_AND_expression => inclusive_OR_expression
+INFO [Line 46] : logical_OR_expression => logical_AND_expression
+INFO [Line 46] : conditional_expression => logical_OR_expression
+INFO [Line 46] : assignment_expression => conditional_expression
+INFO [Line 46] : initialiser => assignment_expression
+INFO [Line 46] : init_declarator => declarator = initialiser
+INFO [Line 46] : init_declarator_list => init_declarator
+INFO [Line 46] : init_declarator_list_opt => init_declarator_list
+INFO [Line 46] : declaration => declaration_specifiers init_declarator_list_opt ;
+INFO [Line 46] : block_item => declaration
+INFO [Line 46] : block_item_list => block_item_list block_item
+
 -------------------- Parsing Line No. 47  --------------------
-INFO [Line 47] : direct_declarator -> IDENTIFIER
+
+INFO [Line 47] : type_specifier => unsigned
+INFO [Line 47] : type_specifier => long
+INFO [Line 47] : declaration_specifiers_opt => epsilon 
+INFO [Line 47] : declaration_specifiers => type_specifier declaration_specifiers_opt
+INFO [Line 47] : declaration_specifiers_opt => declaration_specifiers
+INFO [Line 47] : declaration_specifiers => type_specifier declaration_specifiers_opt
+INFO [Line 47] : pointer_opt => epsilon
+INFO [Line 47] : direct_declarator => IDENTIFIER
 				IDENTIFIER = l
-INFO [Line 47] : primary_expression -> INTEGER_CONSTANT
+INFO [Line 47] : declarator => pointer_opt direct_declarator
+INFO [Line 47] : primary_expression => INTEGER_CONSTANT
 				INTEGER_CONSTANT = 17409235
+INFO [Line 47] : postfix_expression => primary_expression
+INFO [Line 47] : unary_expression => postfix_expression
+INFO [Line 47] : cast_expression => unary_expression
+INFO [Line 47] : multiplicative_expression => cast_expression
+INFO [Line 47] : additive_expression => multiplicative_expression
+INFO [Line 47] : shift_expression => additive_expression
+INFO [Line 47] : relational_expression => shift_expression
+INFO [Line 47] : equality_expression => relational_expression
+INFO [Line 47] : AND_expression => equality_expression
+INFO [Line 47] : exclusive_OR_expression => AND_expression
+INFO [Line 47] : inclusive_OR_expression => exclusive_OR_expression
+INFO [Line 47] : logical_AND_expression => inclusive_OR_expression
+INFO [Line 47] : logical_OR_expression => logical_AND_expression
+INFO [Line 47] : conditional_expression => logical_OR_expression
+INFO [Line 47] : assignment_expression => conditional_expression
+INFO [Line 47] : initialiser => assignment_expression
+INFO [Line 47] : init_declarator => declarator = initialiser
+INFO [Line 47] : init_declarator_list => init_declarator
+INFO [Line 47] : init_declarator_list_opt => init_declarator_list
+INFO [Line 47] : declaration => declaration_specifiers init_declarator_list_opt ;
+INFO [Line 47] : block_item => declaration
+INFO [Line 47] : block_item_list => block_item_list block_item
+
 -------------------- Parsing Line No. 48  --------------------
-INFO [Line 48] : direct_declarator -> IDENTIFIER
+
+INFO [Line 48] : type_specifier => signed
+INFO [Line 48] : type_specifier => short
+INFO [Line 48] : declaration_specifiers_opt => epsilon 
+INFO [Line 48] : declaration_specifiers => type_specifier declaration_specifiers_opt
+INFO [Line 48] : declaration_specifiers_opt => declaration_specifiers
+INFO [Line 48] : declaration_specifiers => type_specifier declaration_specifiers_opt
+INFO [Line 48] : pointer_opt => epsilon
+INFO [Line 48] : direct_declarator => IDENTIFIER
 				IDENTIFIER = s
-INFO [Line 48] : primary_expression -> INTEGER_CONSTANT
+INFO [Line 48] : declarator => pointer_opt direct_declarator
+INFO [Line 48] : unary_operator => -
+INFO [Line 48] : primary_expression => INTEGER_CONSTANT
 				INTEGER_CONSTANT = 12
+INFO [Line 48] : postfix_expression => primary_expression
+INFO [Line 48] : unary_expression => postfix_expression
+INFO [Line 48] : cast_expression => unary_expression
+INFO [Line 48] : unary_expression => unary_operator cast_expression
+INFO [Line 48] : cast_expression => unary_expression
+INFO [Line 48] : multiplicative_expression => cast_expression
+INFO [Line 48] : additive_expression => multiplicative_expression
+INFO [Line 48] : shift_expression => additive_expression
+INFO [Line 48] : relational_expression => shift_expression
+INFO [Line 48] : equality_expression => relational_expression
+INFO [Line 48] : AND_expression => equality_expression
+INFO [Line 48] : exclusive_OR_expression => AND_expression
+INFO [Line 48] : inclusive_OR_expression => exclusive_OR_expression
+INFO [Line 48] : logical_AND_expression => inclusive_OR_expression
+INFO [Line 48] : logical_OR_expression => logical_AND_expression
+INFO [Line 48] : conditional_expression => logical_OR_expression
+INFO [Line 48] : assignment_expression => conditional_expression
+INFO [Line 48] : initialiser => assignment_expression
+INFO [Line 48] : init_declarator => declarator = initialiser
+INFO [Line 48] : init_declarator_list => init_declarator
+INFO [Line 48] : init_declarator_list_opt => init_declarator_list
+INFO [Line 48] : declaration => declaration_specifiers init_declarator_list_opt ;
+INFO [Line 48] : block_item => declaration
+INFO [Line 48] : block_item_list => block_item_list block_item
+
 -------------------- Parsing Line No. 49  --------------------
-INFO [Line 49] : direct_declarator -> IDENTIFIER
+
+INFO [Line 49] : type_specifier => char
+INFO [Line 49] : declaration_specifiers_opt => epsilon 
+INFO [Line 49] : declaration_specifiers => type_specifier declaration_specifiers_opt
+INFO [Line 49] : pointer_opt => epsilon
+INFO [Line 49] : direct_declarator => IDENTIFIER
 				IDENTIFIER = c
-INFO [Line 49] : primary_expression -> CHARACTER_CONSTANT
+INFO [Line 49] : declarator => pointer_opt direct_declarator
+INFO [Line 49] : primary_expression => CHARACTER_CONSTANT
 				CHARACTER_CONSTANT = '\?'
+INFO [Line 49] : postfix_expression => primary_expression
+INFO [Line 49] : unary_expression => postfix_expression
+INFO [Line 49] : cast_expression => unary_expression
+INFO [Line 49] : multiplicative_expression => cast_expression
+INFO [Line 49] : additive_expression => multiplicative_expression
+INFO [Line 49] : shift_expression => additive_expression
+INFO [Line 49] : relational_expression => shift_expression
+INFO [Line 49] : equality_expression => relational_expression
+INFO [Line 49] : AND_expression => equality_expression
+INFO [Line 49] : exclusive_OR_expression => AND_expression
+INFO [Line 49] : inclusive_OR_expression => exclusive_OR_expression
+INFO [Line 49] : logical_AND_expression => inclusive_OR_expression
+INFO [Line 49] : logical_OR_expression => logical_AND_expression
+INFO [Line 49] : conditional_expression => logical_OR_expression
+INFO [Line 49] : assignment_expression => conditional_expression
+INFO [Line 49] : initialiser => assignment_expression
+INFO [Line 49] : init_declarator => declarator = initialiser
+INFO [Line 49] : init_declarator_list => init_declarator
+INFO [Line 49] : init_declarator_list_opt => init_declarator_list
+INFO [Line 49] : declaration => declaration_specifiers init_declarator_list_opt ;
+INFO [Line 49] : block_item => declaration
+INFO [Line 49] : block_item_list => block_item_list block_item
+
 -------------------- Parsing Line No. 50  --------------------
-INFO [Line 50] : direct_declarator -> IDENTIFIER
+
+INFO [Line 50] : type_specifier => char
+INFO [Line 50] : declaration_specifiers_opt => epsilon 
+INFO [Line 50] : declaration_specifiers => type_specifier declaration_specifiers_opt
+INFO [Line 50] : pointer_opt => epsilon
+INFO [Line 50] : direct_declarator => IDENTIFIER
 				IDENTIFIER = s1
-INFO [Line 50] : primary_expression -> STRING_LITERAL
+INFO [Line 50] : type_qualifier_list_opt => epsilon
+INFO [Line 50] : assignment_expression_opt => epsilon
+INFO [Line 50] : direct_declarator => direct_declarator [ type_qualifier_list_opt assignment_expression_opt ]
+INFO [Line 50] : declarator => pointer_opt direct_declarator
+INFO [Line 50] : primary_expression => STRING_LITERAL
 				STRING_LITERAL = "A string // comments dont work here :P /* not even multiline ones */"
+INFO [Line 50] : postfix_expression => primary_expression
+INFO [Line 50] : unary_expression => postfix_expression
+INFO [Line 50] : cast_expression => unary_expression
+INFO [Line 50] : multiplicative_expression => cast_expression
+INFO [Line 50] : additive_expression => multiplicative_expression
+INFO [Line 50] : shift_expression => additive_expression
+INFO [Line 50] : relational_expression => shift_expression
+INFO [Line 50] : equality_expression => relational_expression
+INFO [Line 50] : AND_expression => equality_expression
+INFO [Line 50] : exclusive_OR_expression => AND_expression
+INFO [Line 50] : inclusive_OR_expression => exclusive_OR_expression
+INFO [Line 50] : logical_AND_expression => inclusive_OR_expression
+INFO [Line 50] : logical_OR_expression => logical_AND_expression
+INFO [Line 50] : conditional_expression => logical_OR_expression
+INFO [Line 50] : assignment_expression => conditional_expression
+INFO [Line 50] : initialiser => assignment_expression
+INFO [Line 50] : init_declarator => declarator = initialiser
+INFO [Line 50] : init_declarator_list => init_declarator
+INFO [Line 50] : init_declarator_list_opt => init_declarator_list
+INFO [Line 50] : declaration => declaration_specifiers init_declarator_list_opt ;
+INFO [Line 50] : block_item => declaration
+INFO [Line 50] : block_item_list => block_item_list block_item
+
 -------------------- Parsing Line No. 51  --------------------
-INFO [Line 51] : direct_declarator -> IDENTIFIER
+
+INFO [Line 51] : type_specifier => char
+INFO [Line 51] : declaration_specifiers_opt => epsilon 
+INFO [Line 51] : declaration_specifiers => type_specifier declaration_specifiers_opt
+INFO [Line 51] : pointer_opt => epsilon
+INFO [Line 51] : direct_declarator => IDENTIFIER
 				IDENTIFIER = s2
-INFO [Line 51] : primary_expression -> STRING_LITERAL
+INFO [Line 51] : type_qualifier_list_opt => epsilon
+INFO [Line 51] : assignment_expression_opt => epsilon
+INFO [Line 51] : direct_declarator => direct_declarator [ type_qualifier_list_opt assignment_expression_opt ]
+INFO [Line 51] : declarator => pointer_opt direct_declarator
+INFO [Line 51] : primary_expression => STRING_LITERAL
 				STRING_LITERAL = ""
+INFO [Line 51] : postfix_expression => primary_expression
+INFO [Line 51] : unary_expression => postfix_expression
+INFO [Line 51] : cast_expression => unary_expression
+INFO [Line 51] : multiplicative_expression => cast_expression
+INFO [Line 51] : additive_expression => multiplicative_expression
+INFO [Line 51] : shift_expression => additive_expression
+INFO [Line 51] : relational_expression => shift_expression
+INFO [Line 51] : equality_expression => relational_expression
+INFO [Line 51] : AND_expression => equality_expression
+INFO [Line 51] : exclusive_OR_expression => AND_expression
+INFO [Line 51] : inclusive_OR_expression => exclusive_OR_expression
+INFO [Line 51] : logical_AND_expression => inclusive_OR_expression
+INFO [Line 51] : logical_OR_expression => logical_AND_expression
+INFO [Line 51] : conditional_expression => logical_OR_expression
+INFO [Line 51] : assignment_expression => conditional_expression
+INFO [Line 51] : initialiser => assignment_expression
+INFO [Line 51] : init_declarator => declarator = initialiser
+INFO [Line 51] : init_declarator_list => init_declarator
+INFO [Line 51] : init_declarator_list_opt => init_declarator_list
+INFO [Line 51] : declaration => declaration_specifiers init_declarator_list_opt ;
+INFO [Line 51] : block_item => declaration
+INFO [Line 51] : block_item_list => block_item_list block_item
+
 -------------------- Parsing Line No. 52  --------------------
-INFO [Line 52] : direct_declarator -> IDENTIFIER
+
+INFO [Line 52] : type_specifier => int
+INFO [Line 52] : declaration_specifiers_opt => epsilon 
+INFO [Line 52] : declaration_specifiers => type_specifier declaration_specifiers_opt
+INFO [Line 52] : pointer_opt => epsilon
+INFO [Line 52] : direct_declarator => IDENTIFIER
 				IDENTIFIER = n2
-INFO [Line 52] : primary_expression -> IDENTIFIER
+INFO [Line 52] : declarator => pointer_opt direct_declarator
+INFO [Line 52] : primary_expression => IDENTIFIER
 				IDENTIFIER = n1
-INFO [Line 52] : primary_expression -> IDENTIFIER
+INFO [Line 52] : postfix_expression => primary_expression
+INFO [Line 52] : unary_expression => postfix_expression
+INFO [Line 52] : cast_expression => unary_expression
+INFO [Line 52] : multiplicative_expression => cast_expression
+INFO [Line 52] : additive_expression => multiplicative_expression
+INFO [Line 52] : shift_expression => additive_expression
+INFO [Line 52] : relational_expression => shift_expression
+INFO [Line 52] : equality_expression => relational_expression
+INFO [Line 52] : AND_expression => equality_expression
+INFO [Line 52] : primary_expression => IDENTIFIER
 				IDENTIFIER = s
-INFO [Line 52] : primary_expression -> INTEGER_CONSTANT
+INFO [Line 52] : postfix_expression => primary_expression
+INFO [Line 52] : unary_expression => postfix_expression
+INFO [Line 52] : cast_expression => unary_expression
+INFO [Line 52] : multiplicative_expression => cast_expression
+INFO [Line 52] : additive_expression => multiplicative_expression
+INFO [Line 52] : shift_expression => additive_expression
+INFO [Line 52] : relational_expression => shift_expression
+INFO [Line 52] : equality_expression => relational_expression
+INFO [Line 52] : AND_expression => AND_expression & equality_expression
+INFO [Line 52] : exclusive_OR_expression => AND_expression
+INFO [Line 52] : inclusive_OR_expression => exclusive_OR_expression
+INFO [Line 52] : logical_AND_expression => inclusive_OR_expression
+INFO [Line 52] : logical_OR_expression => logical_AND_expression
+INFO [Line 52] : primary_expression => INTEGER_CONSTANT
 				INTEGER_CONSTANT = 1
-INFO [Line 52] : primary_expression -> INTEGER_CONSTANT
+INFO [Line 52] : postfix_expression => primary_expression
+INFO [Line 52] : unary_expression => postfix_expression
+INFO [Line 52] : cast_expression => unary_expression
+INFO [Line 52] : multiplicative_expression => cast_expression
+INFO [Line 52] : additive_expression => multiplicative_expression
+INFO [Line 52] : shift_expression => additive_expression
+INFO [Line 52] : relational_expression => shift_expression
+INFO [Line 52] : equality_expression => relational_expression
+INFO [Line 52] : AND_expression => equality_expression
+INFO [Line 52] : exclusive_OR_expression => AND_expression
+INFO [Line 52] : inclusive_OR_expression => exclusive_OR_expression
+INFO [Line 52] : logical_AND_expression => inclusive_OR_expression
+INFO [Line 52] : logical_OR_expression => logical_AND_expression
+INFO [Line 52] : conditional_expression => logical_OR_expression
+INFO [Line 52] : assignment_expression => conditional_expression
+INFO [Line 52] : expression => assignment_expression
+INFO [Line 52] : primary_expression => INTEGER_CONSTANT
 				INTEGER_CONSTANT = 2
+INFO [Line 52] : postfix_expression => primary_expression
+INFO [Line 52] : unary_expression => postfix_expression
+INFO [Line 52] : cast_expression => unary_expression
+INFO [Line 52] : multiplicative_expression => cast_expression
+INFO [Line 52] : additive_expression => multiplicative_expression
+INFO [Line 52] : shift_expression => additive_expression
+INFO [Line 52] : relational_expression => shift_expression
+INFO [Line 52] : equality_expression => relational_expression
+INFO [Line 52] : AND_expression => equality_expression
+INFO [Line 52] : exclusive_OR_expression => AND_expression
+INFO [Line 52] : inclusive_OR_expression => exclusive_OR_expression
+INFO [Line 52] : logical_AND_expression => inclusive_OR_expression
+INFO [Line 52] : logical_OR_expression => logical_AND_expression
+INFO [Line 52] : conditional_expression => logical_OR_expression
+INFO [Line 52] : conditional_expression => logical_OR_expression ? expression : conditional_expression
+INFO [Line 52] : assignment_expression => conditional_expression
+INFO [Line 52] : initialiser => assignment_expression
+INFO [Line 52] : init_declarator => declarator = initialiser
+INFO [Line 52] : init_declarator_list => init_declarator
+INFO [Line 52] : init_declarator_list_opt => init_declarator_list
+INFO [Line 52] : declaration => declaration_specifiers init_declarator_list_opt ;
+INFO [Line 52] : block_item => declaration
+INFO [Line 52] : block_item_list => block_item_list block_item
+
 -------------------- Parsing Line No. 53  --------------------
-INFO [Line 53] : primary_expression -> IDENTIFIER
+
+INFO [Line 53] : primary_expression => IDENTIFIER
 				IDENTIFIER = n2
+INFO [Line 53] : postfix_expression => primary_expression
+INFO [Line 53] : postfix_expression => postfix_expression --
+INFO [Line 53] : unary_expression => postfix_expression
+INFO [Line 53] : cast_expression => unary_expression
+INFO [Line 53] : multiplicative_expression => cast_expression
+INFO [Line 53] : additive_expression => multiplicative_expression
+INFO [Line 53] : shift_expression => additive_expression
+INFO [Line 53] : relational_expression => shift_expression
+INFO [Line 53] : equality_expression => relational_expression
+INFO [Line 53] : AND_expression => equality_expression
+INFO [Line 53] : exclusive_OR_expression => AND_expression
+INFO [Line 53] : inclusive_OR_expression => exclusive_OR_expression
+INFO [Line 53] : logical_AND_expression => inclusive_OR_expression
+INFO [Line 53] : logical_OR_expression => logical_AND_expression
+INFO [Line 53] : conditional_expression => logical_OR_expression
+INFO [Line 53] : assignment_expression => conditional_expression
+INFO [Line 53] : expression => assignment_expression
+INFO [Line 53] : expression_opt => expression
+INFO [Line 53] : expression_statement => expression_opt ;
+INFO [Line 53] : statement => expression_statement
+INFO [Line 53] : block_item => statement
+INFO [Line 53] : block_item_list => block_item_list block_item
+
 -------------------- Parsing Line No. 54  --------------------
+
+
 -------------------- Parsing Line No. 55  --------------------
-INFO [Line 55] : primary_expression -> IDENTIFIER
+
+INFO [Line 55] : primary_expression => IDENTIFIER
 				IDENTIFIER = mystruct
-INFO [Line 55] : primary_expression -> IDENTIFIER
+INFO [Line 55] : postfix_expression => primary_expression
+INFO [Line 55] : unary_expression => postfix_expression
+INFO [Line 55] : cast_expression => unary_expression
+INFO [Line 55] : multiplicative_expression => cast_expression
+INFO [Line 55] : primary_expression => IDENTIFIER
 				IDENTIFIER = ms1
+INFO [Line 55] : postfix_expression => primary_expression
+INFO [Line 55] : unary_expression => postfix_expression
+INFO [Line 55] : cast_expression => unary_expression
+INFO [Line 55] : multiplicative_expression => multiplicative_expression * cast_expression
+INFO [Line 55] : additive_expression => multiplicative_expression
+INFO [Line 55] : shift_expression => additive_expression
+INFO [Line 55] : relational_expression => shift_expression
+INFO [Line 55] : equality_expression => relational_expression
+INFO [Line 55] : AND_expression => equality_expression
+INFO [Line 55] : exclusive_OR_expression => AND_expression
+INFO [Line 55] : inclusive_OR_expression => exclusive_OR_expression
+INFO [Line 55] : logical_AND_expression => inclusive_OR_expression
+INFO [Line 55] : logical_OR_expression => logical_AND_expression
+INFO [Line 55] : conditional_expression => logical_OR_expression
+INFO [Line 55] : assignment_expression => conditional_expression
+INFO [Line 55] : expression => assignment_expression
+INFO [Line 55] : expression_opt => expression
+INFO [Line 55] : expression_statement => expression_opt ;
+INFO [Line 55] : statement => expression_statement
+INFO [Line 55] : block_item => statement
+INFO [Line 55] : block_item_list => block_item_list block_item
+
 -------------------- Parsing Line No. 56  --------------------
-INFO [Line 56] : primary_expression -> IDENTIFIER
+
+INFO [Line 56] : primary_expression => IDENTIFIER
 				IDENTIFIER = ms1
+INFO [Line 56] : postfix_expression => primary_expression
+INFO [Line 56] : postfix_expression => postfix_expression -> IDENTIFIER
+				IDENTIFIER = b
+INFO [Line 56] : unary_expression => postfix_expression
+INFO [Line 56] : cast_expression => unary_expression
+INFO [Line 56] : multiplicative_expression => cast_expression
+INFO [Line 56] : additive_expression => multiplicative_expression
+INFO [Line 56] : shift_expression => additive_expression
+INFO [Line 56] : relational_expression => shift_expression
+INFO [Line 56] : equality_expression => relational_expression
+INFO [Line 56] : AND_expression => equality_expression
+INFO [Line 56] : exclusive_OR_expression => AND_expression
+INFO [Line 56] : inclusive_OR_expression => exclusive_OR_expression
+INFO [Line 56] : logical_AND_expression => inclusive_OR_expression
+INFO [Line 56] : logical_OR_expression => logical_AND_expression
+INFO [Line 56] : conditional_expression => logical_OR_expression
+INFO [Line 56] : assignment_expression => conditional_expression
+INFO [Line 56] : expression => assignment_expression
+
 -------------------- Parsing Line No. 57  --------------------
-INFO [Line 57] : primary_expression -> INTEGER_CONSTANT
+
+INFO [Line 57] : primary_expression => INTEGER_CONSTANT
 				INTEGER_CONSTANT = 1
+INFO [Line 57] : postfix_expression => primary_expression
+INFO [Line 57] : unary_expression => postfix_expression
+INFO [Line 57] : cast_expression => unary_expression
+INFO [Line 57] : multiplicative_expression => cast_expression
+INFO [Line 57] : additive_expression => multiplicative_expression
+INFO [Line 57] : shift_expression => additive_expression
+INFO [Line 57] : relational_expression => shift_expression
+INFO [Line 57] : equality_expression => relational_expression
+INFO [Line 57] : AND_expression => equality_expression
+INFO [Line 57] : exclusive_OR_expression => AND_expression
+INFO [Line 57] : inclusive_OR_expression => exclusive_OR_expression
+INFO [Line 57] : logical_AND_expression => inclusive_OR_expression
+INFO [Line 57] : logical_OR_expression => logical_AND_expression
+INFO [Line 57] : conditional_expression => logical_OR_expression
+INFO [Line 57] : constant_expression => conditional_expression
+
 -------------------- Parsing Line No. 58  --------------------
-INFO [Line 58] : primary_expression -> IDENTIFIER
+
+INFO [Line 58] : primary_expression => IDENTIFIER
 				IDENTIFIER = ms2
-INFO [Line 58] : primary_expression -> IDENTIFIER
+INFO [Line 58] : postfix_expression => primary_expression
+INFO [Line 58] : postfix_expression => postfix_expression . IDENTIFIER
+				IDENTIFIER = n
+INFO [Line 58] : unary_expression => postfix_expression
+INFO [Line 58] : assignment_operator => %=
+INFO [Line 58] : primary_expression => IDENTIFIER
 				IDENTIFIER = n2
+INFO [Line 58] : postfix_expression => primary_expression
+INFO [Line 58] : unary_expression => postfix_expression
+INFO [Line 58] : cast_expression => unary_expression
+INFO [Line 58] : multiplicative_expression => cast_expression
+INFO [Line 58] : additive_expression => multiplicative_expression
+INFO [Line 58] : shift_expression => additive_expression
+INFO [Line 58] : relational_expression => shift_expression
+INFO [Line 58] : equality_expression => relational_expression
+INFO [Line 58] : AND_expression => equality_expression
+INFO [Line 58] : exclusive_OR_expression => AND_expression
+INFO [Line 58] : inclusive_OR_expression => exclusive_OR_expression
+INFO [Line 58] : logical_AND_expression => inclusive_OR_expression
+INFO [Line 58] : logical_OR_expression => logical_AND_expression
+INFO [Line 58] : conditional_expression => logical_OR_expression
+INFO [Line 58] : assignment_expression => conditional_expression
+INFO [Line 58] : assignment_expression => unary_expression assignment_operator assignment_expression
+INFO [Line 58] : expression => assignment_expression
+INFO [Line 58] : expression_opt => expression
+INFO [Line 58] : expression_statement => expression_opt ;
+INFO [Line 58] : statement => expression_statement
+INFO [Line 58] : labeled_statement => case constant_expression : statement
+INFO [Line 58] : statement => labeled_statement
+INFO [Line 58] : block_item => statement
+INFO [Line 58] : block_item_list => block_item
+
 -------------------- Parsing Line No. 59  --------------------
-INFO [Line 59] : primary_expression -> IDENTIFIER
+
+INFO [Line 59] : primary_expression => IDENTIFIER
 				IDENTIFIER = ms2
-INFO [Line 59] : primary_expression -> IDENTIFIER
+INFO [Line 59] : postfix_expression => primary_expression
+INFO [Line 59] : postfix_expression => postfix_expression . IDENTIFIER
+				IDENTIFIER = n
+INFO [Line 59] : unary_expression => postfix_expression
+INFO [Line 59] : assignment_operator => ^=
+INFO [Line 59] : primary_expression => IDENTIFIER
 				IDENTIFIER = ms2
+INFO [Line 59] : postfix_expression => primary_expression
+INFO [Line 59] : postfix_expression => postfix_expression . IDENTIFIER
+				IDENTIFIER = n
+INFO [Line 59] : unary_expression => postfix_expression
+INFO [Line 59] : cast_expression => unary_expression
+INFO [Line 59] : multiplicative_expression => cast_expression
+INFO [Line 59] : additive_expression => multiplicative_expression
+INFO [Line 59] : shift_expression => additive_expression
+INFO [Line 59] : relational_expression => shift_expression
+INFO [Line 59] : equality_expression => relational_expression
+INFO [Line 59] : AND_expression => equality_expression
+INFO [Line 59] : exclusive_OR_expression => AND_expression
+INFO [Line 59] : inclusive_OR_expression => exclusive_OR_expression
+INFO [Line 59] : logical_AND_expression => inclusive_OR_expression
+INFO [Line 59] : logical_OR_expression => logical_AND_expression
+INFO [Line 59] : conditional_expression => logical_OR_expression
+INFO [Line 59] : assignment_expression => conditional_expression
+INFO [Line 59] : assignment_expression => unary_expression assignment_operator assignment_expression
+INFO [Line 59] : expression => assignment_expression
+INFO [Line 59] : expression_opt => expression
+INFO [Line 59] : expression_statement => expression_opt ;
+INFO [Line 59] : statement => expression_statement
+INFO [Line 59] : block_item => statement
+INFO [Line 59] : block_item_list => block_item_list block_item
+
 -------------------- Parsing Line No. 60  --------------------
+
+INFO [Line 60] : jump_statement => break ;
+INFO [Line 60] : statement => jump_statement
+INFO [Line 60] : block_item => statement
+INFO [Line 60] : block_item_list => block_item_list block_item
+
 -------------------- Parsing Line No. 61  --------------------
+
+
 -------------------- Parsing Line No. 62  --------------------
+
+INFO [Line 62] : jump_statement => break ;
+INFO [Line 62] : statement => jump_statement
+INFO [Line 62] : labeled_statement => default : statement
+INFO [Line 62] : statement => labeled_statement
+INFO [Line 62] : block_item => statement
+INFO [Line 62] : block_item_list => block_item_list block_item
+
 -------------------- Parsing Line No. 63  --------------------
+
+INFO [Line 63] : block_item_list_opt => block_item_list
+INFO [Line 63] : compound_statement => { block_item_list_opt }
+INFO [Line 63] : statement => compound_statement
+INFO [Line 63] : selection_statement => switch ( expression ) statement
+INFO [Line 63] : statement => selection_statement
+INFO [Line 63] : block_item => statement
+INFO [Line 63] : block_item_list => block_item_list block_item
+
 -------------------- Parsing Line No. 64  --------------------
+
+
 -------------------- Parsing Line No. 65  --------------------
+
+
 -------------------- Parsing Line No. 66  --------------------
-INFO [Line 66] : primary_expression -> IDENTIFIER
+
+INFO [Line 66] : primary_expression => IDENTIFIER
 				IDENTIFIER = s
-INFO [Line 66] : primary_expression -> INTEGER_CONSTANT
+INFO [Line 66] : postfix_expression => primary_expression
+INFO [Line 66] : unary_expression => postfix_expression
+INFO [Line 66] : cast_expression => unary_expression
+INFO [Line 66] : multiplicative_expression => cast_expression
+INFO [Line 66] : additive_expression => multiplicative_expression
+INFO [Line 66] : shift_expression => additive_expression
+INFO [Line 66] : primary_expression => INTEGER_CONSTANT
 				INTEGER_CONSTANT = 2
+INFO [Line 66] : postfix_expression => primary_expression
+INFO [Line 66] : unary_expression => postfix_expression
+INFO [Line 66] : cast_expression => unary_expression
+INFO [Line 66] : multiplicative_expression => cast_expression
+INFO [Line 66] : additive_expression => multiplicative_expression
+INFO [Line 66] : shift_expression => shift_expression << additive_expression
+INFO [Line 66] : relational_expression => shift_expression
+INFO [Line 66] : equality_expression => relational_expression
+INFO [Line 66] : AND_expression => equality_expression
+INFO [Line 66] : exclusive_OR_expression => AND_expression
+INFO [Line 66] : inclusive_OR_expression => exclusive_OR_expression
+INFO [Line 66] : logical_AND_expression => inclusive_OR_expression
+INFO [Line 66] : logical_OR_expression => logical_AND_expression
+INFO [Line 66] : conditional_expression => logical_OR_expression
+INFO [Line 66] : assignment_expression => conditional_expression
+INFO [Line 66] : expression => assignment_expression
+INFO [Line 66] : expression_opt => expression
+INFO [Line 66] : expression_statement => expression_opt ;
+INFO [Line 66] : statement => expression_statement
+INFO [Line 66] : block_item => statement
+INFO [Line 66] : block_item_list => block_item
+
 -------------------- Parsing Line No. 67  --------------------
-INFO [Line 67] : primary_expression -> IDENTIFIER
+
+INFO [Line 67] : primary_expression => IDENTIFIER
 				IDENTIFIER = s
-INFO [Line 67] : primary_expression -> INTEGER_CONSTANT
+INFO [Line 67] : postfix_expression => primary_expression
+INFO [Line 67] : unary_expression => postfix_expression
+INFO [Line 67] : cast_expression => unary_expression
+INFO [Line 67] : multiplicative_expression => cast_expression
+INFO [Line 67] : additive_expression => multiplicative_expression
+INFO [Line 67] : shift_expression => additive_expression
+INFO [Line 67] : primary_expression => INTEGER_CONSTANT
 				INTEGER_CONSTANT = 2
+INFO [Line 67] : postfix_expression => primary_expression
+INFO [Line 67] : unary_expression => postfix_expression
+INFO [Line 67] : cast_expression => unary_expression
+INFO [Line 67] : multiplicative_expression => cast_expression
+INFO [Line 67] : additive_expression => multiplicative_expression
+INFO [Line 67] : shift_expression => shift_expression >> additive_expression
+INFO [Line 67] : relational_expression => shift_expression
+INFO [Line 67] : equality_expression => relational_expression
+INFO [Line 67] : AND_expression => equality_expression
+INFO [Line 67] : exclusive_OR_expression => AND_expression
+INFO [Line 67] : inclusive_OR_expression => exclusive_OR_expression
+INFO [Line 67] : logical_AND_expression => inclusive_OR_expression
+INFO [Line 67] : logical_OR_expression => logical_AND_expression
+INFO [Line 67] : conditional_expression => logical_OR_expression
+INFO [Line 67] : assignment_expression => conditional_expression
+INFO [Line 67] : expression => assignment_expression
+INFO [Line 67] : expression_opt => expression
+INFO [Line 67] : expression_statement => expression_opt ;
+INFO [Line 67] : statement => expression_statement
+INFO [Line 67] : block_item => statement
+INFO [Line 67] : block_item_list => block_item_list block_item
+
 -------------------- Parsing Line No. 68  --------------------
-INFO [Line 68] : primary_expression -> IDENTIFIER
+
+INFO [Line 68] : primary_expression => IDENTIFIER
 				IDENTIFIER = s
-INFO [Line 68] : primary_expression -> IDENTIFIER
+INFO [Line 68] : postfix_expression => primary_expression
+INFO [Line 68] : unary_expression => postfix_expression
+INFO [Line 68] : assignment_operator => =
+INFO [Line 68] : unary_operator => ~
+INFO [Line 68] : primary_expression => IDENTIFIER
 				IDENTIFIER = s
+INFO [Line 68] : postfix_expression => primary_expression
+INFO [Line 68] : unary_expression => postfix_expression
+INFO [Line 68] : cast_expression => unary_expression
+INFO [Line 68] : unary_expression => unary_operator cast_expression
+INFO [Line 68] : cast_expression => unary_expression
+INFO [Line 68] : multiplicative_expression => cast_expression
+INFO [Line 68] : additive_expression => multiplicative_expression
+INFO [Line 68] : shift_expression => additive_expression
+INFO [Line 68] : relational_expression => shift_expression
+INFO [Line 68] : equality_expression => relational_expression
+INFO [Line 68] : AND_expression => equality_expression
+INFO [Line 68] : exclusive_OR_expression => AND_expression
+INFO [Line 68] : inclusive_OR_expression => exclusive_OR_expression
+INFO [Line 68] : logical_AND_expression => inclusive_OR_expression
+INFO [Line 68] : logical_OR_expression => logical_AND_expression
+INFO [Line 68] : conditional_expression => logical_OR_expression
+INFO [Line 68] : assignment_expression => conditional_expression
+INFO [Line 68] : assignment_expression => unary_expression assignment_operator assignment_expression
+INFO [Line 68] : expression => assignment_expression
+INFO [Line 68] : expression_opt => expression
+INFO [Line 68] : expression_statement => expression_opt ;
+INFO [Line 68] : statement => expression_statement
+INFO [Line 68] : block_item => statement
+INFO [Line 68] : block_item_list => block_item_list block_item
+
 -------------------- Parsing Line No. 69  --------------------
-INFO [Line 69] : primary_expression -> IDENTIFIER
+
+INFO [Line 69] : primary_expression => IDENTIFIER
 				IDENTIFIER = s
-INFO [Line 69] : primary_expression -> IDENTIFIER
+INFO [Line 69] : postfix_expression => primary_expression
+INFO [Line 69] : unary_expression => postfix_expression
+INFO [Line 69] : assignment_operator => =
+INFO [Line 69] : primary_expression => IDENTIFIER
 				IDENTIFIER = s
-INFO [Line 69] : primary_expression -> IDENTIFIER
+INFO [Line 69] : postfix_expression => primary_expression
+INFO [Line 69] : unary_expression => postfix_expression
+INFO [Line 69] : cast_expression => unary_expression
+INFO [Line 69] : multiplicative_expression => cast_expression
+INFO [Line 69] : additive_expression => multiplicative_expression
+INFO [Line 69] : shift_expression => additive_expression
+INFO [Line 69] : relational_expression => shift_expression
+INFO [Line 69] : equality_expression => relational_expression
+INFO [Line 69] : AND_expression => equality_expression
+INFO [Line 69] : exclusive_OR_expression => AND_expression
+INFO [Line 69] : inclusive_OR_expression => exclusive_OR_expression
+INFO [Line 69] : primary_expression => IDENTIFIER
 				IDENTIFIER = s
+INFO [Line 69] : postfix_expression => primary_expression
+INFO [Line 69] : unary_expression => postfix_expression
+INFO [Line 69] : cast_expression => unary_expression
+INFO [Line 69] : multiplicative_expression => cast_expression
+INFO [Line 69] : additive_expression => multiplicative_expression
+INFO [Line 69] : shift_expression => additive_expression
+INFO [Line 69] : relational_expression => shift_expression
+INFO [Line 69] : equality_expression => relational_expression
+INFO [Line 69] : AND_expression => equality_expression
+INFO [Line 69] : exclusive_OR_expression => AND_expression
+INFO [Line 69] : inclusive_OR_expression => inclusive_OR_expression | exclusive_OR_expression
+INFO [Line 69] : logical_AND_expression => inclusive_OR_expression
+INFO [Line 69] : logical_OR_expression => logical_AND_expression
+INFO [Line 69] : conditional_expression => logical_OR_expression
+INFO [Line 69] : assignment_expression => conditional_expression
+INFO [Line 69] : assignment_expression => unary_expression assignment_operator assignment_expression
+INFO [Line 69] : expression => assignment_expression
+INFO [Line 69] : expression_opt => expression
+INFO [Line 69] : expression_statement => expression_opt ;
+INFO [Line 69] : statement => expression_statement
+INFO [Line 69] : block_item => statement
+INFO [Line 69] : block_item_list => block_item_list block_item
+
 -------------------- Parsing Line No. 70  --------------------
-INFO [Line 70] : primary_expression -> IDENTIFIER
+
+INFO [Line 70] : primary_expression => IDENTIFIER
 				IDENTIFIER = s
-INFO [Line 70] : primary_expression -> INTEGER_CONSTANT
+INFO [Line 70] : postfix_expression => primary_expression
+INFO [Line 70] : unary_expression => postfix_expression
+INFO [Line 70] : cast_expression => unary_expression
+INFO [Line 70] : multiplicative_expression => cast_expression
+INFO [Line 70] : additive_expression => multiplicative_expression
+INFO [Line 70] : shift_expression => additive_expression
+INFO [Line 70] : relational_expression => shift_expression
+INFO [Line 70] : primary_expression => INTEGER_CONSTANT
 				INTEGER_CONSTANT = 10
-INFO [Line 70] : primary_expression -> IDENTIFIER
+INFO [Line 70] : postfix_expression => primary_expression
+INFO [Line 70] : unary_expression => postfix_expression
+INFO [Line 70] : cast_expression => unary_expression
+INFO [Line 70] : multiplicative_expression => cast_expression
+INFO [Line 70] : additive_expression => multiplicative_expression
+INFO [Line 70] : shift_expression => additive_expression
+INFO [Line 70] : relational_expression => relational_expression < shift_expression
+INFO [Line 70] : equality_expression => relational_expression
+INFO [Line 70] : AND_expression => equality_expression
+INFO [Line 70] : exclusive_OR_expression => AND_expression
+INFO [Line 70] : inclusive_OR_expression => exclusive_OR_expression
+INFO [Line 70] : logical_AND_expression => inclusive_OR_expression
+INFO [Line 70] : primary_expression => IDENTIFIER
 				IDENTIFIER = s
-INFO [Line 70] : primary_expression -> INTEGER_CONSTANT
+INFO [Line 70] : postfix_expression => primary_expression
+INFO [Line 70] : unary_expression => postfix_expression
+INFO [Line 70] : cast_expression => unary_expression
+INFO [Line 70] : multiplicative_expression => cast_expression
+INFO [Line 70] : additive_expression => multiplicative_expression
+INFO [Line 70] : shift_expression => additive_expression
+INFO [Line 70] : relational_expression => shift_expression
+INFO [Line 70] : primary_expression => INTEGER_CONSTANT
 				INTEGER_CONSTANT = 0
+INFO [Line 70] : postfix_expression => primary_expression
+INFO [Line 70] : unary_expression => postfix_expression
+INFO [Line 70] : cast_expression => unary_expression
+INFO [Line 70] : multiplicative_expression => cast_expression
+INFO [Line 70] : additive_expression => multiplicative_expression
+INFO [Line 70] : shift_expression => additive_expression
+INFO [Line 70] : relational_expression => relational_expression > shift_expression
+INFO [Line 70] : equality_expression => relational_expression
+INFO [Line 70] : AND_expression => equality_expression
+INFO [Line 70] : exclusive_OR_expression => AND_expression
+INFO [Line 70] : inclusive_OR_expression => exclusive_OR_expression
+INFO [Line 70] : logical_AND_expression => logical_AND_expression && inclusive_OR_expression
+INFO [Line 70] : logical_OR_expression => logical_AND_expression
+INFO [Line 70] : conditional_expression => logical_OR_expression
+INFO [Line 70] : assignment_expression => conditional_expression
+INFO [Line 70] : expression => assignment_expression
+
 -------------------- Parsing Line No. 71  --------------------
+
+INFO [Line 71] : jump_statement => goto IDENTIFIER ;
+				IDENTIFIER = some_label
+INFO [Line 71] : statement => jump_statement
+
 -------------------- Parsing Line No. 72  --------------------
+
+INFO [Line 72] : selection_statement => if ( expression ) statement
+INFO [Line 72] : statement => selection_statement
+INFO [Line 72] : block_item => statement
+INFO [Line 72] : block_item_list => block_item_list block_item
+
 -------------------- Parsing Line No. 73  --------------------
+
+INFO [Line 73] : jump_statement => continue ;
+INFO [Line 73] : statement => jump_statement
+INFO [Line 73] : labeled_statement => IDENTIFIER : statement
+				IDENTIFIER = some_label
+INFO [Line 73] : statement => labeled_statement
+INFO [Line 73] : block_item => statement
+INFO [Line 73] : block_item_list => block_item_list block_item
+
 -------------------- Parsing Line No. 74  --------------------
-INFO [Line 74] : primary_expression -> IDENTIFIER
+
+INFO [Line 74] : block_item_list_opt => block_item_list
+INFO [Line 74] : compound_statement => { block_item_list_opt }
+INFO [Line 74] : statement => compound_statement
+INFO [Line 74] : primary_expression => IDENTIFIER
 				IDENTIFIER = n2
-INFO [Line 74] : primary_expression -> INTEGER_CONSTANT
+INFO [Line 74] : postfix_expression => primary_expression
+INFO [Line 74] : unary_expression => postfix_expression
+INFO [Line 74] : cast_expression => unary_expression
+INFO [Line 74] : multiplicative_expression => cast_expression
+INFO [Line 74] : additive_expression => multiplicative_expression
+INFO [Line 74] : shift_expression => additive_expression
+INFO [Line 74] : relational_expression => shift_expression
+INFO [Line 74] : equality_expression => relational_expression
+INFO [Line 74] : unary_operator => -
+INFO [Line 74] : primary_expression => INTEGER_CONSTANT
 				INTEGER_CONSTANT = 1
-INFO [Line 74] : primary_expression -> IDENTIFIER
+INFO [Line 74] : postfix_expression => primary_expression
+INFO [Line 74] : unary_expression => postfix_expression
+INFO [Line 74] : cast_expression => unary_expression
+INFO [Line 74] : unary_expression => unary_operator cast_expression
+INFO [Line 74] : cast_expression => unary_expression
+INFO [Line 74] : multiplicative_expression => cast_expression
+INFO [Line 74] : additive_expression => multiplicative_expression
+INFO [Line 74] : shift_expression => additive_expression
+INFO [Line 74] : relational_expression => shift_expression
+INFO [Line 74] : equality_expression => equality_expression != relational_expression
+INFO [Line 74] : AND_expression => equality_expression
+INFO [Line 74] : exclusive_OR_expression => AND_expression
+INFO [Line 74] : inclusive_OR_expression => exclusive_OR_expression
+INFO [Line 74] : logical_AND_expression => inclusive_OR_expression
+INFO [Line 74] : logical_OR_expression => logical_AND_expression
+INFO [Line 74] : unary_operator => !
+INFO [Line 74] : primary_expression => IDENTIFIER
 				IDENTIFIER = n1
+INFO [Line 74] : postfix_expression => primary_expression
+INFO [Line 74] : unary_expression => postfix_expression
+INFO [Line 74] : cast_expression => unary_expression
+INFO [Line 74] : unary_expression => unary_operator cast_expression
+INFO [Line 74] : cast_expression => unary_expression
+INFO [Line 74] : multiplicative_expression => cast_expression
+INFO [Line 74] : additive_expression => multiplicative_expression
+INFO [Line 74] : shift_expression => additive_expression
+INFO [Line 74] : relational_expression => shift_expression
+INFO [Line 74] : equality_expression => relational_expression
+INFO [Line 74] : AND_expression => equality_expression
+INFO [Line 74] : exclusive_OR_expression => AND_expression
+INFO [Line 74] : inclusive_OR_expression => exclusive_OR_expression
+INFO [Line 74] : logical_AND_expression => inclusive_OR_expression
+INFO [Line 74] : logical_OR_expression => logical_OR_expression || logical_AND_expression
+INFO [Line 74] : conditional_expression => logical_OR_expression
+INFO [Line 74] : assignment_expression => conditional_expression
+INFO [Line 74] : expression => assignment_expression
+INFO [Line 74] : iteration_statement => do statement while ( expression ) ;
+INFO [Line 74] : statement => iteration_statement
+INFO [Line 74] : block_item => statement
+INFO [Line 74] : block_item_list => block_item_list block_item
+
 -------------------- Parsing Line No. 75  --------------------
+
+
 -------------------- Parsing Line No. 76  --------------------
+
+INFO [Line 76] : expression_opt => epsilon
+INFO [Line 76] : jump_statement => return expression_opt ;
+INFO [Line 76] : statement => jump_statement
+INFO [Line 76] : block_item => statement
+INFO [Line 76] : block_item_list => block_item_list block_item
+
 -------------------- Parsing Line No. 77  --------------------
+
+INFO [Line 77] : block_item_list_opt => block_item_list
+INFO [Line 77] : compound_statement => { block_item_list_opt }
+INFO [Line 77] : function_definition => declaration_specifiers declarator declaration_list_opt compound_statement
+INFO [Line 77] : external_declaration => function_definition
+INFO [Line 77] : translation_unit => translation_unit external_declaration
+
 -------------------- Parsing Line No. 78  --------------------
+
