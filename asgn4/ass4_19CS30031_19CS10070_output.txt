@@ -1,0 +1,296 @@
+-------------------- Parsing Line No. 1  --------------------
+-------------------- Parsing Line No. 2  --------------------
+-------------------- Parsing Line No. 3  --------------------
+-------------------- Parsing Line No. 4  --------------------
+-------------------- Parsing Line No. 5  --------------------
+-------------------- Parsing Line No. 6  --------------------
+-------------------- Parsing Line No. 7  --------------------
+-------------------- Parsing Line No. 8  --------------------
+INFO [Line 8] : direct_declarator -> IDENTIFIER
+				IDENTIFIER = foo
+INFO [Line 8] : direct_declarator -> IDENTIFIER
+				IDENTIFIER = p
+-------------------- Parsing Line No. 9  --------------------
+INFO [Line 9] : direct_declarator -> IDENTIFIER
+				IDENTIFIER = a
+INFO [Line 9] : primary_expression -> INTEGER_CONSTANT
+				INTEGER_CONSTANT = 1
+-------------------- Parsing Line No. 10  --------------------
+INFO [Line 10] : direct_declarator -> IDENTIFIER
+				IDENTIFIER = b
+-------------------- Parsing Line No. 11  --------------------
+INFO [Line 11] : direct_declarator -> IDENTIFIER
+				IDENTIFIER = c
+-------------------- Parsing Line No. 12  --------------------
+INFO [Line 12] : direct_declarator -> IDENTIFIER
+				IDENTIFIER = d
+-------------------- Parsing Line No. 13  --------------------
+INFO [Line 13] : primary_expression -> IDENTIFIER
+				IDENTIFIER = a
+-------------------- Parsing Line No. 14  --------------------
+-------------------- Parsing Line No. 15  --------------------
+-------------------- Parsing Line No. 16  --------------------
+INFO [Line 16] : identifier_opt -> IDENTIFIER
+				IDENTIFIER = myenum
+-------------------- Parsing Line No. 17  --------------------
+INFO [Line 17] : enumerator -> ENUMERATION_CONSTANT
+				ENUMERATION_CONSTANT = TAG1
+INFO [Line 17] : enumerator_list -> enumerator
+INFO [Line 17] : enumerator -> ENUMERATION_CONSTANT
+				ENUMERATION_CONSTANT = TAG2
+INFO [Line 17] : enumerator -> ENUMERATION_CONSTANT
+				ENUMERATION_CONSTANT = TAG3
+-------------------- Parsing Line No. 18  --------------------
+INFO [Line 18] : type_specifier -> enum_specifier
+-------------------- Parsing Line No. 19  --------------------
+-------------------- Parsing Line No. 20  --------------------
+INFO [Line 20] : direct_declarator -> IDENTIFIER
+				IDENTIFIER = ms2
+-------------------- Parsing Line No. 21  --------------------
+-------------------- Parsing Line No. 22  --------------------
+INFO [Line 22] : direct_declarator -> IDENTIFIER
+				IDENTIFIER = main
+-------------------- Parsing Line No. 23  --------------------
+INFO [Line 23] : direct_declarator -> IDENTIFIER
+				IDENTIFIER = n1
+INFO [Line 23] : primary_expression -> INTEGER_CONSTANT
+				INTEGER_CONSTANT = 4
+-------------------- Parsing Line No. 24  --------------------
+INFO [Line 24] : direct_declarator -> IDENTIFIER
+				IDENTIFIER = i
+INFO [Line 24] : primary_expression -> IDENTIFIER
+				IDENTIFIER = n1
+INFO [Line 24] : primary_expression -> IDENTIFIER
+				IDENTIFIER = i
+INFO [Line 24] : primary_expression -> IDENTIFIER
+				IDENTIFIER = n1
+INFO [Line 24] : primary_expression -> IDENTIFIER
+				IDENTIFIER = i
+INFO [Line 24] : primary_expression -> INTEGER_CONSTANT
+				INTEGER_CONSTANT = 0
+INFO [Line 24] : primary_expression -> IDENTIFIER
+				IDENTIFIER = i
+-------------------- Parsing Line No. 25  --------------------
+INFO [Line 25] : primary_expression -> IDENTIFIER
+				IDENTIFIER = n1
+INFO [Line 25] : primary_expression -> INTEGER_CONSTANT
+				INTEGER_CONSTANT = 2
+-------------------- Parsing Line No. 26  --------------------
+INFO [Line 26] : primary_expression -> IDENTIFIER
+				IDENTIFIER = n1
+INFO [Line 26] : primary_expression -> INTEGER_CONSTANT
+				INTEGER_CONSTANT = 2
+-------------------- Parsing Line No. 27  --------------------
+INFO [Line 27] : primary_expression -> IDENTIFIER
+				IDENTIFIER = n1
+INFO [Line 27] : primary_expression -> INTEGER_CONSTANT
+				INTEGER_CONSTANT = 1
+INFO [Line 27] : primary_expression -> IDENTIFIER
+				IDENTIFIER = n1
+INFO [Line 27] : primary_expression -> INTEGER_CONSTANT
+				INTEGER_CONSTANT = 1
+-------------------- Parsing Line No. 28  --------------------
+INFO [Line 28] : primary_expression -> IDENTIFIER
+				IDENTIFIER = n1
+INFO [Line 28] : primary_expression -> IDENTIFIER
+				IDENTIFIER = n1
+INFO [Line 28] : primary_expression -> IDENTIFIER
+				IDENTIFIER = n1
+INFO [Line 28] : primary_expression -> IDENTIFIER
+				IDENTIFIER = n1
+-------------------- Parsing Line No. 29  --------------------
+INFO [Line 29] : primary_expression -> IDENTIFIER
+				IDENTIFIER = n1
+INFO [Line 29] : primary_expression -> IDENTIFIER
+				IDENTIFIER = n1
+-------------------- Parsing Line No. 30  --------------------
+INFO [Line 30] : primary_expression -> IDENTIFIER
+				IDENTIFIER = n1
+INFO [Line 30] : primary_expression -> IDENTIFIER
+				IDENTIFIER = n1
+-------------------- Parsing Line No. 31  --------------------
+INFO [Line 31] : primary_expression -> IDENTIFIER
+				IDENTIFIER = n1
+INFO [Line 31] : primary_expression -> INTEGER_CONSTANT
+				INTEGER_CONSTANT = 2
+INFO [Line 31] : primary_expression -> INTEGER_CONSTANT
+				INTEGER_CONSTANT = 0
+-------------------- Parsing Line No. 32  --------------------
+INFO [Line 32] : primary_expression -> IDENTIFIER
+				IDENTIFIER = printf
+INFO [Line 32] : primary_expression -> STRING_LITERAL
+				STRING_LITERAL = "n = %d\n"
+INFO [Line 32] : primary_expression -> IDENTIFIER
+				IDENTIFIER = n1
+-------------------- Parsing Line No. 33  --------------------
+-------------------- Parsing Line No. 34  --------------------
+INFO [Line 34] : primary_expression -> IDENTIFIER
+				IDENTIFIER = n1
+INFO [Line 34] : primary_expression -> IDENTIFIER
+				IDENTIFIER = n1
+INFO [Line 34] : primary_expression -> IDENTIFIER
+				IDENTIFIER = n1
+INFO [Line 34] : primary_expression -> IDENTIFIER
+				IDENTIFIER = n1
+INFO [Line 34] : primary_expression -> INTEGER_CONSTANT
+				INTEGER_CONSTANT = 1
+-------------------- Parsing Line No. 35  --------------------
+INFO [Line 35] : primary_expression -> IDENTIFIER
+				IDENTIFIER = n1
+INFO [Line 35] : primary_expression -> INTEGER_CONSTANT
+				INTEGER_CONSTANT = 2
+-------------------- Parsing Line No. 36  --------------------
+INFO [Line 36] : primary_expression -> IDENTIFIER
+				IDENTIFIER = n1
+INFO [Line 36] : primary_expression -> INTEGER_CONSTANT
+				INTEGER_CONSTANT = 2
+-------------------- Parsing Line No. 37  --------------------
+-------------------- Parsing Line No. 38  --------------------
+-------------------- Parsing Line No. 39  --------------------
+-------------------- Parsing Line No. 40  --------------------
+INFO [Line 40] : direct_declarator -> IDENTIFIER
+				IDENTIFIER = d1
+INFO [Line 40] : primary_expression -> FLOATING_CONSTANT
+				FLOATING_CONSTANT = 234.000000
+-------------------- Parsing Line No. 41  --------------------
+INFO [Line 41] : direct_declarator -> IDENTIFIER
+				IDENTIFIER = d2
+INFO [Line 41] : primary_expression -> FLOATING_CONSTANT
+				FLOATING_CONSTANT = 23400.000000
+-------------------- Parsing Line No. 42  --------------------
+INFO [Line 42] : direct_declarator -> IDENTIFIER
+				IDENTIFIER = d3
+INFO [Line 42] : primary_expression -> FLOATING_CONSTANT
+				FLOATING_CONSTANT = 0.000000
+-------------------- Parsing Line No. 43  --------------------
+INFO [Line 43] : direct_declarator -> IDENTIFIER
+				IDENTIFIER = f1
+INFO [Line 43] : primary_expression -> FLOATING_CONSTANT
+				FLOATING_CONSTANT = 0.234000
+-------------------- Parsing Line No. 44  --------------------
+INFO [Line 44] : direct_declarator -> IDENTIFIER
+				IDENTIFIER = f2
+INFO [Line 44] : primary_expression -> FLOATING_CONSTANT
+				FLOATING_CONSTANT = 0.002340
+-------------------- Parsing Line No. 45  --------------------
+INFO [Line 45] : direct_declarator -> IDENTIFIER
+				IDENTIFIER = f3
+INFO [Line 45] : primary_expression -> FLOATING_CONSTANT
+				FLOATING_CONSTANT = 23.400000
+-------------------- Parsing Line No. 46  --------------------
+INFO [Line 46] : direct_declarator -> IDENTIFIER
+				IDENTIFIER = f4
+INFO [Line 46] : primary_expression -> FLOATING_CONSTANT
+				FLOATING_CONSTANT = 122.339996
+-------------------- Parsing Line No. 47  --------------------
+INFO [Line 47] : direct_declarator -> IDENTIFIER
+				IDENTIFIER = l
+INFO [Line 47] : primary_expression -> INTEGER_CONSTANT
+				INTEGER_CONSTANT = 17409235
+-------------------- Parsing Line No. 48  --------------------
+INFO [Line 48] : direct_declarator -> IDENTIFIER
+				IDENTIFIER = s
+INFO [Line 48] : primary_expression -> INTEGER_CONSTANT
+				INTEGER_CONSTANT = 12
+-------------------- Parsing Line No. 49  --------------------
+INFO [Line 49] : direct_declarator -> IDENTIFIER
+				IDENTIFIER = c
+INFO [Line 49] : primary_expression -> CHARACTER_CONSTANT
+				CHARACTER_CONSTANT = '\?'
+-------------------- Parsing Line No. 50  --------------------
+INFO [Line 50] : direct_declarator -> IDENTIFIER
+				IDENTIFIER = s1
+INFO [Line 50] : primary_expression -> STRING_LITERAL
+				STRING_LITERAL = "A string // comments dont work here :P /* not even multiline ones */"
+-------------------- Parsing Line No. 51  --------------------
+INFO [Line 51] : direct_declarator -> IDENTIFIER
+				IDENTIFIER = s2
+INFO [Line 51] : primary_expression -> STRING_LITERAL
+				STRING_LITERAL = ""
+-------------------- Parsing Line No. 52  --------------------
+INFO [Line 52] : direct_declarator -> IDENTIFIER
+				IDENTIFIER = n2
+INFO [Line 52] : primary_expression -> IDENTIFIER
+				IDENTIFIER = n1
+INFO [Line 52] : primary_expression -> IDENTIFIER
+				IDENTIFIER = s
+INFO [Line 52] : primary_expression -> INTEGER_CONSTANT
+				INTEGER_CONSTANT = 1
+INFO [Line 52] : primary_expression -> INTEGER_CONSTANT
+				INTEGER_CONSTANT = 2
+-------------------- Parsing Line No. 53  --------------------
+INFO [Line 53] : primary_expression -> IDENTIFIER
+				IDENTIFIER = n2
+-------------------- Parsing Line No. 54  --------------------
+-------------------- Parsing Line No. 55  --------------------
+INFO [Line 55] : primary_expression -> IDENTIFIER
+				IDENTIFIER = mystruct
+INFO [Line 55] : primary_expression -> IDENTIFIER
+				IDENTIFIER = ms1
+-------------------- Parsing Line No. 56  --------------------
+INFO [Line 56] : primary_expression -> IDENTIFIER
+				IDENTIFIER = ms1
+-------------------- Parsing Line No. 57  --------------------
+INFO [Line 57] : primary_expression -> INTEGER_CONSTANT
+				INTEGER_CONSTANT = 1
+-------------------- Parsing Line No. 58  --------------------
+INFO [Line 58] : primary_expression -> IDENTIFIER
+				IDENTIFIER = ms2
+INFO [Line 58] : primary_expression -> IDENTIFIER
+				IDENTIFIER = n2
+-------------------- Parsing Line No. 59  --------------------
+INFO [Line 59] : primary_expression -> IDENTIFIER
+				IDENTIFIER = ms2
+INFO [Line 59] : primary_expression -> IDENTIFIER
+				IDENTIFIER = ms2
+-------------------- Parsing Line No. 60  --------------------
+-------------------- Parsing Line No. 61  --------------------
+-------------------- Parsing Line No. 62  --------------------
+-------------------- Parsing Line No. 63  --------------------
+-------------------- Parsing Line No. 64  --------------------
+-------------------- Parsing Line No. 65  --------------------
+-------------------- Parsing Line No. 66  --------------------
+INFO [Line 66] : primary_expression -> IDENTIFIER
+				IDENTIFIER = s
+INFO [Line 66] : primary_expression -> INTEGER_CONSTANT
+				INTEGER_CONSTANT = 2
+-------------------- Parsing Line No. 67  --------------------
+INFO [Line 67] : primary_expression -> IDENTIFIER
+				IDENTIFIER = s
+INFO [Line 67] : primary_expression -> INTEGER_CONSTANT
+				INTEGER_CONSTANT = 2
+-------------------- Parsing Line No. 68  --------------------
+INFO [Line 68] : primary_expression -> IDENTIFIER
+				IDENTIFIER = s
+INFO [Line 68] : primary_expression -> IDENTIFIER
+				IDENTIFIER = s
+-------------------- Parsing Line No. 69  --------------------
+INFO [Line 69] : primary_expression -> IDENTIFIER
+				IDENTIFIER = s
+INFO [Line 69] : primary_expression -> IDENTIFIER
+				IDENTIFIER = s
+INFO [Line 69] : primary_expression -> IDENTIFIER
+				IDENTIFIER = s
+-------------------- Parsing Line No. 70  --------------------
+INFO [Line 70] : primary_expression -> IDENTIFIER
+				IDENTIFIER = s
+INFO [Line 70] : primary_expression -> INTEGER_CONSTANT
+				INTEGER_CONSTANT = 10
+INFO [Line 70] : primary_expression -> IDENTIFIER
+				IDENTIFIER = s
+INFO [Line 70] : primary_expression -> INTEGER_CONSTANT
+				INTEGER_CONSTANT = 0
+-------------------- Parsing Line No. 71  --------------------
+-------------------- Parsing Line No. 72  --------------------
+-------------------- Parsing Line No. 73  --------------------
+-------------------- Parsing Line No. 74  --------------------
+INFO [Line 74] : primary_expression -> IDENTIFIER
+				IDENTIFIER = n2
+INFO [Line 74] : primary_expression -> INTEGER_CONSTANT
+				INTEGER_CONSTANT = 1
+INFO [Line 74] : primary_expression -> IDENTIFIER
+				IDENTIFIER = n1
+-------------------- Parsing Line No. 75  --------------------
+-------------------- Parsing Line No. 76  --------------------
+-------------------- Parsing Line No. 77  --------------------
+-------------------- Parsing Line No. 78  --------------------

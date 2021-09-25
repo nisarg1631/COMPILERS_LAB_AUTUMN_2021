@@ -315,7 +315,7 @@ type_specifier:
                 | _BOOL
                 | _COMPLEX
                 | _IMAGINARY
-                | enum_specifier
+                | enum_specifier { yyinfo("type_specifier -> enum_specifier"); }
                 ;
 
 specifier_qualifier_list:
@@ -329,23 +329,23 @@ specifier_qualifier_list_opt:
                                 ;
 
 enum_specifier:
-                ENUM identifier_opt LEFT_CURLY_BRACKET enumerator_list RIGHT_CURLY_BRACKET
-                ENUM identifier_opt LEFT_CURLY_BRACKET enumerator_list COMMA RIGHT_CURLY_BRACKET
-                ENUM IDENTIFIER
+                ENUM identifier_opt LEFT_CURLY_BRACKET enumerator_list RIGHT_CURLY_BRACKET { yyinfo("enum_specifier -> enum identifier_opt { enumerator_list }"); }
+                | ENUM identifier_opt LEFT_CURLY_BRACKET enumerator_list COMMA RIGHT_CURLY_BRACKET
+                | ENUM IDENTIFIER
                 ;
 
 identifier_opt:
-                IDENTIFIER
-                |
+                IDENTIFIER { yyinfo("identifier_opt -> IDENTIFIER"); printf("\t\t\t\tIDENTIFIER = %s\n", $1); }
+                | { yyinfo("identifier_opt -> epsilon"); }
                 ;
 
 enumerator_list:
-                enumerator
+                enumerator { yyinfo("enumerator_list -> enumerator"); }
                 | enumerator_list COMMA enumerator
                 ;
 
 enumerator:
-            IDENTIFIER
+            IDENTIFIER { yyinfo("enumerator -> ENUMERATION_CONSTANT"); printf("\t\t\t\tENUMERATION_CONSTANT = %s\n", $1); }
             | IDENTIFIER ASSIGNMENT constant_expression
             ;
 
@@ -420,7 +420,7 @@ parameter_declaration:
                         ;
 
 identifier_list:
-                IDENTIFIER { yyinfo("identifier_list -> IDENTIFIER"); }
+                IDENTIFIER { yyinfo("identifier_list -> IDENTIFIER"); printf("\t\t\t\tIDENTIFIER = %s\n", $1); }
                 | identifier_list COMMA IDENTIFIER
                 ;
 

@@ -131,10 +131,10 @@ NEWLINE                 \n
 "/*"                            { BEGIN(MULTI_LINE_COMMENT_BODY); }
 <MULTI_LINE_COMMENT_BODY>"*/"   { BEGIN(INITIAL); }
 <MULTI_LINE_COMMENT_BODY>.      { }
-<MULTI_LINE_COMMENT_BODY>"\n"   { }
+<MULTI_LINE_COMMENT_BODY>"\n"   { lineCount++; printf("-------------------- Parsing Line No. %d  --------------------\n", lineCount); }
 
 "//"                            { BEGIN(SINGLE_LINE_COMMENT_BODY); }
-<SINGLE_LINE_COMMENT_BODY>"\n"  { BEGIN(INITIAL); }
+<SINGLE_LINE_COMMENT_BODY>"\n"  { BEGIN(INITIAL); lineCount++; printf("-------------------- Parsing Line No. %d  --------------------\n", lineCount); }
 <SINGLE_LINE_COMMENT_BODY>.     { }
 
 {WHITESPACE}                    { }
