@@ -1,7 +1,9 @@
 %{
     #include <stdio.h>
     extern int yylex();
-    void yyerror(char *s);
+    extern int lineCount;
+    void yyerror(char *);
+    void yyinfo(char *);
 %}
 
 %union {
@@ -455,6 +457,101 @@ designator:
 
 /* Statements */
 
+statement:
+            labeled_statement
+            | compound_statement
+            | expression_statement
+            | selection_statement
+            | iteration_statement
+            | jump_statement
+            ;
 
+labeled_statement:
+                    IDENTIFIER COLON statement
+                    | CASE constant_expression COLON statement
+                    | DEFAULT COLON statement
+                    ;
+
+compound_statement:
+                    LEFT_CURLY_BRACKET block_item_list_opt RIGHT_CURLY_BRACKET
+                    ;
+
+block_item_list_opt:
+                    block_item_list
+                    |
+                    ;
+
+block_item_list:
+                block_item
+                | block_item_list block_item
+                ;
+
+block_item:
+            declaration
+            | statement
+            ;
+
+expression_statement:
+                        expression_opt SEMI_COLON
+                        ;
+
+expression_opt:
+                expression
+                |
+                ;
+
+selection_statement:
+                    IF LEFT_PARENTHESES expression RIGHT_PARENTHESES statement
+                    | IF LEFT_PARENTHESES expression RIGHT_PARENTHESES statement ELSE statement
+                    | SWITCH LEFT_PARENTHESES expression RIGHT_PARENTHESES statement
+                    ;
+
+iteration_statement:
+                    WHILE LEFT_PARENTHESES expression RIGHT_PARENTHESES statement
+                    | DO statement WHILE LEFT_PARENTHESES expression RIGHT_PARENTHESES SEMI_COLON
+                    | FOR LEFT_PARENTHESES expression_opt SEMI_COLON expression_opt SEMI_COLON expression_opt RIGHT_PARENTHESES statement
+                    | FOR LEFT_PARENTHESES declaration expression_opt SEMI_COLON expression_opt RIGHT_PARENTHESES statement
+                    ;
+
+jump_statement:
+                GOTO IDENTIFIER SEMI_COLON
+                | CONTINUE SEMI_COLON
+                | BREAK SEMI_COLON
+                | RETURN expression_opt SEMI_COLON
+                ;
+
+/* External definitions */
+
+translation_unit:
+                    external_declaration
+                    | translation_unit external_declaration
+                    ;
+
+external_declaration:
+                        function_definition
+                        | declaration
+                        ;
+
+function_definition:
+                    declaration_specifiers declarator declaration_list_opt compound_statement
+                    ;
+
+declaration_list_opt:
+                        declaration_list
+                        |
+                        ;
+
+declaration_list:
+                    declaration
+                    | declaration_list declaration
+                    ;
 
 %%
+
+void yyerror(char* s) {
+    printf("ERROR [Line %d] : %s\n", lineCount, s);
+}
+
+void yyinfo(char* s) {
+    printf("INFO [Line %d] : %s\n", lineCount, s);
+}
