@@ -376,7 +376,8 @@ type_specifier: /* { yyinfo("type_specifier => "); } */
                 | _BOOL
                 | _COMPLEX
                 | _IMAGINARY
-                | enum_specifier { yyinfo("type_specifier => enum_specifier"); }
+                | enum_specifier 
+                    { yyinfo("type_specifier => enum_specifier"); }
                 ;
 
 specifier_qualifier_list:   /* { yyinfo("specifier_qualifier_list => "); } */
@@ -396,17 +397,21 @@ enum_specifier: /* { yyinfo("enum_specifier => "); } */
                 ;
 
 identifier_opt: /* { yyinfo("identifier_opt => "); } */
-                IDENTIFIER { yyinfo("identifier_opt => IDENTIFIER"); printf("\t\t\t\tIDENTIFIER = %s\n", $1); }
-                | { yyinfo("identifier_opt => epsilon"); }
+                IDENTIFIER 
+                    { yyinfo("identifier_opt => IDENTIFIER"); printf("\t\t\t\tIDENTIFIER = %s\n", $1); }
+                | 
+                    { yyinfo("identifier_opt => epsilon"); }
                 ;
 
 enumerator_list:    /* { yyinfo("enumerator_list => "); } */
-                enumerator { yyinfo("enumerator_list => enumerator"); }
+                enumerator 
+                    { yyinfo("enumerator_list => enumerator"); }
                 | enumerator_list COMMA enumerator
                 ;
 
 enumerator: /* { yyinfo("enumerator => "); } */
-            IDENTIFIER { yyinfo("enumerator => ENUMERATION_CONSTANT"); printf("\t\t\t\tENUMERATION_CONSTANT = %s\n", $1); }
+            IDENTIFIER 
+                { yyinfo("enumerator => ENUMERATION_CONSTANT"); printf("\t\t\t\tENUMERATION_CONSTANT = %s\n", $1); }
             | IDENTIFIER ASSIGNMENT constant_expression
             ;
 
@@ -430,7 +435,8 @@ pointer_opt:    /* { yyinfo("pointer_opt => "); } */
             ;
 
 direct_declarator:  /* { yyinfo("direct_declarator => "); } */
-                    IDENTIFIER { yyinfo("direct_declarator => IDENTIFIER"); printf("\t\t\t\tIDENTIFIER = %s\n", $1); }
+                    IDENTIFIER 
+                        { yyinfo("direct_declarator => IDENTIFIER"); printf("\t\t\t\tIDENTIFIER = %s\n", $1); }
                     | LEFT_PARENTHESES declarator RIGHT_PARENTHESES
                     | direct_declarator LEFT_SQUARE_BRACKET type_qualifier_list_opt assignment_expression_opt RIGHT_SQUARE_BRACKET
                     | direct_declarator LEFT_SQUARE_BRACKET STATIC type_qualifier_list_opt assignment_expression RIGHT_SQUARE_BRACKET
@@ -481,7 +487,8 @@ parameter_declaration:  /* { yyinfo("parameter_declaration => "); } */
                         ;
 
 identifier_list:    /* { yyinfo("identifier_list => "); } */
-                IDENTIFIER { yyinfo("identifier_list => IDENTIFIER"); printf("\t\t\t\tIDENTIFIER = %s\n", $1); }
+                IDENTIFIER 
+                    { yyinfo("identifier_list => IDENTIFIER"); printf("\t\t\t\tIDENTIFIER = %s\n", $1); }
                 | identifier_list COMMA IDENTIFIER
                 ;
 
