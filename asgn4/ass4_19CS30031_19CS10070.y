@@ -110,6 +110,8 @@
 
 %%
 
+/* Expressions */
+
 primary_expression: 
                     IDENTIFIER
                     | INTEGER_CONSTANT
@@ -180,5 +182,279 @@ additive_expression:
 shift_expression:
                     additive_expression
                     | shift_expression LEFT_SHIFT additive_expression
+                    | shift_expression RIGHT_SHIFT additive_expression
+                    ;
+
+relational_expression:
+                        shift_expression
+                        | relational_expression LESS_THAN shift_expression
+                        | relational_expression GREATER_THAN shift_expression
+                        | relational_expression LESS_EQUAL_THAN shift_expression
+                        | relational_expression GREATER_EQUAL_THAN shift_expression
+                        ;
+
+equality_expression:
+                    relational_expression
+                    | equality_expression EQUALS relational_expression
+                    | equality_expression NOT_EQUALS relational_expression
+                    ;
+
+AND_expression:
+                equality_expression
+                | AND_expression BITWISE_AND equality_expression
+                ;
+
+exclusive_OR_expression:
+                        AND_expression
+                        | exclusive_OR_expression BITWISE_XOR AND_expression
+                        ;
+
+inclusive_OR_expression:
+                        exclusive_OR_expression
+                        | inclusive_OR_expression BITWISE_OR exclusive_OR_expression
+                        ;
+
+logical_AND_expression:
+                        inclusive_OR_expression
+                        | logical_AND_expression LOGICAL_AND inclusive_OR_expression
+                        ;
+
+logical_OR_expression:
+                        logical_AND_expression
+                        | logical_OR_expression LOGICAL_OR logical_AND_expression
+                        ;
+
+conditional_expression:
+                        logical_OR_expression
+                        | logical_OR_expression QUESTION_MARK expression COLON conditional_expression
+                        ;
+
+assignment_expression:
+                        conditional_expression
+                        | unary_expression assignment_operator assignment_expression
+                        ;
+
+assignment_operator:
+                    ASSIGNMENT
+                    | ASTERISK_ASSIGNMENT
+                    | SLASH_ASSIGNMENT
+                    | MODULO_ASSIGNMENT
+                    | PLUS_ASSIGNMENT
+                    | MINUS_ASSIGNMENT
+                    | LEFT_SHIFT_ASSIGNMENT
+                    | RIGHT_SHIFT_ASSIGNMENT
+                    | BITWISE_AND_ASSIGNMENT
+                    | BITWISE_XOR_ASSIGNMENT
+                    | BITWISE_OR_ASSIGNMENT
+                    ;
+
+expression:
+            assignment_expression
+            | expression COMMA assignment_expression
+            ;
+
+constant_expression:
+                    conditional_expression
+                    ;
+
+/* Declarations */
+
+declaration:
+            declaration_specifiers init_declarator_list_opt SEMI_COLON
+            ;
+
+init_declarator_list_opt:
+                            init_declarator_list
+                            |
+                            ;
+
+declaration_specifiers:
+                        storage_class_specifier declaration_specifiers_opt
+                        | type_specifier declaration_specifiers_opt
+                        | type_qualifier declaration_specifiers_opt
+                        | function_specifier declaration_specifiers_opt
+                        ;
+
+declaration_specifiers_opt:
+                            declaration_specifiers
+                            |
+                            ;
+
+init_declarator_list:
+                        init_declarator
+                        | init_declarator_list COMMA init_declarator
+                        ;
+
+init_declarator:
+                declarator
+                | declarator ASSIGNMENT initialiser
+                ;
+
+storage_class_specifier:
+                        EXTERN
+                        | STATIC
+                        | AUTO
+                        | REGISTER
+                        ;
+
+type_specifier:
+                VOID
+                | CHAR
+                | SHORT
+                | INT
+                | LONG
+                | FLOAT
+                | DOUBLE
+                | SIGNED
+                | UNSIGNED
+                | _BOOL
+                | _COMPLEX
+                | _IMAGINARY
+                | enum_specifier
+                ;
+
+specifier_qualifier_list:
+                            type_specifier specifier_qualifier_list_opt
+                            | type_qualifier specifier_qualifier_list_opt
+                            ;
+
+specifier_qualifier_list_opt:
+                                specifier_qualifier_list
+                                | 
+                                ;
+
+enum_specifier:
+                ENUM identifier_opt LEFT_CURLY_BRACKET enumerator_list RIGHT_CURLY_BRACKET
+                ENUM identifier_opt LEFT_CURLY_BRACKET enumerator_list COMMA RIGHT_CURLY_BRACKET
+                ENUM IDENTIFIER
+                ;
+
+identifier_opt:
+                IDENTIFIER
+                |
+                ;
+
+enumerator_list:
+                enumerator
+                | enumerator_list COMMA enumerator
+                ;
+
+enumerator:
+            IDENTIFIER
+            | IDENTIFIER ASSIGNMENT constant_expression
+            ;
+
+type_qualifier:
+                CONST
+                | RESTRICT
+                | VOLATILE
+                ;
+
+function_specifier:
+                    INLINE
+                    ;
+
+declarator:
+            pointer_opt direct_declarator
+            ;
+
+pointer_opt:
+            pointer
+            |
+            ;
+
+direct_declarator:
+                    IDENTIFIER
+                    | LEFT_PARENTHESES declarator RIGHT_PARENTHESES
+                    | direct_declarator LEFT_SQUARE_BRACKET type_qualifier_list_opt assignment_expression_opt RIGHT_SQUARE_BRACKET
+                    | direct_declarator LEFT_SQUARE_BRACKET STATIC type_qualifier_list_opt assignment_expression RIGHT_SQUARE_BRACKET
+                    | direct_declarator LEFT_SQUARE_BRACKET type_qualifier_list STATIC assignment_expression RIGHT_SQUARE_BRACKET
+                    | direct_declarator LEFT_SQUARE_BRACKET type_qualifier_list_opt ASTERISK RIGHT_SQUARE_BRACKET
+                    | direct_declarator LEFT_PARENTHESES parameter_type_list RIGHT_PARENTHESES
+                    | direct_declarator LEFT_PARENTHESES identifier_list_opt RIGHT_PARENTHESES
+                    ;
+
+type_qualifier_list_opt:
+                        type_qualifier_list
+                        |
+                        ;
+
+assignment_expression_opt:
+                            assignment_expression
+                            |
+                            ;
+
+identifier_list_opt:
+                    identifier_list
+                    |
+                    ;
+
+pointer:
+        ASTERISK type_qualifier_list_opt
+        | ASTERISK type_qualifier_list_opt pointer
+        ;
+
+type_qualifier_list:
+                    type_qualifier
+                    | type_qualifier_list type_qualifier
+                    ;
+
+parameter_type_list:
+                    parameter_list
+                    | parameter_list COMMA ELLIPSIS
+                    ;
+
+parameter_list:
+                parameter_declaration
+                | parameter_list COMMA parameter_declaration
+                ;
+
+parameter_declaration:
+                        declaration_specifiers declarator
+                        | declaration_specifiers
+                        ;
+
+identifier_list:
+                IDENTIFIER
+                | identifier_list COMMA IDENTIFIER
+                ;
+
+type_name:
+            specifier_qualifier_list
+            ;
+
+initialiser:
+            assignment_expression
+            | LEFT_CURLY_BRACKET initialiser_list RIGHT_CURLY_BRACKET
+            | LEFT_CURLY_BRACKET initialiser_list COMMA RIGHT_CURLY_BRACKET
+            ;
+
+initialiser_list:
+                    designation_opt initialiser
+                    | initialiser_list COMMA designation_opt initialiser
+                    ;
+
+designation_opt:
+                designation
+                |
+                ;
+
+designation:
+            designator_list ASSIGNMENT
+            ;
+
+designator_list:
+                designator
+                | designator_list designator
+                ;
+
+designator:
+            LEFT_SQUARE_BRACKET constant_expression RIGHT_SQUARE_BRACKET
+            | DOT IDENTIFIER
+            ;
+
+/* Statements */
+
+
 
 %%
