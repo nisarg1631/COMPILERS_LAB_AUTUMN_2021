@@ -131,14 +131,14 @@ NEWLINE                 \n
 "/*"                            { BEGIN(MULTI_LINE_COMMENT_BODY); }
 <MULTI_LINE_COMMENT_BODY>"*/"   { BEGIN(INITIAL); }
 <MULTI_LINE_COMMENT_BODY>.      { }
-<MULTI_LINE_COMMENT_BODY>"\n"   { lineCount++; printf("-------------------- Parsing Line No. %d  --------------------\n", lineCount); }
+<MULTI_LINE_COMMENT_BODY>"\n"   { lineCount++; printf("\n-------------------- Parsing Line No. %d  --------------------\n\n", lineCount); }
 
 "//"                            { BEGIN(SINGLE_LINE_COMMENT_BODY); }
-<SINGLE_LINE_COMMENT_BODY>"\n"  { BEGIN(INITIAL); lineCount++; printf("-------------------- Parsing Line No. %d  --------------------\n", lineCount); }
+<SINGLE_LINE_COMMENT_BODY>"\n"  { BEGIN(INITIAL); lineCount++; printf("\n-------------------- Parsing Line No. %d  --------------------\n\n", lineCount); }
 <SINGLE_LINE_COMMENT_BODY>.     { }
 
 {WHITESPACE}                    { }
-{NEWLINE}                       { lineCount++; printf("-------------------- Parsing Line No. %d  --------------------\n", lineCount); }
+{NEWLINE}                       { lineCount++; printf("\n-------------------- Parsing Line No. %d  --------------------\n\n", lineCount); }
 .                               { printf("ERROR [Line %d] : Invalid token %s\n", lineCount, yytext); return INVALID_TOKEN; }
 
 %%
