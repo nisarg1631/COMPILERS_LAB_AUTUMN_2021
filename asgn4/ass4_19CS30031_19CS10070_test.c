@@ -77,7 +77,18 @@ signed main() {
         n2++;
     } while(n2 < 0);
 
+    int t1, t2, t3, t4, t5, t6;
+
+    t1 = t1 + t2 - t3 / t4 * t5 % t6;
+    t2 = t2<<2;
+    t2 = t2>>2;
+    t1 = t2 & t3 | t4 ^ t5;
+
     foo1(1,2,3,4,5,6);
+
+    /* . and -> test */
+    ms1.a = 3;
+    ms2->a = 4;
 
     return 0;
 }
