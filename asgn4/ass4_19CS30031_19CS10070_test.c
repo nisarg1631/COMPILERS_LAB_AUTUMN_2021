@@ -3,75 +3,81 @@
 *   // Animesh Jha - 19cs10070
 */
 
-int;
-
-inline int foo(int *restrict p, ...) {
-    auto int a = 1;
+inline void foo1(int *restrict p1, const int p2, volatile int p3, ...) {
+    auto int a;
     register int b;
     extern int c;
-    volatile int d;
-    return a;
+    static int d = 4;
 }
 
-enum myenum {
-    TAG1, TAG2, TAG3,
-};
+const char *foo2(int b[const static 8], int c[static 9], int d[], int e[const *]);
 
-static int ms2;
+enum e1;
+enum e2 { TAG1, TAG2 };
+enum { TAG3 = 0, TAG4 } e3;
 
-void main() {
-    int n1 = 4 * sizeof(int);
-    for(int i = n1; i <= n1 && i >= 0; i++) {
-        n1 /= 2;
-        n1 *= 2;
-        n1 += 1, n1 -= 1;
-        n1 = n1 ^ n1 ^ n1; 
-        n1 |= n1;
-        n1 &= n1;
-        if(n1 % 2 == 0)
-            printf("n = %d\n", n1);
-        else {
-            n1 = n1 + n1 + (-n1) / 1;
-            n1 <<= 2;
-            n1 >>= 2;
+signed main() {
+    int a[6] = { 1, 2, [2]=3 };
+    char b[] = "Test string :)";
+    char c1 = 'c';
+    char *c2 = &c1;
+    *c2 = 'a';
+    char **d = (char) { "a", b, "abc" };
+
+    unsigned long n1 = +123456789;
+    short n2 = ~16;
+    float n3 = -3.53;
+    double n4 = 2.99e-2;
+    _Bool n5 = !1;
+    double _Complex n6;
+    double _Imaginary n7;
+
+    n1 = (int) c;
+    n1 = sizeof(int);
+    n1 = sizeof n1;
+
+    n1 *= n1, n1 /= n1, n1 %= n1;
+    n1 += (n1 -= n1);
+    n1 <<= (n1 >>= n1);
+    n1 &= n1 |= n1 ^= n1;
+
+    n1 = ( (n1==0 || n1==1) && n1!=n2 ) ? n1 = 0 : n2;
+    a[n2] = n1;
+
+    RANDOM_LOC:
+        if (n3 < n4) {
+
+            switch (n2) {
+                case 0:
+                    n2++;
+                    break;
+                default:
+                    n2--;
+            }
+
+        } else if (n3 > n4) {
+            if(n2 >= n1)
+                n1++;
+        } else {
+            if(n2 <= n1)
+                n2++;
         }
-    }
+    
+    while(n2--)
+        goto RANDOM_LOC;
 
-    double d1 = 234.;
-    double d2 = 234.e2;
-    double d3 = .00;
-    const float f1 = .234;
-    float f2 = .234E-2;
-    float f3 = 0.234e+2;
-    float f4 = 12.234e01;
-    unsigned long l = 12902311123;
-    signed short s = -12;
-    char c = '\?';
-    char s1[] = "A string // comments dont work here :P /* not even multiline ones */";
-    char s2[] = "" /* Empty string check */;
-    int n2 = n1 & s ? 1 : 2;
-    n2--;
-
-    mystruct *ms1; // ok I understand this will give seg fault without allocating memory but I am not running it so :)
-    switch (ms1->b) {
-        case 1:
-            ms2.n %= n2;
-            ms2.n ^= ms2.n;
-            break;
-        default:
-            break;
+    for(;;)
+    for(int i;;)
+    for(int i=0, j=1; i!=j; i++) {
+        if(j==1)
+            continue;
     }
 
     do {
-        s << 2;
-        s >> 2;
-        s = ~s;
-        s = s | s;
-        if(s < 10 && s > 0)
-            goto some_label;
-        some_label:
-            continue;
-    } while(n2 != -1 || !n1);
+        n2++;
+    } while(n2 < 0);
 
-    return;
+    foo1(1,2,3,4,5,6);
+
+    return 0;
 }
