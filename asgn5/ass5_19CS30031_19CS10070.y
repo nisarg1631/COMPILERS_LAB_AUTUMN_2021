@@ -1,5 +1,5 @@
 %{
-    #include <stdio.h>
+    #include "ass5_19CS30031_19CS10070_translator.h"
     extern int yylex();
     extern int lineCount;
     void yyerror(char *);
@@ -12,6 +12,14 @@
     char *charVal;
     char *stringVal;
     char *identifierVal;
+    char unaryOperator;
+    int instructionNumber;
+    int parameterCount;
+    Expression *expression;
+    Statement *statement;
+    Array *array;
+    SymbolType *symbolType;
+    Symbol *symbol;
 }
 
 %token AUTO
@@ -52,7 +60,7 @@
 %token _COMPLEX
 %token _IMAGINARY
 
-%token<stringVal> IDENTIFIER
+%token<symbol> IDENTIFIER
 %token<intVal> INTEGER_CONSTANT
 %token<floatVal> FLOATING_CONSTANT
 %token<charVal> CHARACTER_CONSTANT
@@ -108,12 +116,138 @@
 
 %token INVALID_TOKEN
 
-%nonassoc RIGHT_PARENTHESES
-%nonassoc ELSE
+// Store unary operator as character
+%type<unaryOperator> 
+    unary_operator
 
+// Store parameter count as integer
+%type<parameterCount> 
+    argument_expression_list 
+    argument_expression_list_opt
+
+// Expressions
+%type <expression>
+	expression
+	primary_expression 
+	multiplicative_expression
+	additive_expression
+	shift_expression
+	relational_expression
+	equality_expression
+	AND_expression
+	exclusive_OR_expression
+	inclusive_OR_expression
+	logical_AND_expression
+	logical_OR_expression
+	conditional_expression
+	assignment_expression
+	expression_statement
+
+// Arrays
+%type <array> 
+    postfix_expression
+	unary_expression
+	cast_expression
+
+// Statements
+%type <statement>  
+    statement
+	compound_statement
+	loop_statement
+	selection_statement
+	iteration_statement
+	labeled_statement 
+	jump_statement
+	block_item
+	block_item_list
+	block_item_list_opt
+    N
+
+// symbol type
+%type <symbolType> 
+    pointer
+
+// Symbol
+%type <symbol> 
+    initialiser
+    direct_declarator 
+    init_declarator 
+    declarator
+
+//Auxillary non-terminals M and N
+%type <instructionNumber> 
+    M
+
+%right "then" ELSE
 %start translation_unit
 
 %%
+
+M: %empty 
+	{
+		$$ = nextinstr();
+	}   
+	;
+
+N: %empty
+	{
+		$$ = new Statement();
+		$$->nextList = makelist(nextinstr());
+		emit("goto", "");
+	}
+	;
+
+F: %empty 
+	{
+		// rule for identifying the start of the for statement
+		loop_name = "FOR";
+	}   
+	;
+
+W: 
+    %empty 
+        {
+            // rule for identifying the start of a while loop
+            loop_name = "WHILE";
+        }   
+	;
+
+D: 
+    %empty 
+        {
+            // rule for identifyiong the start of the do while statement
+            loop_name = "DO_WHILE";
+        }   
+	;
+
+X: 
+    %empty 
+        {
+            string name = currentTable->name + "." + blockName + "_" + toString(tableCount);
+            tableCount++;
+            Symbol *s = currentTable->lookup(name); // create new entry in symbol table
+            s->nestedTable = new SymbolTable(name, currentTable);
+            s->type = new SymbolType(SymbolType::BLOCK);
+            currentSymbol = s;
+        } 
+	;
+
+
+change_scope:   
+                %empty 
+                    {    
+                        parST = ST;                                                               // Used for changing to symbol table for a function
+                        if(currSymbolPtr->nested==NULL) 
+                        {
+                            changeTable(new symtable(""));	                                           // Function symbol table doesn't already exist	
+                        }
+                        else 
+                        {
+                            changeTable(currSymbolPtr ->nested);						               // Function symbol table already exists	
+                            emit("label", ST->name);
+                        }
+                    }
+	            ;
 
 /* Expressions */
 
