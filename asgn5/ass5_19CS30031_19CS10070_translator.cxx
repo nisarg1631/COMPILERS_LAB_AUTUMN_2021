@@ -43,8 +43,8 @@ void SymbolTable::print() {
 }
 
 // Implementation of symbol class
-Symbol::Symbol(string name, SymbolType::typeEnum type, int width, SymbolType *arrayType) : 
-    name(name), type(new SymbolType(type, width, arrayType)), offset(0), nestedTable(NULL), initialValue("-") {
+Symbol::Symbol(string name, SymbolType::typeEnum type, string init) : 
+    name(name), type(new SymbolType(type)), offset(0), nestedTable(NULL), initialValue(init) {
         size = this->type->getSize();
     }
 
@@ -52,6 +52,10 @@ Symbol *Symbol::update(SymbolType *type) {
     this->type = type;
     size = this->type->getSize();
     return this;
+}
+
+Symbol *Symbol::convert(SymbolType::typeEnum type) {
+    
 }
 
 // Implementation of label class

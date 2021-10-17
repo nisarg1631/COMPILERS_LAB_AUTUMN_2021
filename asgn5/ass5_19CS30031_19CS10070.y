@@ -8,7 +8,7 @@
 
 %union {
     int intVal;
-    float floatVal;
+    char *floatVal;
     char *charVal;
     char *stringVal;
     char *identifierVal;
@@ -116,6 +116,9 @@
 
 %token INVALID_TOKEN
 
+%start translation_unit
+%right THEN ELSE
+
 // Store unary operator as character
 %type<unaryOperator> 
     unary_operator
@@ -126,7 +129,7 @@
     argument_expression_list_opt
 
 // Expressions
-%type <expression>
+%type<expression>
 	expression
 	primary_expression 
 	multiplicative_expression
@@ -144,7 +147,7 @@
 	expression_statement
 
 // Arrays
-%type <array> 
+%type<array> 
     postfix_expression
 	unary_expression
 	cast_expression
@@ -153,7 +156,6 @@
 %type <statement>  
     statement
 	compound_statement
-	loop_statement
 	selection_statement
 	iteration_statement
 	labeled_statement 
@@ -164,38 +166,20 @@
     N
 
 // symbol type
-%type <symbolType> 
+%type<symbolType> 
     pointer
 
 // Symbol
-%type <symbol> 
+%type<symbol> 
     initialiser
     direct_declarator 
     init_declarator 
     declarator
 
-//Auxillary non-terminals M and N
 %type <instructionNumber> 
     M
 
-%right "then" ELSE
-%start translation_unit
-
 %%
-
-M: %empty 
-	{
-		$$ = nextinstr();
-	}   
-	;
-
-N: %empty
-	{
-		$$ = new Statement();
-		$$->nextList = makelist(nextinstr());
-		emit("goto", "");
-	}
-	;
 
 F: %empty 
 	{
@@ -253,34 +237,101 @@ change_scope:
 
 primary_expression: 
                     IDENTIFIER 
-                        { yyinfo("primary_expression => IDENTIFIER"); printf("\t\t\t\tIDENTIFIER = %s\n", $1); }
+                        { 
+                            yyinfo("primary_expression => IDENTIFIER"); printf("\t\t\t\tIDENTIFIER = %s\n", $1);
+                            $$ = new Expression();
+                            $$->symbol = $1;
+                            $$->type = Expression::NONBOOLEAN; 
+                        }
                     | INTEGER_CONSTANT 
-                        { yyinfo("primary_expression => INTEGER_CONSTANT"); printf("\t\t\t\tINTEGER_CONSTANT = %d\n", $1); }
+                        { 
+                            yyinfo("primary_expression => INTEGER_CONSTANT"); printf("\t\t\t\tINTEGER_CONSTANT = %d\n", $1); 
+                            $$ = new Expression();
+                            $$->symbol = gentemp(SymbolType::INT, toString($1));
+                            emit("=", $$->symbol->name, $1);
+                        }
                     | FLOATING_CONSTANT 
-                        { yyinfo("primary_expression => FLOATING_CONSTANT"); printf("\t\t\t\tFLOATING_CONSTANT = %f\n", $1); }
+                        { 
+                            yyinfo("primary_expression => FLOATING_CONSTANT"); printf("\t\t\t\tFLOATING_CONSTANT = %f\n", $1); 
+                            $$ = new Expression();
+                            $$->symbol = gentemp(SymbolType::FLOAT, $1);
+                            emit("=", $$->symbol->name, $1);
+                        }
                     | CHARACTER_CONSTANT 
-                        { yyinfo("primary_expression => CHARACTER_CONSTANT"); printf("\t\t\t\tCHARACTER_CONSTANT = %s\n", $1); }
+                        { 
+                            yyinfo("primary_expression => CHARACTER_CONSTANT"); printf("\t\t\t\tCHARACTER_CONSTANT = %s\n", $1); 
+                            $$ = new Expression();
+                            $$->symbol = gentemp(SymbolType::CHAR, $1);
+                            emit("=", $$->symbol->name, $1);
+                        }
                     | STRING_LITERAL 
-                        { yyinfo("primary_expression => STRING_LITERAL"); printf("\t\t\t\tSTRING_LITERAL = %s\n", $1); }
+                        { 
+                            yyinfo("primary_expression => STRING_LITERAL"); printf("\t\t\t\tSTRING_LITERAL = %s\n", $1); 
+                            $$ = new Expression();
+		                    $$->symbol = gentemp(SymbolType::POINTER, $1);
+		                    $$->symbol->type->arrayType = new SymbolType(SymbolType::CHAR);
+                        }
                     | LEFT_PARENTHESES expression RIGHT_PARENTHESES
-                        { yyinfo("primary_expression => ( expression )"); }
+                        { 
+                            yyinfo("primary_expression => ( expression )"); 
+                            $$ = $2;
+                        }
                     ;
 
 postfix_expression:
                     primary_expression
-                        { yyinfo("postfix_expression => primary_expression"); }
+                        { 
+                            yyinfo("postfix_expression => primary_expression"); 
+                            $$ = new Array();
+                            $$->symbol = $1->symbol;
+                            $$->temp = $1->symbol;
+                            $$->subArrayType = $1->symbol->type;
+                        }
                     | postfix_expression LEFT_SQUARE_BRACKET expression RIGHT_SQUARE_BRACKET
-                        { yyinfo("postfix_expression => postfix_expression [ expression ]"); }
+                        { 
+                            yyinfo("postfix_expression => postfix_expression [ expression ]"); 
+                            $$ = new Array();
+                            $$->symbol = $1->symbol;
+                            $$->subArrayType = $1->subArrayType->arrayType;
+                            $$->temp = gentemp(SymbolType::INT);
+
+                            if($1->type == Array::ARRAY) {
+                                Symbol *sym = gentemp(SymbolType::INT);
+                                emit("*", sym->name, $3->symbol->name, toString($$->subArrayType->getSize()));
+                                emit("+", $$->temp->name, $1->temp->name, sym->name);
+                            } else {
+                                emit("*", $$->temp->name, $3->symbol->name, toString($$->subArrayType->getSize()));
+                            }
+
+                            $$->type = Array::ARRAY;
+                        }
                     | postfix_expression LEFT_PARENTHESES argument_expression_list_opt RIGHT_PARENTHESES
-                        { yyinfo("postfix_expression => postfix_expression ( argument_expression_list_opt )"); }
+                        { 
+                            yyinfo("postfix_expression => postfix_expression ( argument_expression_list_opt )"); 
+                            $$ = new Array();
+                            $$->symbol = gentemp($1->symbol->type->type);
+                            emit("call", $$->symbol->name, $1->symbol->name, toString($3));
+                        }
                     | postfix_expression DOT IDENTIFIER
                         { yyinfo("postfix_expression => postfix_expression . IDENTIFIER"); printf("\t\t\t\tIDENTIFIER = %s\n", $3); }
                     | postfix_expression ARROW IDENTIFIER
                         { yyinfo("postfix_expression => postfix_expression -> IDENTIFIER"); printf("\t\t\t\tIDENTIFIER = %s\n", $3); }
                     | postfix_expression INCREMENT
-                        { yyinfo("postfix_expression => postfix_expression ++"); }
+                        { 
+                            yyinfo("postfix_expression => postfix_expression ++");
+                            $$ = new Array();
+                            $$->symbol = gentemp($1->symbol->type->type);
+                            emit("=", $$->symbol->name, $1->symbol->name);
+                            emit("+", $1->symbol->name, $1->symbol->name, toString(1)); 
+                        }
                     | postfix_expression DECREMENT
-                        { yyinfo("postfix_expression => postfix_expression --"); }
+                        { 
+                            yyinfo("postfix_expression => postfix_expression --"); 
+                            $$ = new Array();
+                            $$->symbol = gentemp($1->symbol->type->type);
+                            emit("=", $$->symbol->name, $1->symbol->name);
+                            emit("-", $1->symbol->name, $1->symbol->name, toString(1));
+                        }
                     | LEFT_PARENTHESES type_name RIGHT_PARENTHESES LEFT_CURLY_BRACKET initialiser_list RIGHT_CURLY_BRACKET
                         { yyinfo("postfix_expression => ( type_name ) { initialiser_list }"); }
                     | LEFT_PARENTHESES type_name RIGHT_PARENTHESES LEFT_CURLY_BRACKET initialiser_list COMMA RIGHT_CURLY_BRACKET
@@ -289,27 +340,72 @@ postfix_expression:
 
 argument_expression_list_opt:
                                 argument_expression_list
-                                    { yyinfo("argument_expression_list_opt => argument_expression_list"); }
-                                |
-                                    { yyinfo("argument_expression_list_opt => epsilon"); }
+                                    { 
+                                        yyinfo("argument_expression_list_opt => argument_expression_list"); 
+                                        $$ = $1;
+                                    }
+                                | %empty
+                                    { 
+                                        yyinfo("argument_expression_list_opt => epsilon");
+                                        $$ = 0;
+                                    }
                                 ;
 
 argument_expression_list:
                             assignment_expression
-                                { yyinfo("argument_expression_list => assignment_expression"); }
+                                { 
+                                    yyinfo("argument_expression_list => assignment_expression"); 
+                                    emit("param", $1->symbol->name);
+                                    $$ = 1;
+                                }
                             | argument_expression_list COMMA assignment_expression
-                                { yyinfo("argument_expression_list => argument_expression_list , assignment_expression"); }
+                                { 
+                                    yyinfo("argument_expression_list => argument_expression_list , assignment_expression");
+                                    emit("param", $3->symbol->name);
+                                    $$ = $1 + 1; 
+                                }
                             ;
 
 unary_expression:
                     postfix_expression
-                        { yyinfo("unary_expression => postfix_expression"); }
+                        { 
+                            yyinfo("unary_expression => postfix_expression"); 
+                            $$ = $1;
+                        }
                     | INCREMENT unary_expression
-                        { yyinfo("unary_expression => ++ unary_expression"); }
+                        { 
+                            yyinfo("unary_expression => ++ unary_expression"); 
+                            $$ = $2;
+                            emit("+", $2->symbol->name, $2->symbol->name, toString(1));
+                        }
                     | DECREMENT unary_expression
-                        { yyinfo("unary_expression => -- unary_expression"); }
+                        { 
+                            yyinfo("unary_expression => -- unary_expression"); 
+                            $$ = $2;
+                            emit("-", $2->symbol->name, $2->symbol->name, toString(1));
+                        }
                     | unary_operator cast_expression
-                        { yyinfo("unary_expression => unary_operator cast_expression"); }
+                        { 
+                            yyinfo("unary_expression => unary_operator cast_expression");
+                            if($1 == '&') {
+                                $$ = new Array();
+                                $$->symbol = gentemp(SymbolType::POINTER);
+                                $$->symbol->type->arrayType = $2->symbol->type;
+                                emit("=&", $$->symbol->name, $2->symbol->name);
+                            } else if($1 == '*') {
+                                $$ = new Array();
+                                $$->symbol = $2->symbol;
+                                $$->temp = gentemp($2->symbol->type->arrayType->type);
+                                $$->type = Array::POINTER;
+                                emit("=*", $$->temp->name, $2->symbol->name);
+                            } else if($1 == '+') {
+                                $$ = $2;
+                            } else { // for -, ~ and !
+                                $$ = new Array();
+                                $$->symbol = gentemp($2->symbol->type->type);
+                                emit(toString($1), $$->symbol->name, $2->symbol->name);
+                            }
+                        }
                     | SIZEOF unary_expression
                         { yyinfo("unary_expression => sizeof unary_expression"); }
                     | SIZEOF LEFT_PARENTHESES type_name RIGHT_PARENTHESES
@@ -318,71 +414,192 @@ unary_expression:
 
 unary_operator:
                 BITWISE_AND
-                    { yyinfo("unary_operator => &"); }
+                    { yyinfo("unary_operator => &"); $$ = '&'; }
                 | ASTERISK
-                    { yyinfo("unary_operator => *"); }
+                    { yyinfo("unary_operator => *"); $$ = '*'; }
                 | PLUS
-                    { yyinfo("unary_operator => +"); }
+                    { yyinfo("unary_operator => +"); $$ = '+'; }
                 | MINUS
-                    { yyinfo("unary_operator => -"); }
+                    { yyinfo("unary_operator => -"); $$ = '-'; }
                 | TILDE
-                    { yyinfo("unary_operator => ~"); }
+                    { yyinfo("unary_operator => ~"); $$ = '~'; }
                 | EXCLAMATION
-                    { yyinfo("unary_operator => !"); }
+                    { yyinfo("unary_operator => !"); $$ = '!'; }
                 ;
 
 cast_expression:
                 unary_expression
-                    { yyinfo("cast_expression => unary_expression"); }
+                    { 
+                        yyinfo("cast_expression => unary_expression"); 
+                        $$ = $1;
+                    }
                 | LEFT_PARENTHESES type_name RIGHT_PARENTHESES cast_expression
-                    { yyinfo("cast_expression => ( type_name ) cast_expression"); }
+                    { 
+                        yyinfo("cast_expression => ( type_name ) cast_expression"); 
+                        $$ = new Array();
+                        $$->symbol = $4->symbol->convert(currentType);
+                    }
                 ;
 
 multiplicative_expression:
                             cast_expression
-                                { yyinfo("multiplicative_expression => cast_expression"); }
+                                { 
+                                    yyinfo("multiplicative_expression => cast_expression"); 
+                                    $$ = new Expression();
+                                    if($1->type == Array::ARRAY) {
+                                        $$->symbol = gentemp($1->temp->type->type);
+                                        emit("=[]", $$->symbol->name, $1->symbol->name, $1->temp->name);
+                                    } else if($1->type == Array::POINTER) {
+                                        $$->symbol = $1->temp;
+                                    } else {
+                                        $$->symbol = $1->symbol;
+                                    }
+                                }
                             | multiplicative_expression ASTERISK cast_expression
-                                { yyinfo("multiplicative_expression => multiplicative_expression * cast_expression"); }
+                                { 
+                                    yyinfo("multiplicative_expression => multiplicative_expression * cast_expression"); 
+                                    if(typeCheck($1->symbol, $3->symbol)) {
+                                        $$ = new Expression();
+                                        $$->symbol = gentemp($1->symbol->type->type);
+                                        emit("*", $$->symbol->name, $1->symbol->name, $3->symbol->name);
+                                    } else {
+                                        yyerror("Type error.");
+                                    }
+                                }
                             | multiplicative_expression SLASH cast_expression
-                                { yyinfo("multiplicative_expression => multiplicative_expression / cast_expression"); }
+                                { 
+                                    yyinfo("multiplicative_expression => multiplicative_expression / cast_expression");
+                                    if(typeCheck($1->symbol, $3->symbol)) {
+                                        $$ = new Expression();
+                                        $$->symbol = gentemp($1->symbol->type->type);
+                                        emit("/", $$->symbol->name, $1->symbol->name, $3->symbol->name);
+                                    } else {
+                                        yyerror("Type error.");
+                                    }
+                                }
                             | multiplicative_expression MODULO cast_expression
-                                { yyinfo("multiplicative_expression => multiplicative_expression % cast_expression"); }
+                                { 
+                                    yyinfo("multiplicative_expression => multiplicative_expression % cast_expression"); 
+                                    if(typeCheck($1->symbol, $3->symbol)) {
+                                        $$ = new Expression();
+                                        $$->symbol = gentemp($1->symbol->type->type);
+                                        emit("%", $$->symbol->name, $1->symbol->name, $3->symbol->name);
+                                    } else {
+                                        yyerror("Type error.");
+                                    }
+                                }
                             ;
 
 additive_expression:
                     multiplicative_expression
-                        { yyinfo("additive_expression => multiplicative_expression"); }
+                        { 
+                            yyinfo("additive_expression => multiplicative_expression"); 
+                            $$ = $1;
+                        }
                     | additive_expression PLUS multiplicative_expression
-                        { yyinfo("additive_expression => additive_expression + multiplicative_expression"); }
+                        { 
+                            yyinfo("additive_expression => additive_expression + multiplicative_expression"); 
+                            if(typeCheck($1->symbol, $3->symbol)) {
+                                $$ = new Expression();
+                                $$->symbol = gentemp($1->symbol->type->type);
+                                emit("+", $$->symbol->name, $1->symbol->name, $3->symbol->name);
+                            } else {
+                                yyerror("Type error.");
+                            }
+                        }
                     | additive_expression MINUS multiplicative_expression
-                        { yyinfo("additive_expression => additive_expression - multiplicative_expression"); }
+                        { 
+                            yyinfo("additive_expression => additive_expression - multiplicative_expression"); 
+                            if(typeCheck($1->symbol, $3->symbol)) {
+                                $$ = new Expression();
+                                $$->symbol = gentemp($1->symbol->type->type);
+                                emit("-", $$->symbol->name, $1->symbol->name, $3->symbol->name);
+                            } else {
+                                yyerror("Type error.");
+                            }
+                        }
                     ;
 
 shift_expression:
                     additive_expression
-                        { yyinfo("shift_expression => additive_expression"); }
+                        { 
+                            yyinfo("shift_expression => additive_expression");
+                            $$ = $1;
+                        }
                     | shift_expression LEFT_SHIFT additive_expression
-                        { yyinfo("shift_expression => shift_expression << additive_expression"); }
+                        { 
+                            yyinfo("shift_expression => shift_expression << additive_expression"); 
+                            if($3->symbol->type->type == SymbolType::INT) {
+                                $$ = new Expression();
+                                $$->symbol = gentemp(SymbolType::INT);
+                                emit("<<", $$->symbol->name, $1->symbol->name, $3->symbol->name);
+                            } else {
+                                yyerror("Type error.");
+                            }
+                        }
                     | shift_expression RIGHT_SHIFT additive_expression
-                        { yyinfo("shift_expression => shift_expression >> additive_expression"); }
+                        { 
+                            yyinfo("shift_expression => shift_expression >> additive_expression"); 
+                            if($3->symbol->type->type == SymbolType::INT) {
+                                $$ = new Expression();
+                                $$->symbol = gentemp(SymbolType::INT);
+                                emit(">>", $$->symbol->name, $1->symbol->name, $3->symbol->name);
+                            } else {
+                                yyerror("Type error.");
+                            }
+                        }
                     ;
 
 relational_expression:
                         shift_expression
-                            { yyinfo("relational_expression => shift_expression"); }
+                            { 
+                                yyinfo("relational_expression => shift_expression"); 
+                                $$ = $1;
+                            }
                         | relational_expression LESS_THAN shift_expression
-                            { yyinfo("relational_expression => relational_expression < shift_expression"); }
+                            { 
+                                yyinfo("relational_expression => relational_expression < shift_expression"); 
+                                if(typeCheck($1->symbol, $3->symbol)) {
+                                    
+                                } else {
+                                    yyerror("Type error.");
+                                }
+                            }
                         | relational_expression GREATER_THAN shift_expression
-                            { yyinfo("relational_expression => relational_expression > shift_expression"); }
+                            { 
+                                yyinfo("relational_expression => relational_expression > shift_expression"); 
+                                if(typeCheck($1->symbol, $3->symbol)) {
+                                    
+                                } else {
+                                    yyerror("Type error.");
+                                }
+                            }
                         | relational_expression LESS_EQUAL_THAN shift_expression
-                            { yyinfo("relational_expression => relational_expression <= shift_expression"); }
+                            { 
+                                yyinfo("relational_expression => relational_expression <= shift_expression"); 
+                                if(typeCheck($1->symbol, $3->symbol)) {
+                                    
+                                } else {
+                                    yyerror("Type error.");
+                                }
+                            }
                         | relational_expression GREATER_EQUAL_THAN shift_expression
-                            { yyinfo("relational_expression => relational_expression >= shift_expression"); }
+                            { 
+                                yyinfo("relational_expression => relational_expression >= shift_expression"); 
+                                if(typeCheck($1->symbol, $3->symbol)) {
+                                    
+                                } else {
+                                    yyerror("Type error.");
+                                }
+                            }
                         ;
 
 equality_expression:
                     relational_expression
-                        { yyinfo("equality_expression => relational_expression"); }
+                        { 
+                            yyinfo("equality_expression => relational_expression"); 
+                            $$ = $1;
+                        }
                     | equality_expression EQUALS relational_expression
                         { yyinfo("equality_expression => equality_expression == relational_expression"); }
                     | equality_expression NOT_EQUALS relational_expression
@@ -391,49 +608,86 @@ equality_expression:
 
 AND_expression:
                 equality_expression
-                    { yyinfo("AND_expression => equality_expression"); }
+                    { 
+                        yyinfo("AND_expression => equality_expression"); 
+                        $$ = $1;
+                    }
                 | AND_expression BITWISE_AND equality_expression
                     { yyinfo("AND_expression => AND_expression & equality_expression"); }
                 ;
 
 exclusive_OR_expression:
                         AND_expression
-                            { yyinfo("exclusive_OR_expression => AND_expression"); }
+                            { 
+                                yyinfo("exclusive_OR_expression => AND_expression"); 
+                                $$ = $1;
+                            }
                         | exclusive_OR_expression BITWISE_XOR AND_expression
                             { yyinfo("exclusive_OR_expression => exclusive_OR_expression ^ AND_expression"); }
                         ;
 
 inclusive_OR_expression:
                         exclusive_OR_expression
-                            { yyinfo("inclusive_OR_expression => exclusive_OR_expression"); }
+                            { 
+                                yyinfo("inclusive_OR_expression => exclusive_OR_expression"); 
+                                $$ = $1;
+                            }
                         | inclusive_OR_expression BITWISE_OR exclusive_OR_expression
                             { yyinfo("inclusive_OR_expression => inclusive_OR_expression | exclusive_OR_expression"); }
                         ;
 
+M: 
+    %empty 
+        {
+            $$ = nextinstr();
+        }   
+	;
+
+N: 
+    %empty
+        {
+            $$ = new Statement();
+            $$->nextList = makelist(nextinstr());
+            emit("goto", "");
+        }
+	;
+
 logical_AND_expression:
                         inclusive_OR_expression
-                            { yyinfo("logical_AND_expression => inclusive_OR_expression"); }
+                            { 
+                                yyinfo("logical_AND_expression => inclusive_OR_expression"); 
+                                $$ = $1;
+                            }
                         | logical_AND_expression LOGICAL_AND inclusive_OR_expression
                             { yyinfo("logical_AND_expression => logical_AND_expression && inclusive_OR_expression"); }
                         ;
 
 logical_OR_expression:
                         logical_AND_expression
-                            { yyinfo("logical_OR_expression => logical_AND_expression"); }
+                            { 
+                                yyinfo("logical_OR_expression => logical_AND_expression"); 
+                                $$ = $1;
+                            }
                         | logical_OR_expression LOGICAL_OR logical_AND_expression
                             { yyinfo("logical_OR_expression => logical_OR_expression || logical_AND_expression"); }
                         ;
 
 conditional_expression:
                         logical_OR_expression
-                            { yyinfo("conditional_expression => logical_OR_expression"); }
+                            { 
+                                yyinfo("conditional_expression => logical_OR_expression"); 
+                                $$ = $1;
+                            }
                         | logical_OR_expression QUESTION_MARK expression COLON conditional_expression
                             { yyinfo("conditional_expression => logical_OR_expression ? expression : conditional_expression"); }
                         ;
 
 assignment_expression:
                         conditional_expression
-                            { yyinfo("assignment_expression => conditional_expression"); }
+                            { 
+                                yyinfo("assignment_expression => conditional_expression"); 
+                                $$ = $1;
+                            }
                         | unary_expression assignment_operator assignment_expression
                             { yyinfo("assignment_expression => unary_expression assignment_operator assignment_expression"); }
                         ;
@@ -465,7 +719,10 @@ assignment_operator:
 
 expression:
             assignment_expression
-                { yyinfo("expression => assignment_expression"); }
+                { 
+                    yyinfo("expression => assignment_expression"); 
+                    $$ = $1;
+                }
             | expression COMMA assignment_expression
                 { yyinfo("expression => expression , assignment_expression"); }
             ;
