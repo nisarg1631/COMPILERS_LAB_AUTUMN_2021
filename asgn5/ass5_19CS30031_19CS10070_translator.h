@@ -16,7 +16,7 @@ class SymbolType {
         int width;
         SymbolType *arrayType;
 
-        SymbolType(typeEnum, int = 0, SymbolType * = NULL);
+        SymbolType(typeEnum, SymbolType * = NULL, int = 1);
         int getSize();
 };
 
@@ -42,7 +42,7 @@ class Symbol {
         SymbolTable *nestedTable;
         string initialValue;
 
-        Symbol(string, SymbolType::typeEnum = SymbolType::INT, string = "-");
+        Symbol(string, SymbolType::typeEnum = SymbolType::INT, string = "");
         Symbol *update(SymbolType *);
         Symbol *convert(SymbolType::typeEnum);
 };
@@ -73,8 +73,11 @@ class Quad {
 class Expression {
     public:
         Symbol *symbol;
-        enum typeEnum {BOOLEAN, NONBOOLEAN} type;
+        enum typeEnum {NONBOOLEAN, BOOLEAN} type;
         list<int> trueList, falseList, nextList;
+
+        Expression *toInt();
+        Expression *toBool();
 };
 
 // Array attributes
@@ -104,6 +107,9 @@ list<int> merge(list<int> &, list<int> &);
 // Other helper functions
 int nextInstruction();
 Symbol *gentemp(SymbolType::typeEnum, string = "");
+void changeTable(SymbolTable *);
+
+// Type checking and conversions
 bool typeCheck(Symbol *, Symbol *);
 
 // Utility functions
@@ -113,10 +119,9 @@ string toString(char);
 
 // Global variables
 extern vector<Quad *> quadArray;
-extern SymbolTable *currentTable, *globalTable, *parentTable;
+extern SymbolTable *currentTable, *globalTable;
 extern Symbol *currentSymbol;
 extern map<string, Label> labelTable;
-extern string blockName;
 extern SymbolType::typeEnum currentType;
 extern int tableCount, temporaryCount;
 

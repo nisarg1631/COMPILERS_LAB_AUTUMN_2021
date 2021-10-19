@@ -5,12 +5,11 @@ vector<Quad *> quadArray;
 SymbolTable *currentTable, *globalTable, *parentTable;
 Symbol *currentSymbol;
 map<string, Label> labelTable;
-string blockName;
 SymbolType::typeEnum currentType;
 int tableCount, temporaryCount;
 
 // Implementation of symbol type class
-SymbolType::SymbolType(typeEnum type, int width, SymbolType *arrayType) : 
+SymbolType::SymbolType(typeEnum type, SymbolType *arrayType, int width) : 
     type(type), width(width), arrayType(arrayType) {}
 
 int SymbolType::getSize() {
