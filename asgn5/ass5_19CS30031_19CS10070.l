@@ -40,7 +40,7 @@ NEWLINE                 \n
 "auto"                          { return AUTO; }
 "break"                         { return BREAK; }
 "case"                          { return CASE; }
-"char"                          { return CHAR; }
+"char"                          { return CHARTYPE; }
 "const"                         { return CONST; }
 "continue"                      { return CONTINUE; }
 "default"                       { return DEFAULT; }
@@ -49,12 +49,12 @@ NEWLINE                 \n
 "else"                          { return ELSE; }
 "enum"                          { return ENUM; }
 "extern"                        { return EXTERN; }
-"float"                         { return FLOAT; }
+"float"                         { return FLOATTYPE; }
 "for"                           { return FOR; }
 "goto"                          { return GOTO; }
 "if"                            { return IF; }
 "inline"                        { return INLINE; }
-"int"                           { return INT; }
+"int"                           { return INTTYPE; }
 "long"                          { return LONG; }
 "register"                      { return REGISTER; }
 "restrict"                      { return RESTRICT; }
@@ -68,7 +68,7 @@ NEWLINE                 \n
 "typedef"                       { return TYPEDEF; }
 "union"                         { return UNION; }
 "unsigned"                      { return UNSIGNED; }
-"void"                          { return VOID; }
+"void"                          { return VOIDTYPE; }
 "volatile"                      { return VOLATILE; }
 "while"                         { return WHILE; }
 "_Bool"                         { return _BOOL; }

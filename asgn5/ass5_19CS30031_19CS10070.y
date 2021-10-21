@@ -2,8 +2,8 @@
     #include "ass5_19CS30031_19CS10070_translator.h"
     extern int yylex();
     extern int lineCount;
-    void yyerror(char *);
-    void yyinfo(char *);
+    void yyerror(string);
+    void yyinfo(string);
 %}
 
 %union {
@@ -25,7 +25,7 @@
 %token AUTO
 %token BREAK
 %token CASE
-%token CHAR
+%token CHARTYPE
 %token CONST
 %token CONTINUE
 %token DEFAULT
@@ -34,12 +34,12 @@
 %token ELSE
 %token ENUM
 %token EXTERN
-%token FLOAT
+%token FLOATTYPE
 %token FOR
 %token GOTO
 %token IF
 %token INLINE
-%token INT
+%token INTTYPE
 %token LONG
 %token REGISTER
 %token RESTRICT
@@ -53,7 +53,7 @@
 %token TYPEDEF
 %token UNION
 %token UNSIGNED
-%token VOID
+%token VOIDTYPE
 %token VOLATILE
 %token WHILE
 %token _BOOL
@@ -182,63 +182,40 @@
 
 %%
 
-F: %empty 
-	{
-		// rule for identifying the start of the for statement
-		loop_name = "FOR";
-	}   
-	;
-
-W: 
-    %empty 
-        {
-            // rule for identifying the start of a while loop
-            loop_name = "WHILE";
-        }   
-	;
-
-D: 
-    %empty 
-        {
-            // rule for identifyiong the start of the do while statement
-            loop_name = "DO_WHILE";
-        }   
-	;
-
 /* Expressions */
 
 primary_expression: 
                     IDENTIFIER 
                         { 
-                            yyinfo("primary_expression => IDENTIFIER"); printf("\t\t\t\tIDENTIFIER = %s\n", $1);
+                            yyinfo("primary_expression => IDENTIFIER");
                             $$ = new Expression();
                             $$->symbol = $1;
                             $$->type = Expression::NONBOOLEAN; 
                         }
                     | INTEGER_CONSTANT 
                         { 
-                            yyinfo("primary_expression => INTEGER_CONSTANT"); printf("\t\t\t\tINTEGER_CONSTANT = %d\n", $1); 
+                            yyinfo("primary_expression => INTEGER_CONSTANT"); 
                             $$ = new Expression();
                             $$->symbol = gentemp(SymbolType::INT, toString($1));
                             emit("=", $$->symbol->name, $1);
                         }
                     | FLOATING_CONSTANT 
                         { 
-                            yyinfo("primary_expression => FLOATING_CONSTANT"); printf("\t\t\t\tFLOATING_CONSTANT = %f\n", $1); 
+                            yyinfo("primary_expression => FLOATING_CONSTANT"); 
                             $$ = new Expression();
                             $$->symbol = gentemp(SymbolType::FLOAT, $1);
                             emit("=", $$->symbol->name, $1);
                         }
                     | CHARACTER_CONSTANT 
                         { 
-                            yyinfo("primary_expression => CHARACTER_CONSTANT"); printf("\t\t\t\tCHARACTER_CONSTANT = %s\n", $1); 
+                            yyinfo("primary_expression => CHARACTER_CONSTANT"); 
                             $$ = new Expression();
                             $$->symbol = gentemp(SymbolType::CHAR, $1);
                             emit("=", $$->symbol->name, $1);
                         }
                     | STRING_LITERAL 
                         { 
-                            yyinfo("primary_expression => STRING_LITERAL"); printf("\t\t\t\tSTRING_LITERAL = %s\n", $1); 
+                            yyinfo("primary_expression => STRING_LITERAL"); 
                             $$ = new Expression();
 		                    $$->symbol = gentemp(SymbolType::POINTER, $1);
 		                    $$->symbol->type->arrayType = new SymbolType(SymbolType::CHAR);
@@ -285,9 +262,9 @@ postfix_expression:
                             emit("call", $$->symbol->name, $1->symbol->name, toString($3));
                         }
                     | postfix_expression DOT IDENTIFIER
-                        { yyinfo("postfix_expression => postfix_expression . IDENTIFIER"); printf("\t\t\t\tIDENTIFIER = %s\n", $3); }
+                        { yyinfo("postfix_expression => postfix_expression . IDENTIFIER"); }
                     | postfix_expression ARROW IDENTIFIER
-                        { yyinfo("postfix_expression => postfix_expression -> IDENTIFIER"); printf("\t\t\t\tIDENTIFIER = %s\n", $3); }
+                        { yyinfo("postfix_expression => postfix_expression -> IDENTIFIER"); }
                     | postfix_expression INCREMENT
                         { 
                             yyinfo("postfix_expression => postfix_expression ++");
@@ -887,26 +864,26 @@ storage_class_specifier:
                         ;
 
 type_specifier:
-                VOID
+                VOIDTYPE
                     { 
                         yyinfo("type_specifier => void");
                         currentType = SymbolType::VOID;
                     }
-                | CHAR
+                | CHARTYPE
                     { 
                         yyinfo("type_specifier => char"); 
                         currentType = SymbolType::CHAR;
                     }
                 | SHORT
                     { yyinfo("type_specifier => short"); }
-                | INT
+                | INTTYPE
                     { 
                         yyinfo("type_specifier => int"); 
                         currentType = SymbolType::INT;
                     }
                 | LONG
                     { yyinfo("type_specifier => long"); }
-                | FLOAT
+                | FLOATTYPE
                     { 
                         yyinfo("type_specifier => float"); 
                         currentType = SymbolType::FLOAT;
@@ -947,12 +924,12 @@ enum_specifier:
                 | ENUM identifier_opt LEFT_CURLY_BRACKET enumerator_list COMMA RIGHT_CURLY_BRACKET
                     { yyinfo("enum_specifier => enum identifier_opt { enumerator_list , }"); }
                 | ENUM IDENTIFIER
-                    { yyinfo("enum_specifier => enum IDENTIFIER"); printf("\t\t\t\tIDENTIFIER = %s\n", $2); }
+                    { yyinfo("enum_specifier => enum IDENTIFIER"); }
                 ;
 
 identifier_opt:
                 IDENTIFIER 
-                    { yyinfo("identifier_opt => IDENTIFIER"); printf("\t\t\t\tIDENTIFIER = %s\n", $1); }
+                    { yyinfo("identifier_opt => IDENTIFIER"); }
                 | 
                     { yyinfo("identifier_opt => epsilon"); }
                 ;
@@ -966,9 +943,9 @@ enumerator_list:
 
 enumerator:
             IDENTIFIER 
-                { yyinfo("enumerator => ENUMERATION_CONSTANT"); printf("\t\t\t\tENUMERATION_CONSTANT = %s\n", $1); }
+                { yyinfo("enumerator => ENUMERATION_CONSTANT"); }
             | IDENTIFIER ASSIGNMENT constant_expression
-                { yyinfo("enumerator => ENUMERATION_CONSTANT = constant_expression"); printf("\t\t\t\tENUMERATION_CONSTANT = %s\n", $1); }
+                { yyinfo("enumerator => ENUMERATION_CONSTANT = constant_expression"); }
             ;
 
 type_qualifier:
@@ -1016,7 +993,7 @@ change_scope:
 direct_declarator:
                     IDENTIFIER 
                         { 
-                            yyinfo("direct_declarator => IDENTIFIER"); printf("\t\t\t\tIDENTIFIER = %s\n", $1); 
+                            yyinfo("direct_declarator => IDENTIFIER"); 
                             $$ = $1->update(new SymbolType(currentType));
                             currentSymbol = $$;
                         }
@@ -1039,12 +1016,12 @@ direct_declarator:
                             }
                             if(it2 != NULL) { // nested array case
                                 // another level of nesting with base as it1 and width the value of assignment_expression
-                                it2->arrayType =  new symboltype(SymbolType::ARRAY, it1, atoi($3->symbol->initialValue.c_str()));	
+                                it2->arrayType =  new SymbolType(SymbolType::ARRAY, it1, atoi($3->symbol->initialValue.c_str()));	
                                 $$ = $1->update($1->type);
                             }
                             else { // fresh array
                                 // create a new array with base as type of direct_declarator and width the value of assignment_expression
-                                $$ = $1->update(new symboltype(SymbolType::ARRAY, $1->type, atoi($3->symbol->initialValue.c_str())));
+                                $$ = $1->update(new SymbolType(SymbolType::ARRAY, $1->type, atoi($3->symbol->initialValue.c_str())));
                             }
                         }
                     | direct_declarator LEFT_SQUARE_BRACKET RIGHT_SQUARE_BRACKET
@@ -1058,12 +1035,12 @@ direct_declarator:
                             }
                             if(it2 != NULL) { // nested array case
                                 // another level of nesting with base as it1 and width the value of assignment_expression
-                                it2->arrayType =  new symboltype(SymbolType::ARRAY, it1, 0);	
+                                it2->arrayType =  new SymbolType(SymbolType::ARRAY, it1, 0);	
                                 $$ = $1->update($1->type);
                             }
                             else { // fresh array
                                 // create a new array with base as type of direct_declarator and width the value of assignment_expression
-                                $$ = $1->update(new symboltype(SymbolType::ARRAY, $1->type, 0));
+                                $$ = $1->update(new SymbolType(SymbolType::ARRAY, $1->type, 0));
                             }
                         }
                     | direct_declarator LEFT_SQUARE_BRACKET STATIC type_qualifier_list assignment_expression RIGHT_SQUARE_BRACKET
@@ -1174,9 +1151,9 @@ parameter_declaration:
 
 identifier_list:
                 IDENTIFIER 
-                    { yyinfo("identifier_list => IDENTIFIER"); printf("\t\t\t\tIDENTIFIER = %s\n", $1); }
+                    { yyinfo("identifier_list => IDENTIFIER"); }
                 | identifier_list COMMA IDENTIFIER
-                    { yyinfo("identifier_list => identifier_list , IDENTIFIER"); printf("\t\t\t\tIDENTIFIER = %s\n", $3); }
+                    { yyinfo("identifier_list => identifier_list , IDENTIFIER"); }
                 ;
 
 type_name:
@@ -1226,7 +1203,7 @@ designator:
             LEFT_SQUARE_BRACKET constant_expression RIGHT_SQUARE_BRACKET
                 { yyinfo("designator => [ constant_expression ]"); }
             | DOT IDENTIFIER
-                { yyinfo("designator => . IDENTIFIER"); printf("\t\t\t\tIDENTIFIER = %s\n", $2); }   
+                { yyinfo("designator => . IDENTIFIER"); }   
             ;
 
 /* Statements */
@@ -1264,7 +1241,7 @@ statement:
 
 labeled_statement:
                     IDENTIFIER COLON statement
-                        { yyinfo("labeled_statement => IDENTIFIER : statement"); printf("\t\t\t\tIDENTIFIER = %s\n", $1); }
+                        { yyinfo("labeled_statement => IDENTIFIER : statement"); }
                     | CASE constant_expression COLON statement
                         { yyinfo("labeled_statement => case constant_expression : statement"); }    
                     | DEFAULT COLON statement
@@ -1361,7 +1338,7 @@ selection_statement:
                             $3->toBool();
                             backpatch($4->nextList, nextInstruction());
                             backpatch($3->trueList, $6);
-                            $$->nextList = merge($8->nextList, merge($3->falselist, $7->nextList));
+                            $$->nextList = merge($8->nextList, merge($3->falseList, $7->nextList));
                         }
                     | IF LEFT_PARENTHESES expression N RIGHT_PARENTHESES M statement N ELSE M statement
                         { 
@@ -1371,7 +1348,7 @@ selection_statement:
                             backpatch($4->nextList, nextInstruction());
                             backpatch($3->trueList, $6);
                             backpatch($3->falseList, $10);
-                            $$->nextList = merge($11->nextList, merge($7->falselist, $8->nextList));
+                            $$->nextList = merge($11->nextList, merge($7->nextList, $8->nextList));
                         }
                     | SWITCH LEFT_PARENTHESES expression RIGHT_PARENTHESES statement
                         { yyinfo("selection_statement => switch ( expression ) statement"); }
@@ -1414,7 +1391,7 @@ iteration_statement:
 
 jump_statement:
                 GOTO IDENTIFIER SEMI_COLON
-                    { yyinfo("jump_statement => goto IDENTIFIER ;"); printf("\t\t\t\tIDENTIFIER = %s\n", $2); }    
+                    { yyinfo("jump_statement => goto IDENTIFIER ;"); }    
                 | CONTINUE SEMI_COLON
                     { yyinfo("jump_statement => continue ;"); }
                 | BREAK SEMI_COLON
@@ -1473,10 +1450,10 @@ declaration_list:
 
 %%
 
-void yyerror(char* s) {
-    printf("ERROR [Line %d] : %s\n", lineCount, s);
+void yyerror(string s) {
+    printf("ERROR [Line %d] : %s\n", lineCount, s.c_str());
 }
 
-void yyinfo(char* s) {
-    printf("INFO [Line %d] : %s\n", lineCount, s);
+void yyinfo(string s) {
+    printf("INFO [Line %d] : %s\n", lineCount, s.c_str());
 }

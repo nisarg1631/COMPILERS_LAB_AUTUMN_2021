@@ -9,6 +9,15 @@
 
 using namespace std;
 
+class SymbolType;
+class SymbolTable;
+class Symbol;
+class Label;
+class Quad;
+class Expression;
+class Array;
+class Statement;
+
 // Symbol type class ( type safe representation for the type of a symbol )
 class SymbolType {
     public:
@@ -102,7 +111,7 @@ void emit(string, string, int, string = "");
 // Backpatching functions
 void backpatch(list<int>, int);
 list<int> makeList(int);
-list<int> merge(list<int> &, list<int> &);
+list<int> merge(list<int> &, list<int>);
 
 // Other helper functions
 int nextInstruction();

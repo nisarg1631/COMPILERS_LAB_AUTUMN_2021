@@ -71,18 +71,13 @@ void Quad::print() {
 }
 
 // Implementation of emit funtions
-void emit(string, string, string = "=", string = "") {
+void emit(string op, string result, string arg1, string arg2) {
 
 }
-void emit(string, int, string = "=", string = "") {
+void emit(string op, string result, int arg1, string arg2) {
 
 }
-void emit(string, char, string = "=", string = "") {
 
-}
-void emit(string, float, string = "=", string = "") {
-
-}
 
 // Implementation of backpatching functions
 
