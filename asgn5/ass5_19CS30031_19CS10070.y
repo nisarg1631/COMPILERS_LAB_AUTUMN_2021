@@ -1355,20 +1355,59 @@ expression_opt:
 
 selection_statement:
                     IF LEFT_PARENTHESES expression N RIGHT_PARENTHESES M statement N %prec THEN
-                        { yyinfo("selection_statement => if ( expression ) statement"); }
+                        { 
+                            yyinfo("selection_statement => if ( expression ) statement"); 
+                            $$ = new Statement();
+                            $3->toBool();
+                            backpatch($4->nextList, nextInstruction());
+                            backpatch($3->trueList, $6);
+                            $$->nextList = merge($8->nextList, merge($3->falselist, $7->nextList));
+                        }
                     | IF LEFT_PARENTHESES expression N RIGHT_PARENTHESES M statement N ELSE M statement
-                        { yyinfo("selection_statement => if ( expression ) statement else statement"); }
+                        { 
+                            yyinfo("selection_statement => if ( expression ) statement else statement"); 
+                            $$ = new Statement();
+                            $3->toBool();
+                            backpatch($4->nextList, nextInstruction());
+                            backpatch($3->trueList, $6);
+                            backpatch($3->falseList, $10);
+                            $$->nextList = merge($11->nextList, merge($7->falselist, $8->nextList));
+                        }
                     | SWITCH LEFT_PARENTHESES expression RIGHT_PARENTHESES statement
                         { yyinfo("selection_statement => switch ( expression ) statement"); }
                     ;
 
 iteration_statement:
-                    WHILE LEFT_PARENTHESES expression RIGHT_PARENTHESES statement
-                        { yyinfo("iteration_statement => while ( expression ) statement"); }
-                    | DO statement WHILE LEFT_PARENTHESES expression RIGHT_PARENTHESES SEMI_COLON
-                        { yyinfo("iteration_statement => do statement while ( expression ) ;"); }
-                    | FOR LEFT_PARENTHESES expression_opt SEMI_COLON expression_opt SEMI_COLON expression_opt RIGHT_PARENTHESES statement
-                        { yyinfo("iteration_statement => for ( expression_opt ; expression_opt ; expression_opt ) statement"); }
+                    WHILE M LEFT_PARENTHESES expression RIGHT_PARENTHESES M statement
+                        { 
+                            yyinfo("iteration_statement => while ( expression ) statement"); 
+                            $$ = new Statement();
+                            $4->toBool();
+                            backpatch($7->nextList, $2);
+                            backpatch($4->trueList, $6);
+                            $$->nextList = $4->falseList;
+                            emit("goto", toString($2));
+                        }
+                    | DO M statement M WHILE LEFT_PARENTHESES expression RIGHT_PARENTHESES SEMI_COLON
+                        { 
+                            yyinfo("iteration_statement => do statement while ( expression ) ;"); 
+                            $$ = new Statement();
+                            $7->toBool();
+                            backpatch($7->trueList, $2);
+                            backpatch($3->nextList, $4);
+                            $$->nextList = $7->falseList;
+                        }
+                    | FOR LEFT_PARENTHESES expression_opt SEMI_COLON M expression_opt SEMI_COLON M expression_opt N RIGHT_PARENTHESES M statement
+                        { 
+                            yyinfo("iteration_statement => for ( expression_opt ; expression_opt ; expression_opt ) statement"); 
+                            $$ = new Statement();
+                            $6->toBool();
+                            backpatch($6->trueList, $12);
+                            backpatch($10->nextList, $5);
+                            backpatch($13->nextList, $8);
+                            emit("goto", toString($8));
+                            $$->nextList = $6->falseList;
+                        }
                     | FOR LEFT_PARENTHESES declaration expression_opt SEMI_COLON expression_opt RIGHT_PARENTHESES statement
                         { yyinfo("iteration_statement => for ( declaration expression_opt ; expression_opt ) statement"); }
                     ;
