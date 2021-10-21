@@ -30,11 +30,24 @@ SymbolTable::SymbolTable(string name, SymbolTable *parent) :
     name(name), parent(parent) {}
 
 Symbol *SymbolTable::lookup(string name) {
+    if((this)->symbols.find(name) != (this)->symbols.end())
+        return &(this)->symbols[name];
+    Symbol* ret_ptr=nullptr;
+    if(this->parent!=NULL)
+        ret_ptr=this->parent->lookup(name);
     
+    #warning check this portion
+    if(!ret_ptr)    // SHOULD I CHECK WHICH SYMBOL THIS IS ???????
+    {
+        auto sym=new Symbol(name); // constructor format??
+        this->symbols[name]=*sym;
+        return &(this)->symbols[name];
+    }
+    return ret_ptr;   
 }
 
 void SymbolTable::update() {
-
+    
 }
 
 void SymbolTable::print() {
