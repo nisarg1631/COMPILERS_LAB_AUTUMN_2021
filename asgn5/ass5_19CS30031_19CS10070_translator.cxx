@@ -101,8 +101,6 @@ Label::Label(string name, int address) : name(name), address(address) {}
 // Implementation of quad class
 Quad::Quad(string result, string arg1, string op, string arg2) : result(result), op(op), arg1(arg1), arg2(arg2) {}
 Quad::Quad(string result, int arg1, string op, string arg2) : result(result), op(op), arg1(toString(arg1)), arg2(arg2) {}
-Quad::Quad(string result, float arg1, string op, string arg2) : result(result), op(op), arg1(toString(arg1)), arg2(arg2) {}
-Quad::Quad(string result, char arg1, string op, string arg2) : result(result), op(op), arg1(toString(arg1)), arg2(arg2) {}
 
 void Quad::print()
 {

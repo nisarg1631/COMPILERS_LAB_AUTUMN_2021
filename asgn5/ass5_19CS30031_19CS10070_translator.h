@@ -73,8 +73,6 @@ class Quad {
 
         Quad(string, string, string = "=", string = "");
         Quad(string, int, string = "=", string = "");
-        Quad(string, char, string = "=", string = "");
-        Quad(string, float, string = "=", string = "");
         void print();
 };
 
