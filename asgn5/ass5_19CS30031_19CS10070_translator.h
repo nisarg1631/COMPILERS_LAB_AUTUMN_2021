@@ -56,16 +56,6 @@ class Symbol {
         Symbol *convert(SymbolType::typeEnum);
 };
 
-// Label class ( represents a label )
-class Label {
-    public:
-        string name;
-        int address;
-        list<int> gotoList;     // list of dangling goto’s for this label
-
-        Label(string, int = 0);
-};
-
 // Quad class ( represents a 3-address quad )
 class Quad {
     public:
@@ -128,8 +118,9 @@ string toString(char);
 extern vector<Quad *> quadArray;
 extern SymbolTable *currentTable, *globalTable;
 extern Symbol *currentSymbol;
-extern map<string, Label> labelTable;
 extern SymbolType::typeEnum currentType;
 extern int tableCount, temporaryCount;
+
+extern int yyparse();
 
 #endif
