@@ -38,7 +38,7 @@ Symbol *SymbolTable::lookup(string name)
 
     if (this == currentTable && !ret_ptr)
     {
-        this->symbols.insert(make_pair(name, *(new Symbol(name))));
+        this->symbols.insert({name, *(new Symbol(name))});
         return &((this)->symbols.find(name)->second);
     }
     return ret_ptr;
@@ -49,7 +49,7 @@ void SymbolTable::update()
 {
     vector<SymbolTable *> visited;
     int offset;
-    for (auto map_entry : (this)->symbols)
+    for (auto &map_entry : (this)->symbols)
     {
         if (map_entry.first == (this->symbols).begin()->first)
         {
@@ -66,7 +66,7 @@ void SymbolTable::update()
             visited.push_back(map_entry.second.nestedTable);
         }
     }
-    for(auto table : visited)
+    for(auto &table : visited)
     {
         table->update();
     }
@@ -74,6 +74,22 @@ void SymbolTable::update()
 
 void SymbolTable::print()
 {
+    cout << "Table Name: " << this->name<<"\t Parent Name: "<<((this->parent)?"None":this->parent->name) << endl;
+    cout<<"Name\t Type\t InitialValue\t Offset\t Size\n";
+    vector<SymbolTable *> tovisit;
+    for (auto &map_entry : (this)->symbols)
+    {
+        cout << map_entry.first << " " << map_entry.second.type << " " <<map_entry.second.initialValue <<" "<<map_entry.second.offset << " " << map_entry.second.size << endl;
+        if(map_entry.second.nestedTable)
+        {
+            tovisit.push_back(map_entry.second.nestedTable);
+        }
+    }
+    for (auto& table: tovisit)
+    {
+        table->print();
+    }
+    cout << endl;
 }
 
 // Implementation of symbol class
