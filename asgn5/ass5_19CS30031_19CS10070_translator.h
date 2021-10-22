@@ -73,8 +73,8 @@ class Expression {
         enum typeEnum {NONBOOLEAN, BOOLEAN} type;
         list<int> trueList, falseList, nextList;
 
-        Expression *toInt();
-        Expression *toBool();
+        void toInt();
+        void toBool();
 };
 
 // Array attributes

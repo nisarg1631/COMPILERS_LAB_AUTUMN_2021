@@ -195,16 +195,16 @@ void Quad::print()
 }
 
 // Implementation of emit funtions
-void emit(string op, string result, string arg1="", string arg2="") {
+void emit(string op, string result, string arg1, string arg2) {
     Quad *q = new Quad(result, arg1, op, arg2);
     quadArray.push_back(q);
 }
-void emit(string op, string result, int arg1, string arg2="") {
+void emit(string op, string result, int arg1, string arg2) {
     Quad *q = new Quad(result, arg1, op, arg2);
     quadArray.push_back(q);
 }
 #warning is this necessary?
-void emit(string op,string result, float arg1, string arg2=""){
+void emit(string op,string result, float arg1, string arg2){
     Quad *q = new Quad(result, arg1, op, arg2);
     quadArray.push_back(q);
 }
@@ -231,14 +231,10 @@ list<int> merge(list<int> & first, list<int>& second)
 }
 // Implementation of Expression class functions
 
-Expression* Expression::toInt()
+void Expression::toInt()
 {
     #warning should this be typeEnum int???
-    if(this->type==Expression::typeEnum::NONBOOLEAN)
-    {
-        return this;
-    }
-    else
+    if(this->type!=Expression::typeEnum::NONBOOLEAN)
     {
         this->falseList=makeList(static_cast<int>(quadArray.size()));                                                             // update the falselist
         emit("==","",this->symbol->name,"0");                                                                 // emit general goto statements
@@ -247,13 +243,9 @@ Expression* Expression::toInt()
     }
 }
 
-Expression* Expression::toBool()
+void Expression::toBool()
 {
-    if(this->type==Expression::typeEnum::BOOLEAN)
-    {
-        return this;
-    }
-    else
+    if(this->type!=Expression::typeEnum::BOOLEAN)
     {
         this->symbol=gentemp(SymbolType::typeEnum::INT);
         backpatch(this->trueList,static_cast<int>(quadArray.size()));
@@ -271,7 +263,7 @@ int nextInstruction()
     return quadArray.size() + 1;
 }
 
-Symbol* gentemp(SymbolType::typeEnum type,string s="")
+Symbol* gentemp(SymbolType::typeEnum type,string s)
 {
     Symbol* temp= new Symbol("t"+toString(temporaryCount++),type,s);
     Symbol* ret=currentTable->lookup(temp->name);
