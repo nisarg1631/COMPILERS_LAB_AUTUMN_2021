@@ -195,16 +195,16 @@ void Quad::print()
 }
 
 // Implementation of emit funtions
-void emit(string op, string result, string arg1, string arg2) {
+void emit(string op, string result, string arg1="", string arg2="") {
     Quad *q = new Quad(result, arg1, op, arg2);
     quadArray.push_back(q);
 }
-void emit(string op, string result, int arg1, string arg2) {
+void emit(string op, string result, int arg1, string arg2="") {
     Quad *q = new Quad(result, arg1, op, arg2);
     quadArray.push_back(q);
 }
 #warning is this necessary?
-void emit(string op,string result, float arg1, string arg2){
+void emit(string op,string result, float arg1, string arg2=""){
     Quad *q = new Quad(result, arg1, op, arg2);
     quadArray.push_back(q);
 }
