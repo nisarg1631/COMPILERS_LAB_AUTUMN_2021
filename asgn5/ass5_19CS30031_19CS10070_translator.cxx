@@ -107,7 +107,7 @@ Symbol *Symbol::update(SymbolType *type)
 
 Symbol *Symbol::convert(SymbolType::typeEnum type)
 {
-    return nullptr;
+    
 }
 
 // Implementation of quad class
@@ -116,6 +116,79 @@ Quad::Quad(string result, int arg1, string op, string arg2) : result(result), op
 
 void Quad::print()
 {
+    auto binary_print=[this]()
+    {
+        cout<<"\t"<<this->result<<" = "<<this->arg1<<" "<<this->op<<" "<<this->arg2<<endl;
+    };
+    auto relation_print=[this]()
+    {
+        cout<<"\t if"<<this->arg1<<" "<<this->op<<" "<<this->arg2<<" goto "<<this->result<<endl;
+    };
+    auto shift_print=[this](string tp=this->op)
+    {
+        cout<<"\t"<<this->result<<" "<<tp<<" "<<this->arg1<<endl;
+    };
+    
+    if(this->op == "=")
+    {
+        cout<<this->result<<" = "<<this->arg1<<endl;
+    }
+    else if(this->op=="goto")
+    {
+        cout<<"goto "<<this->result<<endl;
+    }
+    else if(this->op=="return")
+    {
+        cout<<"return "<<this->arg1<<endl;
+    }
+    else if(this->op=="call")
+    {
+        cout<<this->result<<" = call "<<this->arg1<<", "<<this->arg2<<endl;
+    }
+    else if(this->op=="param")
+    {
+        cout<<"param "<<this->result<<endl;
+    }
+    else if(this->op == "label")
+    {
+        cout<<this->result<<endl;
+    }
+    else if(this->op=="=[]")
+    {
+        cout<<this->result<<" = "<<this->arg1<<"["<<this->arg2<<"]"<<endl;
+    }
+    else if(this->op=="[]=")
+    {
+        cout<<this->result<<"["<<this->arg1<<"] = "<<this->arg2<<endl;
+    }
+    else if(this->op=="+" or this->op=="-" or this->op=="*" or this->op=="/" or this->op=="%" or this->op=="|" or this->op=="^" or this->op=="&" or this->op=="<<" or this->op==">>")
+    {
+        binary_print();
+    }
+    else if(this->op=="==" or this->op=="!=" or this->op=="<" or this->op==">" or this->op=="<=" or this->op==">=")
+    {
+        relation_print();
+    }
+    else if(this->op=="=&" or this->op=="=*" or this->op=="*=")
+    {
+        shift_print();
+    }
+    else if(this->op=="uminus")
+    {
+        shift_print("= -");
+    }
+    else if(this->op=="~")
+    {
+        shift_print("= ~");
+    }
+    else if(this->op=="!")
+    {
+        shift_print("= !");
+    }
+    else{
+        cout<<"INVALID OPERATOR\n";
+    }
+    
 }
 
 // Implementation of emit funtions
