@@ -6,7 +6,7 @@
 #include <map>
 #include <vector>
 #include <list>
-
+#include<functional>
 using namespace std;
 
 class SymbolType;

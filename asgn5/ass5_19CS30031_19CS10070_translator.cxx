@@ -269,6 +269,31 @@ Symbol* gentemp(SymbolType::typeEnum type,string s)
     Symbol* ret=currentTable->lookup(temp->name);
     return ret;
 }
+void changeTable(SymbolTable * table)
+{
+    currentTable=table;
+}
+
+bool typeCheck(Symbol * a, Symbol * b)
+{     
+    std::function<bool(SymbolType*,SymbolType*)> type_comp=[&](SymbolType * first, SymbolType * second)-> bool
+    {
+        if(!first and !second)
+            return true;
+        else if(!first or !second or first->type!=second->type)
+            return false;
+        else  
+            return type_comp(first->arrayType,second->arrayType);    
+    };
+    if(type_comp(a->type,b->type))
+        return true;
+    else if (a=b->convert(b->type->type))
+        return true;
+    else if (b=a->convert(a->type->type))
+        return true;
+    else
+        return false;
+}
 // Implementation of utility functions
 string toString(int i)
 {
