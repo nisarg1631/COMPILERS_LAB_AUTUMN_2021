@@ -29,17 +29,17 @@ SymbolTable::SymbolTable(string name, SymbolTable *parent) : name(name), parent(
 
 Symbol *SymbolTable::lookup(string name)
 {
-    if ((this)->symbols.find(name) != (this)->symbols.end())
-        return &(this)->symbols[name];
+    auto it = (this)->symbols.find(name);
+    if (it != (this)->symbols.end())
+        return &(it->second);
     Symbol *ret_ptr = nullptr;
     if (this->parent != NULL)
         ret_ptr = this->parent->lookup(name);
 
-    if (!ret_ptr) // SHOULD I CHECK WHICH SYMBOL THIS IS ???????
+    if (this == currentTable && !ret_ptr)
     {
-        auto sym = new Symbol(name); // constructor format??
-        this->symbols[name] = *sym;
-        return &(this)->symbols[name];
+        this->symbols.insert(make_pair(name, *(new Symbol(name))));
+        return &((this)->symbols.find(name)->second);
     }
     return ret_ptr;
 }
