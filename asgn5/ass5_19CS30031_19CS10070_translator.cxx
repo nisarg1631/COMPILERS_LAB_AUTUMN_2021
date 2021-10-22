@@ -61,12 +61,12 @@ void SymbolTable::update()
             map_entry.second.offset = offset;
             offset += map_entry.second.size;
         }
-        if(map_entry.second.nestedTable)
+        if (map_entry.second.nestedTable)
         {
             visited.push_back(map_entry.second.nestedTable);
         }
     }
-    for(auto &table : visited)
+    for (auto &table : visited)
     {
         table->update();
     }
@@ -74,18 +74,18 @@ void SymbolTable::update()
 
 void SymbolTable::print()
 {
-    cout << "Table Name: " << this->name<<"\t Parent Name: "<<((this->parent)?"None":this->parent->name) << endl;
-    cout<<"Name\t Type\t InitialValue\t Offset\t Size\n";
+    cout << "Table Name: " << this->name << "\t Parent Name: " << ((this->parent) ? "None" : this->parent->name) << endl;
+    cout << "Name\t Type\t InitialValue\t Offset\t Size\n";
     vector<SymbolTable *> tovisit;
     for (auto &map_entry : (this)->symbols)
     {
-        cout << map_entry.first << " " << map_entry.second.type << " " <<map_entry.second.initialValue <<" "<<map_entry.second.offset << " " << map_entry.second.size << endl;
-        if(map_entry.second.nestedTable)
+        cout << map_entry.first << " " << map_entry.second.type << " " << map_entry.second.initialValue << " " << map_entry.second.offset << " " << map_entry.second.size << endl;
+        if (map_entry.second.nestedTable)
         {
             tovisit.push_back(map_entry.second.nestedTable);
         }
     }
-    for (auto& table: tovisit)
+    for (auto &table : tovisit)
     {
         table->print();
     }
@@ -105,9 +105,46 @@ Symbol *Symbol::update(SymbolType *type)
     return this;
 }
 
-Symbol *Symbol::convert(SymbolType::typeEnum type)
+Symbol *Symbol::convert(SymbolType::typeEnum type_)
 {
-    #warning "TODO I DONT UNDERSTAND"
+    Symbol *fin_ = gentemp(type_);
+    if ((this->type)->type == SymbolType::typeEnum::FLOAT)
+    {
+        if (type_ == SymbolType::typeEnum::INT)
+        {
+            emit("=", fin_->name, "Float_TO_Int(" + this->name + ")");
+        }
+        else if (type_ == SymbolType::typeEnum::CHAR)
+        {
+            emit("=", fin_->name, "Float_TO_Char(" + this->name + ")");
+        }
+        return fin_;
+    }
+    else if ((this->type)->type == SymbolType::typeEnum::INT)
+    {
+        if (type_ == SymbolType::typeEnum::FLOAT)
+        {
+            emit("=", fin_->name, "INT_TO_Float(" + this->name + ")");
+        }
+        else if (type_ == SymbolType::typeEnum::CHAR)
+        {
+            emit("=", fin_->name, "INT_TO_Char(" + this->name + ")");
+        }
+        return fin_;
+    }
+    else if ((this->type)->type == SymbolType::typeEnum::CHAR)
+    {
+        if (type_ == SymbolType::typeEnum::INT)
+        {
+            emit("=", fin_->name, "Char_TO_Int(" + this->name + ")");
+        }
+        else if (type_ == SymbolType::typeEnum::FLOAT)
+        {
+            emit("=", fin_->name, "Char_TO_Float(" + this->name + ")");
+        }
+        return fin_;
+    }
+    return this;
 }
 
 // Implementation of quad class
@@ -116,104 +153,106 @@ Quad::Quad(string result, int arg1, string op, string arg2) : result(result), op
 
 void Quad::print()
 {
-    auto binary_print=[this]()
+    auto binary_print = [this]()
     {
-        cout<<"\t"<<this->result<<" = "<<this->arg1<<" "<<this->op<<" "<<this->arg2<<endl;
+        cout << "\t" << this->result << " = " << this->arg1 << " " << this->op << " " << this->arg2 << endl;
     };
-    auto relation_print=[this]()
+    auto relation_print = [this]()
     {
-        cout<<"\t if"<<this->arg1<<" "<<this->op<<" "<<this->arg2<<" goto "<<this->result<<endl;
+        cout << "\t if" << this->arg1 << " " << this->op << " " << this->arg2 << " goto " << this->result << endl;
     };
-    auto shift_print=[this]()
+    auto shift_print = [this]()
     {
-        cout<<"\t"<<this->result<<" "<<this->op<<" "<<this->arg1<<endl;
+        cout << "\t" << this->result << " " << this->op << " " << this->arg1 << endl;
     };
-    auto shift_print_=[this](string tp)
+    auto shift_print_ = [this](string tp)
     {
-        cout<<"\t"<<this->result<<" "<<tp<<" "<<this->arg1<<endl;
+        cout << "\t" << this->result << " " << tp << " " << this->arg1 << endl;
     };
-    if(this->op == "=")
+    if (this->op == "=")
     {
-        cout<<this->result<<" = "<<this->arg1<<endl;
+        cout << this->result << " = " << this->arg1 << endl;
     }
-    else if(this->op=="goto")
+    else if (this->op == "goto")
     {
-        cout<<"goto "<<this->result<<endl;
+        cout << "goto " << this->result << endl;
     }
-    else if(this->op=="return")
+    else if (this->op == "return")
     {
-        cout<<"return "<<this->arg1<<endl;
+        cout << "return " << this->arg1 << endl;
     }
-    else if(this->op=="call")
+    else if (this->op == "call")
     {
-        cout<<this->result<<" = call "<<this->arg1<<", "<<this->arg2<<endl;
+        cout << this->result << " = call " << this->arg1 << ", " << this->arg2 << endl;
     }
-    else if(this->op=="param")
+    else if (this->op == "param")
     {
-        cout<<"param "<<this->result<<endl;
+        cout << "param " << this->result << endl;
     }
-    else if(this->op == "label")
+    else if (this->op == "label")
     {
-        cout<<this->result<<endl;
+        cout << this->result << endl;
     }
-    else if(this->op=="=[]")
+    else if (this->op == "=[]")
     {
-        cout<<this->result<<" = "<<this->arg1<<"["<<this->arg2<<"]"<<endl;
+        cout << this->result << " = " << this->arg1 << "[" << this->arg2 << "]" << endl;
     }
-    else if(this->op=="[]=")
+    else if (this->op == "[]=")
     {
-        cout<<this->result<<"["<<this->arg1<<"] = "<<this->arg2<<endl;
+        cout << this->result << "[" << this->arg1 << "] = " << this->arg2 << endl;
     }
-    else if(this->op=="+" or this->op=="-" or this->op=="*" or this->op=="/" or this->op=="%" or this->op=="|" or this->op=="^" or this->op=="&" or this->op=="<<" or this->op==">>")
+    else if (this->op == "+" or this->op == "-" or this->op == "*" or this->op == "/" or this->op == "%" or this->op == "|" or this->op == "^" or this->op == "&" or this->op == "<<" or this->op == ">>")
     {
         binary_print();
     }
-    else if(this->op=="==" or this->op=="!=" or this->op=="<" or this->op==">" or this->op=="<=" or this->op==">=")
+    else if (this->op == "==" or this->op == "!=" or this->op == "<" or this->op == ">" or this->op == "<=" or this->op == ">=")
     {
         relation_print();
     }
-    else if(this->op=="=&" or this->op=="=*" or this->op=="*=")
+    else if (this->op == "=&" or this->op == "=*" or this->op == "*=")
     {
         shift_print();
     }
-    else if(this->op=="uminus")
+    else if (this->op == "uminus")
     {
         shift_print_("= -");
     }
-    else if(this->op=="~")
+    else if (this->op == "~")
     {
         shift_print_("= ~");
     }
-    else if(this->op=="!")
+    else if (this->op == "!")
     {
         shift_print_("= !");
     }
-    else{
-        cout<<"INVALID OPERATOR\n";
+    else
+    {
+        cout << "INVALID OPERATOR\n";
     }
-    
 }
 
 // Implementation of emit funtions
-void emit(string op, string result, string arg1, string arg2) {
+void emit(string op, string result, string arg1, string arg2)
+{
     Quad *q = new Quad(result, arg1, op, arg2);
     quadArray.push_back(q);
 }
-void emit(string op, string result, int arg1, string arg2) {
+void emit(string op, string result, int arg1, string arg2)
+{
     Quad *q = new Quad(result, arg1, op, arg2);
     quadArray.push_back(q);
 }
 #warning is this necessary?
-void emit(string op,string result, float arg1, string arg2){
+void emit(string op, string result, float arg1, string arg2)
+{
     Quad *q = new Quad(result, arg1, op, arg2);
     quadArray.push_back(q);
 }
 
-
 // Implementation of backpatching functions
 void backpatch(list<int> list_, int addr)
 {
-    for(auto&i:list_)
+    for (auto &i : list_)
     {
         quadArray[i]->result = toString(addr);
     }
@@ -223,9 +262,9 @@ list<int> makeList(int base)
     return {base};
 }
 
-list<int> merge(list<int> & first, list<int>& second)
+list<int> merge(list<int> &first, list<int> &second)
 {
-    list<int> ret=first;
+    list<int> ret = first;
     ret.merge(second);
     return ret;
 }
@@ -233,26 +272,26 @@ list<int> merge(list<int> & first, list<int>& second)
 
 void Expression::toInt()
 {
-    #warning should this be typeEnum int???
-    if(this->type!=Expression::typeEnum::NONBOOLEAN)
+#warning should this be typeEnum int???
+    if (this->type != Expression::typeEnum::NONBOOLEAN)
     {
-        this->falseList=makeList(static_cast<int>(quadArray.size()));                                                             // update the falselist
-        emit("==","",this->symbol->name,"0");                                                                 // emit general goto statements
-        this->trueList=makeList(static_cast<int>(quadArray.size()));                                                              // update the truelist
-        emit("goto","");
+        this->falseList = makeList(static_cast<int>(quadArray.size()+1)); // update the falselist
+        emit("==", "", this->symbol->name, "0");                        // emit general goto statements
+        this->trueList = makeList(static_cast<int>(quadArray.size()+1));  // update the truelist
+        emit("goto", "");
     }
 }
 
 void Expression::toBool()
 {
-    if(this->type!=Expression::typeEnum::BOOLEAN)
+    if (this->type != Expression::typeEnum::BOOLEAN)
     {
-        this->symbol=gentemp(SymbolType::typeEnum::INT);
-        backpatch(this->trueList,static_cast<int>(quadArray.size()));
-        emit("=","",this->symbol->name,"true");
-        emit("goto",toString(static_cast<int>(quadArray.size()+1)));
-        backpatch(this->falseList,static_cast<int>(quadArray.size()));
-        emit("=","",this->symbol->name,"false");
+        this->symbol = gentemp(SymbolType::typeEnum::INT);
+        backpatch(this->trueList, static_cast<int>(quadArray.size()+1));
+        emit("=", "", this->symbol->name, "true");
+        emit("goto", toString(static_cast<int>(quadArray.size() + 2)));
+        backpatch(this->falseList, static_cast<int>(quadArray.size()+1));
+        emit("=", "", this->symbol->name, "false");
     }
 }
 
@@ -263,33 +302,33 @@ int nextInstruction()
     return quadArray.size() + 1;
 }
 
-Symbol* gentemp(SymbolType::typeEnum type,string s)
+Symbol *gentemp(SymbolType::typeEnum type, string s)
 {
-    Symbol* temp= new Symbol("t"+toString(temporaryCount++),type,s);
-    Symbol* ret=currentTable->lookup(temp->name);
+    Symbol *temp = new Symbol("t" + toString(temporaryCount++), type, s);
+    Symbol *ret = currentTable->lookup(temp->name);
     return ret;
 }
-void changeTable(SymbolTable * table)
+void changeTable(SymbolTable *table)
 {
-    currentTable=table;
+    currentTable = table;
 }
 
-bool typeCheck(Symbol * a, Symbol * b)
-{     
-    std::function<bool(SymbolType*,SymbolType*)> type_comp=[&](SymbolType * first, SymbolType * second)-> bool
+bool typeCheck(Symbol *a, Symbol *b)
+{
+    std::function<bool(SymbolType *, SymbolType *)> type_comp = [&](SymbolType *first, SymbolType *second) -> bool
     {
-        if(!first and !second)
+        if (!first and !second)
             return true;
-        else if(!first or !second or first->type!=second->type)
+        else if (!first or !second or first->type != second->type)
             return false;
-        else  
-            return type_comp(first->arrayType,second->arrayType);    
+        else
+            return type_comp(first->arrayType, second->arrayType);
     };
-    if(type_comp(a->type,b->type))
+    if (type_comp(a->type, b->type))
         return true;
-    else if (a=b->convert(b->type->type))
+    else if (a = b->convert(b->type->type))
         return true;
-    else if (b=a->convert(a->type->type))
+    else if (b = a->convert(a->type->type))
         return true;
     else
         return false;
@@ -310,7 +349,8 @@ string toString(char c)
     return string(1, c);
 }
 
-int main() {
+int main()
+{
     yyparse();
     globalTable->print();
     return 0;
