@@ -211,13 +211,72 @@ void emit(string op,string result, float arg1, string arg2){
 
 
 // Implementation of backpatching functions
+void backpatch(list<int> list_, int addr)
+{
+    for(auto&i:list_)
+    {
+        quadArray[i]->result = toString(addr);
+    }
+}
+list<int> makeList(int base)
+{
+    return {base};
+}
+
+list<int> merge(list<int> & first, list<int>& second)
+{
+    list<int> ret=first;
+    ret.merge(second);
+    return ret;
+}
+// Implementation of Expression class functions
+
+Expression* Expression::toInt()
+{
+    #warning should this be typeEnum int???
+    if(this->type==Expression::typeEnum::NONBOOLEAN)
+    {
+        return this;
+    }
+    else
+    {
+        this->falseList=makeList(static_cast<int>(quadArray.size()));                                                             // update the falselist
+        emit("==","",this->symbol->name,"0");                                                                 // emit general goto statements
+        this->trueList=makeList(static_cast<int>(quadArray.size()));                                                              // update the truelist
+        emit("goto","");
+    }
+}
+
+Expression* Expression::toBool()
+{
+    if(this->type==Expression::typeEnum::BOOLEAN)
+    {
+        return this;
+    }
+    else
+    {
+        this->symbol=gentemp(SymbolType::typeEnum::INT);
+        backpatch(this->trueList,static_cast<int>(quadArray.size()));
+        emit("=","",this->symbol->name,"true");
+        emit("goto",toString(static_cast<int>(quadArray.size()+1)));
+        backpatch(this->falseList,static_cast<int>(quadArray.size()));
+        emit("=","",this->symbol->name,"false");
+    }
+}
 
 // Implementation of other helper functions
+#warning I AM NOT USING NEXTINSTRUCTION, THE PLUS ONE SHOULD NOT BE THERE?????
 int nextInstruction()
 {
     return quadArray.size() + 1;
 }
 
+Symbol* gentemp(SymbolType::typeEnum type,string s="")
+{
+    Symbol* temp= new Symbol("t"+toString(temporaryCount++),type,s);
+    Symbol* ret=currentTable->lookup(temp->name);
+    return ret;
+}
 // Implementation of utility functions
 string toString(int i)
 {

@@ -99,10 +99,11 @@ void emit(string, string, int, string = "");
 // Backpatching functions
 void backpatch(list<int>, int);
 list<int> makeList(int);
-list<int> merge(list<int> &, list<int>);
+list<int> merge(list<int> &, list<int>&);
 
 // Other helper functions
-int nextInstruction();
+
+int nextInstruction(); 
 Symbol *gentemp(SymbolType::typeEnum, string = "");
 void changeTable(SymbolTable *);
 
