@@ -107,7 +107,7 @@ Symbol *Symbol::update(SymbolType *type)
 
 Symbol *Symbol::convert(SymbolType::typeEnum type)
 {
-    
+    #warning "TODO I DONT UNDERSTAND"
 }
 
 // Implementation of quad class
@@ -124,11 +124,14 @@ void Quad::print()
     {
         cout<<"\t if"<<this->arg1<<" "<<this->op<<" "<<this->arg2<<" goto "<<this->result<<endl;
     };
-    auto shift_print=[this](string tp=this->op)
+    auto shift_print=[this]()
+    {
+        cout<<"\t"<<this->result<<" "<<this->op<<" "<<this->arg1<<endl;
+    };
+    auto shift_print_=[this](string tp)
     {
         cout<<"\t"<<this->result<<" "<<tp<<" "<<this->arg1<<endl;
     };
-    
     if(this->op == "=")
     {
         cout<<this->result<<" = "<<this->arg1<<endl;
@@ -175,15 +178,15 @@ void Quad::print()
     }
     else if(this->op=="uminus")
     {
-        shift_print("= -");
+        shift_print_("= -");
     }
     else if(this->op=="~")
     {
-        shift_print("= ~");
+        shift_print_("= ~");
     }
     else if(this->op=="!")
     {
-        shift_print("= !");
+        shift_print_("= !");
     }
     else{
         cout<<"INVALID OPERATOR\n";
@@ -193,10 +196,17 @@ void Quad::print()
 
 // Implementation of emit funtions
 void emit(string op, string result, string arg1, string arg2) {
-
+    Quad *q = new Quad(result, arg1, op, arg2);
+    quadArray.push_back(q);
 }
 void emit(string op, string result, int arg1, string arg2) {
-
+    Quad *q = new Quad(result, arg1, op, arg2);
+    quadArray.push_back(q);
+}
+#warning is this necessary?
+void emit(string op,string result, float arg1, string arg2){
+    Quad *q = new Quad(result, arg1, op, arg2);
+    quadArray.push_back(q);
 }
 
 
