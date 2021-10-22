@@ -29,48 +29,47 @@ SymbolTable::SymbolTable(string name, SymbolTable *parent) : name(name), parent(
 
 Symbol *SymbolTable::lookup(string name)
 {
-//     if ((this)->symbols.find(name) != (this)->symbols.end())
-//         return &(this)->symbols[name];
-//     Symbol *ret_ptr = nullptr;
-//     if (this->parent != NULL)
-//         ret_ptr = this->parent->lookup(name);
+    if ((this)->symbols.find(name) != (this)->symbols.end())
+        return &(this)->symbols[name];
+    Symbol *ret_ptr = nullptr;
+    if (this->parent != NULL)
+        ret_ptr = this->parent->lookup(name);
 
-// #warning check this portion
-//     if (!ret_ptr) // SHOULD I CHECK WHICH SYMBOL THIS IS ???????
-//     {
-//         auto sym = new Symbol(name); // constructor format??
-//         this->symbols[name] = *sym;
-//         return &(this)->symbols[name];
-//     }
-//     return ret_ptr;
+    if (!ret_ptr) // SHOULD I CHECK WHICH SYMBOL THIS IS ???????
+    {
+        auto sym = new Symbol(name); // constructor format??
+        this->symbols[name] = *sym;
+        return &(this)->symbols[name];
+    }
+    return ret_ptr;
 }
 
 // CHECK THIS PART
 void SymbolTable::update()
 {
-    // vector<SymbolTable *> visited;
-    // int offset;
-    // for (auto map_entry : (this)->symbols)
-    // {
-    //     if (map_entry == *(this->symbols).begin())
-    //     {
-    //         map_entry.second.offset = 0;
-    //         offset = map_entry.second.size;
-    //     }
-    //     else
-    //     {
-    //         map_entry.second.offset = offset;
-    //         offset += map_entry.second.size;
-    //     }
-    //     if(map_entry.second.nestedTable)
-    //     {
-    //         visited.push_back(map_entry.second.nestedTable);
-    //     }
-    // }
-    // for(auto table : visited)
-    // {
-    //     table->update();
-    // }
+    vector<SymbolTable *> visited;
+    int offset;
+    for (auto map_entry : (this)->symbols)
+    {
+        if (map_entry.first == (this->symbols).begin()->first)
+        {
+            map_entry.second.offset = 0;
+            offset = map_entry.second.size;
+        }
+        else
+        {
+            map_entry.second.offset = offset;
+            offset += map_entry.second.size;
+        }
+        if(map_entry.second.nestedTable)
+        {
+            visited.push_back(map_entry.second.nestedTable);
+        }
+    }
+    for(auto table : visited)
+    {
+        table->update();
+    }
 }
 
 void SymbolTable::print()
@@ -92,6 +91,7 @@ Symbol *Symbol::update(SymbolType *type)
 
 Symbol *Symbol::convert(SymbolType::typeEnum type)
 {
+    return nullptr;
 }
 
 // Implementation of quad class
