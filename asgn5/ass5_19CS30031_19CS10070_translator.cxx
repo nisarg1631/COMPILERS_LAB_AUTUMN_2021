@@ -24,6 +24,26 @@ int SymbolType::getSize()
         return 0;
 }
 
+string SymbolType::toString()
+{
+    if(this->type == SymbolType::VOID)
+        return "void";
+    else if(this->type == SymbolType::CHAR)
+        return "char";
+    else if(this->type == SymbolType::INT)
+        return "int";
+    else if(this->type == SymbolType::FLOAT)
+        return "float";
+    else if(this->type == SymbolType::POINTER)
+        return "ptr(" + this->arrayType->toString() + ")";
+    else if(this->type == SymbolType::FUNCTION)
+        return "function";
+    else if(this->type == SymbolType::ARRAY)
+        return "array(" + to_string(this->width) + ", " + this->arrayType->toString() + ")";
+    else if(this->type ==  SymbolType::BLOCK)
+        return "block";
+}
+
 // Implementation of symbol table class
 SymbolTable::SymbolTable(string name, SymbolTable *parent) : name(name), parent(parent) {}
 
@@ -74,26 +94,34 @@ void SymbolTable::update()
 
 void SymbolTable::print()
 {
-    cout << "Table Name: " << this->name<<"\t Parent Name: "<<((this->parent)?this->parent->name:"None") << endl;
-    cout<<"Name\t Type\t InitialValue\t Offset\t Size\n";
+    cout << string(140, '=') << endl;
+    cout << "Table Name: " << this->name <<"\t\t Parent Name: "<< ((this->parent)?this->parent->name:"None") << endl;
+    cout << string(140, '=') << endl;
+    cout << setw(20) << "Name" << setw(40) << "Type" << setw(20) << "Initial Value" << setw(20) << "Offset" << setw(20) << "Size" << setw(20) << "Child" << "\n" << endl;
+    // cout<<"Name\t Type\t InitialValue\t Offset\t Size\n";
     vector<SymbolTable *> tovisit;
     for (auto &map_entry : (this)->symbols)
     {
-        cout << map_entry.first << " " << map_entry.second.type << " " << map_entry.second.initialValue << " " << map_entry.second.offset << " " << map_entry.second.size << endl;
+        cout << setw(20) << map_entry.first;
+        fflush(stdout);
+        cout << setw(40) << (map_entry.second.isFunction ? "function" : map_entry.second.type->toString());
+        cout << setw(20) << map_entry.second.initialValue << setw(20) << map_entry.second.offset << setw(20) << map_entry.second.size;
+        cout << setw(20) << (map_entry.second.nestedTable ? map_entry.second.nestedTable->name : "NULL") << endl;
         if (map_entry.second.nestedTable)
         {
             tovisit.push_back(map_entry.second.nestedTable);
         }
     }
+    cout << string(140, '-') << endl;
+    cout << "\n" << endl;
     for (auto &table : tovisit)
     {
         table->print();
     }
-    cout << endl;
 }
 
 // Implementation of symbol class
-Symbol::Symbol(string name, SymbolType::typeEnum type, string init) : name(name), type(new SymbolType(type)), offset(0), nestedTable(NULL), initialValue(init)
+Symbol::Symbol(string name, SymbolType::typeEnum type, string init) : name(name), type(new SymbolType(type)), offset(0), nestedTable(NULL), initialValue(init), isFunction(false)
 {
     size = this->type->getSize();
 }
@@ -107,42 +135,53 @@ Symbol *Symbol::update(SymbolType *type)
 
 Symbol *Symbol::convert(SymbolType::typeEnum type_)
 {
-    Symbol *fin_ = gentemp(type_);
     if ((this->type)->type == SymbolType::typeEnum::FLOAT)
     {
         if (type_ == SymbolType::typeEnum::INT)
         {
+            Symbol *fin_ = gentemp(type_);
             emit("=", fin_->name, "Float_TO_Int(" + this->name + ")");
+            return fin_;
         }
         else if (type_ == SymbolType::typeEnum::CHAR)
         {
+            Symbol *fin_ = gentemp(type_);
             emit("=", fin_->name, "Float_TO_Char(" + this->name + ")");
+            return fin_;
         }
-        return fin_;
+        return this;
     }
     else if ((this->type)->type == SymbolType::typeEnum::INT)
     {
         if (type_ == SymbolType::typeEnum::FLOAT)
         {
+            Symbol *fin_ = gentemp(type_);
             emit("=", fin_->name, "INT_TO_Float(" + this->name + ")");
+            return fin_;
         }
         else if (type_ == SymbolType::typeEnum::CHAR)
         {
+            Symbol *fin_ = gentemp(type_);
             emit("=", fin_->name, "INT_TO_Char(" + this->name + ")");
+            return fin_;
         }
-        return fin_;
+        return this;
     }
     else if ((this->type)->type == SymbolType::typeEnum::CHAR)
     {
         if (type_ == SymbolType::typeEnum::INT)
         {
+            Symbol *fin_ = gentemp(type_);
             emit("=", fin_->name, "Char_TO_Int(" + this->name + ")");
+            return fin_;
         }
         else if (type_ == SymbolType::typeEnum::FLOAT)
         {
+            Symbol *fin_ = gentemp(type_);
             emit("=", fin_->name, "Char_TO_Float(" + this->name + ")");
+            return fin_;
         }
-        return fin_;
+        return this;
     }
     return this;
 }
@@ -159,11 +198,11 @@ void Quad::print()
     };
     auto relation_print = [this]()
     {
-        cout << "\t if" << this->arg1 << " " << this->op << " " << this->arg2 << " goto " << this->result << endl;
+        cout << "\tif " << this->arg1 << " " << this->op << " " << this->arg2 << " goto " << this->result << endl;
     };
     auto shift_print = [this]()
     {
-        cout << "\t" << this->result << " " << this->op << " " << this->arg1 << endl;
+        cout << "\t" << this->result << " " << this->op[0] << " " << this->op[1] << this->arg1 << endl;
     };
     auto shift_print_ = [this](string tp)
     {
@@ -171,23 +210,23 @@ void Quad::print()
     };
     if (this->op == "=")
     {
-        cout << this->result << " = " << this->arg1 << endl;
+        cout << "\t" << this->result << " = " << this->arg1 << endl;
     }
     else if (this->op == "goto")
     {
-        cout << "goto " << this->result << endl;
+        cout << "\tgoto " << this->result << endl;
     }
     else if (this->op == "return")
     {
-        cout << "return " << this->arg1 << endl;
+        cout << "\treturn " << this->result << endl;
     }
     else if (this->op == "call")
     {
-        cout << this->result << " = call " << this->arg1 << ", " << this->arg2 << endl;
+        cout << "\t" << this->result << " = call " << this->arg1 << ", " << this->arg2 << endl;
     }
     else if (this->op == "param")
     {
-        cout << "param " << this->result << endl;
+        cout << "\t" << "param " << this->result << endl;
     }
     else if (this->op == "label")
     {
@@ -195,11 +234,11 @@ void Quad::print()
     }
     else if (this->op == "=[]")
     {
-        cout << this->result << " = " << this->arg1 << "[" << this->arg2 << "]" << endl;
+        cout << "\t" << this->result << " = " << this->arg1 << "[" << this->arg2 << "]" << endl;
     }
     else if (this->op == "[]=")
     {
-        cout << this->result << "[" << this->arg1 << "] = " << this->arg2 << endl;
+        cout << "\t" << this->result << "[" << this->arg1 << "] = " << this->arg2 << endl;
     }
     else if (this->op == "+" or this->op == "-" or this->op == "*" or this->op == "/" or this->op == "%" or this->op == "|" or this->op == "^" or this->op == "&" or this->op == "<<" or this->op == ">>")
     {
@@ -209,9 +248,13 @@ void Quad::print()
     {
         relation_print();
     }
-    else if (this->op == "=&" or this->op == "=*" or this->op == "*=")
+    else if (this->op == "=&" or this->op == "=*")
     {
         shift_print();
+    }
+    else if(this->op == "*=")
+    {
+        cout << "\t" << "*" << this->result << " = " << this->arg1 << endl;
     }
     else if (this->op == "uminus")
     {
@@ -227,6 +270,7 @@ void Quad::print()
     }
     else
     {
+        cout << this->op << this->arg1 << this->arg2 << this->result << endl;
         cout << "INVALID OPERATOR\n";
     }
 }
@@ -242,19 +286,13 @@ void emit(string op, string result, int arg1, string arg2)
     Quad *q = new Quad(result, arg1, op, arg2);
     quadArray.push_back(q);
 }
-#warning is this necessary?
-void emit(string op, string result, float arg1, string arg2)
-{
-    Quad *q = new Quad(result, arg1, op, arg2);
-    quadArray.push_back(q);
-}
 
 // Implementation of backpatching functions
 void backpatch(list<int> list_, int addr)
 {
     for (auto &i : list_)
     {
-        quadArray[i]->result = toString(addr);
+        quadArray[i-1]->result = toString(addr);
     }
 }
 list<int> makeList(int base)
@@ -272,8 +310,20 @@ list<int> merge(list<int> first, list<int> second)
 
 void Expression::toInt()
 {
-#warning should this be typeEnum int???
-    if (this->type != Expression::typeEnum::NONBOOLEAN)
+    if (this->type == Expression::typeEnum::BOOLEAN)
+    {
+        this->symbol = gentemp(SymbolType::typeEnum::INT);
+        backpatch(this->trueList, static_cast<int>(quadArray.size()+1));
+        emit("=", this->symbol->name, "true");
+        emit("goto", toString(static_cast<int>(quadArray.size() + 2)));
+        backpatch(this->falseList, static_cast<int>(quadArray.size()+1));
+        emit("=", this->symbol->name, "false");
+    }
+}
+
+void Expression::toBool()
+{
+    if (this->type == Expression::typeEnum::NONBOOLEAN)
     {
         this->falseList = makeList(static_cast<int>(quadArray.size()+1)); // update the falselist
         emit("==", "", this->symbol->name, "0");                        // emit general goto statements
@@ -282,21 +332,7 @@ void Expression::toInt()
     }
 }
 
-void Expression::toBool()
-{
-    if (this->type != Expression::typeEnum::BOOLEAN)
-    {
-        this->symbol = gentemp(SymbolType::typeEnum::INT);
-        backpatch(this->trueList, static_cast<int>(quadArray.size()+1));
-        emit("=", "", this->symbol->name, "true");
-        emit("goto", toString(static_cast<int>(quadArray.size() + 2)));
-        backpatch(this->falseList, static_cast<int>(quadArray.size()+1));
-        emit("=", "", this->symbol->name, "false");
-    }
-}
-
 // Implementation of other helper functions
-#warning I AM NOT USING NEXTINSTRUCTION, THE PLUS ONE SHOULD NOT BE THERE?????
 int nextInstruction()
 {
     return quadArray.size() + 1;
@@ -305,15 +341,15 @@ int nextInstruction()
 Symbol *gentemp(SymbolType::typeEnum type, string s)
 {
     Symbol *temp = new Symbol("t" + toString(temporaryCount++), type, s);
-    Symbol *ret = currentTable->lookup(temp->name);
-    return ret;
+    currentTable->symbols.insert({temp->name, *temp});
+    return temp;
 }
 void changeTable(SymbolTable *table)
 {
     currentTable = table;
 }
 
-bool typeCheck(Symbol *a, Symbol *b)
+bool typeCheck(Symbol *&a, Symbol *&b)
 {
     std::function<bool(SymbolType *, SymbolType *)> type_comp = [&](SymbolType *first, SymbolType *second) -> bool
     {
@@ -324,14 +360,27 @@ bool typeCheck(Symbol *a, Symbol *b)
         else
             return type_comp(first->arrayType, second->arrayType);
     };
-    if (type_comp(a->type, b->type))
+    if(type_comp(a->type, b->type))
         return true;
-    else if (a = b->convert(b->type->type))
+    else if(a->type->type == SymbolType::FLOAT or b->type->type == SymbolType::FLOAT) {
+        a = a->convert(SymbolType::FLOAT);
+        b = b->convert(SymbolType::FLOAT);
         return true;
-    else if (b = a->convert(a->type->type))
+    }
+    else if(a->type->type == SymbolType::INT or b->type->type == SymbolType::INT) {
+        a = a->convert(SymbolType::INT);
+        b = b->convert(SymbolType::INT);
         return true;
-    else
+    }
+    else {
         return false;
+    }
+    // else if (a = b->convert(b->type->type))
+    //     return true;
+    // else if (b = a->convert(a->type->type))
+    //     return true;
+    // else
+    //     return false;
 }
 // Implementation of utility functions
 string toString(int i)
@@ -355,10 +404,13 @@ int main() {
     temporaryCount = 0;
     globalTable = new SymbolTable("global");
     currentTable = globalTable;
+    cout << left; // left allign
     yyparse();
+    globalTable->update();
     globalTable->print();
+    int ins = 1;
     for(auto it : quadArray) {
-        it->print();
+        cout<<setw(4)<<ins++<<": "; it->print();
     }
     return 0;
 }

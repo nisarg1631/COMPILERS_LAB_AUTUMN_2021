@@ -7,6 +7,7 @@
 #include <vector>
 #include <list>
 #include<functional>
+#include<iomanip>
 using namespace std;
 
 class SymbolType;
@@ -27,7 +28,7 @@ class SymbolType {
 
         SymbolType(typeEnum, SymbolType * = NULL, int = 1);
         int getSize();
-        void print();
+        string toString();
 };
 
 // Symbol table class
@@ -51,6 +52,8 @@ class Symbol {
         SymbolType *type;
         SymbolTable *nestedTable;
         string initialValue;
+        bool isFunction; // flag to indicate if the symbol represents a function or not
+                         // if it does represent a function the return type will be given by the type attribute
 
         Symbol(string, SymbolType::typeEnum = SymbolType::INT, string = "");
         Symbol *update(SymbolType *);
@@ -109,7 +112,7 @@ Symbol *gentemp(SymbolType::typeEnum, string = "");
 void changeTable(SymbolTable *);
 
 // Type checking and conversions
-bool typeCheck(Symbol *, Symbol *);
+bool typeCheck(Symbol *&, Symbol *&);
 
 // Utility functions
 string toString(int);
