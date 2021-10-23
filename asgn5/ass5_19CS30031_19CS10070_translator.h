@@ -27,6 +27,7 @@ class SymbolType {
 
         SymbolType(typeEnum, SymbolType * = NULL, int = 1);
         int getSize();
+        void print();
 };
 
 // Symbol table class
@@ -99,7 +100,7 @@ void emit(string, string, int, string = "");
 // Backpatching functions
 void backpatch(list<int>, int);
 list<int> makeList(int);
-list<int> merge(list<int> &, list<int>&);
+list<int> merge(list<int>, list<int>);
 
 // Other helper functions
 

@@ -6,6 +6,8 @@
     int lineCount = 1;
 %}
 
+%option noyywrap
+
 %x MULTI_LINE_COMMENT_BODY
 %x SINGLE_LINE_COMMENT_BODY
 

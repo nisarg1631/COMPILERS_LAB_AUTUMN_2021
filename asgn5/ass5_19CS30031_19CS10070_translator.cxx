@@ -74,7 +74,7 @@ void SymbolTable::update()
 
 void SymbolTable::print()
 {
-    cout << "Table Name: " << this->name<<"\t Parent Name: "<<((this->parent)?"None":this->parent->name) << endl;
+    cout << "Table Name: " << this->name<<"\t Parent Name: "<<((this->parent)?this->parent->name:"None") << endl;
     cout<<"Name\t Type\t InitialValue\t Offset\t Size\n";
     vector<SymbolTable *> tovisit;
     for (auto &map_entry : (this)->symbols)
@@ -223,7 +223,7 @@ list<int> makeList(int base)
     return {base};
 }
 
-list<int> merge(list<int> & first, list<int>& second)
+list<int> merge(list<int> first, list<int> second)
 {
     list<int> ret=first;
     ret.merge(second);
@@ -311,7 +311,15 @@ string toString(char c)
 }
 
 int main() {
+    // initialization of global variables
+    tableCount = 0;
+    temporaryCount = 0;
+    globalTable = new SymbolTable("global");
+    currentTable = globalTable;
     yyparse();
     globalTable->print();
+    for(auto it : quadArray) {
+        it->print();
+    }
     return 0;
 }
