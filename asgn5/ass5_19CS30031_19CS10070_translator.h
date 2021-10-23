@@ -6,8 +6,9 @@
 #include <map>
 #include <vector>
 #include <list>
-#include<functional>
-#include<iomanip>
+#include <functional>
+#include <iomanip>
+#include <string.h>
 using namespace std;
 
 class SymbolType;

@@ -256,7 +256,7 @@ void Quad::print()
     {
         cout << "\t" << "*" << this->result << " = " << this->arg1 << endl;
     }
-    else if (this->op == "uminus")
+    else if (this->op == "=-")
     {
         shift_print_("= -");
     }

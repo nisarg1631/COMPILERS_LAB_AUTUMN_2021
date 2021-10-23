@@ -12,7 +12,7 @@
     char *charVal;
     char *stringVal;
     char *identifierVal;
-    char unaryOperator;
+    char *unaryOperator;
     int instructionNumber;
     int parameterCount;
     Expression *expression;
@@ -346,24 +346,24 @@ unary_expression:
                     | unary_operator cast_expression
                         { 
                             yyinfo("unary_expression => unary_operator cast_expression");
-                            if($1 == '&') {
+                            if(strcmp($1, "&") == 0) {
                                 $$ = new Array();
                                 $$->symbol = gentemp(SymbolType::POINTER);
                                 $$->symbol->type->arrayType = $2->symbol->type;
                                 emit("=&", $$->symbol->name, $2->symbol->name);
-                            } else if($1 == '*') {
+                            } else if(strcmp($1, "*") == 0) {
                                 $$ = new Array();
                                 $$->symbol = $2->symbol;
                                 $$->temp = gentemp($2->temp->type->arrayType->type);
                                 $$->temp->type->arrayType = $2->temp->type->arrayType->arrayType;
                                 $$->type = Array::POINTER;
                                 emit("=*", $$->temp->name, $2->temp->name);
-                            } else if($1 == '+') {
+                            } else if(strcmp($1, "+") == 0) {
                                 $$ = $2;
                             } else { // for -, ~ and !
                                 $$ = new Array();
                                 $$->symbol = gentemp($2->symbol->type->type);
-                                emit(toString($1), $$->symbol->name, $2->symbol->name);
+                                emit($1, $$->symbol->name, $2->symbol->name);
                             }
                         }
                     | SIZEOF unary_expression
@@ -380,32 +380,32 @@ unary_operator:
                 BITWISE_AND
                     { 
                         yyinfo("unary_operator => &"); 
-                        $$ = '&'; 
+                        $$ = strdup("&"); 
                     }
                 | ASTERISK
                     { 
                         yyinfo("unary_operator => *"); 
-                        $$ = '*'; 
+                        $$ = strdup("*"); 
                     }
                 | PLUS
                     { 
                         yyinfo("unary_operator => +"); 
-                        $$ = '+'; 
+                        $$ = strdup("+"); 
                     }
                 | MINUS
                     { 
                         yyinfo("unary_operator => -"); 
-                        $$ = '-'; 
+                        $$ = strdup("=-"); 
                     }
                 | TILDE
                     { 
                         yyinfo("unary_operator => ~"); 
-                        $$ = '~'; 
+                        $$ = strdup("~"); 
                     }
                 | EXCLAMATION
                     { 
                         yyinfo("unary_operator => !"); 
-                        $$ = '!'; 
+                        $$ = strdup("!"); 
                     }
                 ;
 
@@ -821,7 +821,8 @@ assignment_expression:
                                     $3->symbol = $3->symbol->convert($1->subArrayType->type);
                                     emit("[]=", $1->symbol->name, $1->temp->name, $3->symbol->name);
                                 } else if($1->type == Array::POINTER) {
-                                    emit("*=", $1->symbol->name, $3->symbol->name);
+                                    $3->symbol = $3->symbol->convert($1->temp->type->type);
+                                    emit("*=", $1->temp->name, $3->symbol->name);
                                 } else {
                                     $3->symbol = $3->symbol->convert($1->symbol->type->type);
 			                        emit("=", $1->symbol->name, $3->symbol->name);
