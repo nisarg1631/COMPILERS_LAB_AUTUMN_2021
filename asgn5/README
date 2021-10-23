@@ -1,0 +1,5 @@
+To run the tests run the following command:
+    `make test`
+
+To clean the object files and compiled binaries run:
+    `make clean`
