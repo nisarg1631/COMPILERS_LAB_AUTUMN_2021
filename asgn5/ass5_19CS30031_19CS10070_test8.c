@@ -1,4 +1,4 @@
-int add_loop(int* a,int n)
+int add_loop(int a[],int n)
 {
     int csum=0;
     int i;
