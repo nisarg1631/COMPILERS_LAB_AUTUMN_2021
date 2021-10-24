@@ -102,12 +102,16 @@ void SymbolTable::update()
 // Function to print the symbol table and its children
 void SymbolTable::print()
 {
+
+    // pretty print 
     cout << string(140, '=') << endl;
     cout << "Table Name: " << this->name <<"\t\t Parent Name: "<< ((this->parent)?this->parent->name:"None") << endl;
     cout << string(140, '=') << endl;
     cout << setw(20) << "Name" << setw(40) << "Type" << setw(20) << "Initial Value" << setw(20) << "Offset" << setw(20) << "Size" << setw(20) << "Child" << "\n" << endl;
     // cout<<"Name\t Type\t InitialValue\t Offset\t Size\n";
     vector<SymbolTable *> tovisit;
+
+    // print all the symbols in the table
     for (auto &map_entry : (this)->symbols)
     {
         cout << setw(20) << map_entry.first;
@@ -115,6 +119,7 @@ void SymbolTable::print()
         cout << setw(40) << (map_entry.second.isFunction ? "function" : map_entry.second.type->toString());
         cout << setw(20) << map_entry.second.initialValue << setw(20) << map_entry.second.offset << setw(20) << map_entry.second.size;
         cout << setw(20) << (map_entry.second.nestedTable ? map_entry.second.nestedTable->name : "NULL") << endl;
+        // remember to print nested tables later
         if (map_entry.second.nestedTable)
         {
             tovisit.push_back(map_entry.second.nestedTable);
@@ -122,6 +127,7 @@ void SymbolTable::print()
     }
     cout << string(140, '-') << endl;
     cout << "\n" << endl;
+    // print nested tables
     for (auto &table : tovisit)
     {
         table->print();
