@@ -40,8 +40,9 @@ main_1              block                                                       
 main_2              block                                                       56                  4                   main_2              
 n                   int                                     10                  60                  4                   NULL                
 return              int                                                         64                  4                   NULL                
-t6                  int                                     10                  68                  4                   NULL                
-t7                  int                                                         72                  4                   NULL                
+t11                 int                                     0                   68                  4                   NULL                
+t6                  int                                     10                  72                  4                   NULL                
+t7                  int                                                         76                  4                   NULL                
 --------------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -100,13 +101,15 @@ t10                 int                                     1                   
 26  : main_0
 27  : 	t8 = 0
 28  : 	ans = t8
-29  : 	goto 
+29  : 	goto 39
 30  : 	if csum > n goto 32
 31  : 	goto 36
 32  : main_1
 33  : 	t9 = csum - n
 34  : 	ans = t9
-35  : 	goto 
+35  : 	goto 39
 36  : main_2
 37  : 	t10 = 1
 38  : 	ans = t10
+39  : 	t11 = 0
+40  : 	return t11

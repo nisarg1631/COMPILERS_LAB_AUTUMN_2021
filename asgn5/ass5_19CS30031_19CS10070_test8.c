@@ -23,4 +23,5 @@ int main(){
 	else{
         ans=1;
     }
+	return 0;
 }
