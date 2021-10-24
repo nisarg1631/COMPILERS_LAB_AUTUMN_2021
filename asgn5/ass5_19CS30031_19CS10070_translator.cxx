@@ -1,11 +1,11 @@
 #include "ass5_19CS30031_19CS10070_translator.h"
 
 // Global Variables
-vector<Quad *> quadArray;
-SymbolTable *currentTable, *globalTable, *parentTable;
-Symbol *currentSymbol;
-SymbolType::typeEnum currentType;
-int tableCount, temporaryCount;
+vector<Quad *> quadArray;  // Quad Array
+SymbolTable *currentTable, *globalTable, *parentTable;  // Symbol Tables
+Symbol *currentSymbol;  // Current Symbol
+SymbolType::typeEnum currentType;  // Current Type
+int tableCount, temporaryCount;  // Counts of number of tables and number of temps generated
 
 // Implementation of symbol type class
 SymbolType::SymbolType(typeEnum type, SymbolType *arrayType, int width) : type(type), width(width), arrayType(arrayType) {}
