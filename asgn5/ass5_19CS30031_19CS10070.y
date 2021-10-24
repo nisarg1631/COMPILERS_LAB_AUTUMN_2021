@@ -324,7 +324,7 @@ postfix_expression:
                     ;
 
 
-
+// simply equate number of parameters
 argument_expression_list_opt:
                                 argument_expression_list
                                     { 
@@ -333,6 +333,7 @@ argument_expression_list_opt:
                                     }
                                 | 
                                     { 
+                                        // empty so 0 params
                                         yyinfo("argument_expression_list_opt => epsilon");
                                         $$ = 0;
                                     }
@@ -341,12 +342,14 @@ argument_expression_list_opt:
 argument_expression_list:
                             assignment_expression
                                 { 
+                                    // first param, initialise param count to 1
                                     yyinfo("argument_expression_list => assignment_expression"); 
                                     emit("param", $1->symbol->name);
                                     $$ = 1;
                                 }
                             | argument_expression_list COMMA assignment_expression
                                 { 
+                                    // one new param, add 1 to param count
                                     yyinfo("argument_expression_list => argument_expression_list , assignment_expression");
                                     emit("param", $3->symbol->name);
                                     $$ = $1 + 1; 
@@ -361,12 +364,14 @@ unary_expression:
                         }
                     | INCREMENT unary_expression
                         { 
+                            // pre increment, no new temporary simply add 1
                             yyinfo("unary_expression => ++ unary_expression"); 
                             $$ = $2;
                             emit("+", $2->symbol->name, $2->symbol->name, toString(1));
                         }
                     | DECREMENT unary_expression
                         { 
+                            // pre decrement, no new temporary simply subtract 1
                             yyinfo("unary_expression => -- unary_expression"); 
                             $$ = $2;
                             emit("-", $2->symbol->name, $2->symbol->name, toString(1));
@@ -375,11 +380,14 @@ unary_expression:
                         { 
                             yyinfo("unary_expression => unary_operator cast_expression");
                             if(strcmp($1, "&") == 0) {
+                                // addressing, this generates a pointer, the subArray type will thus be the symbol type of the cast_expression
                                 $$ = new Array();
                                 $$->symbol = gentemp(SymbolType::POINTER);
                                 $$->symbol->type->arrayType = $2->symbol->type;
                                 emit("=&", $$->symbol->name, $2->symbol->name);
                             } else if(strcmp($1, "*") == 0) {
+                                // dereferncing, this generates a pointer, a new temporary generated with type as the subarray type of the cast_expression
+                                // the subArray type will thus be one level deeper that of the cast_expression
                                 $$ = new Array();
                                 $$->symbol = $2->symbol;
                                 $$->temp = gentemp($2->temp->type->arrayType->type);
@@ -389,6 +397,7 @@ unary_expression:
                             } else if(strcmp($1, "+") == 0) {
                                 $$ = $2;
                             } else { // for -, ~ and !
+                                // simply apply the operator on cast_expression
                                 $$ = new Array();
                                 $$->symbol = gentemp($2->symbol->type->type);
                                 emit($1, $$->symbol->name, $2->symbol->name);
