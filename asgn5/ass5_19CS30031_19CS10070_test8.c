@@ -8,7 +8,7 @@ int add_loop(int a[],int n)
 }
 int main(){
     //minimum number of additional elements required to be added to the array to convert a given array (a) into an array whose average is 1
-    int n;
+    int n = 10;
 	int a[n];
     int ans;
     int csum=add_loop(a,n);
