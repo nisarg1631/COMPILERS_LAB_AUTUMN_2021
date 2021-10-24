@@ -47,3 +47,8 @@ test: parser.out
 	@echo "Running test 7 (Function calls)"
 	./parser.out < ass5_19CS30031_19CS10070_test7.c > ass5_19CS30031_19CS10070_quads7.out
 	@echo "Test 7 complete\n"
+
+	@echo "Running test 8 (General file)"
+	./parser.out < ass5_19CS30031_19CS10070_test8.c > ass5_19CS30031_19CS10070_quads8.out
+	@echo "Test 8 complete\n"
+	
