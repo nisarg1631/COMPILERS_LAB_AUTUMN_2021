@@ -1,0 +1,148 @@
+============================================================================================================================================
+Table Name: global		 Parent Name: None
+============================================================================================================================================
+Name                Type                                    Initial Value       Offset              Size                Child               
+
+main                function                                                    0                   4                   main                
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+
+============================================================================================================================================
+Table Name: main		 Parent Name: global
+============================================================================================================================================
+Name                Type                                    Initial Value       Offset              Size                Child               
+
+a1                  array(10, int)                                              0                   40                  NULL                
+a2                  array(10, array(20, int))                                   40                  800                 NULL                
+a3                  array(5, array(10, array(15, int)))                         840                 3000                NULL                
+f1                  ptr(float)                                                  3840                4                   NULL                
+f2                  ptr(ptr(float))                                             3844                4                   NULL                
+f3                  ptr(ptr(ptr(float)))                                        3848                4                   NULL                
+return              int                                                         3852                4                   NULL                
+t0                  int                                     10                  3856                4                   NULL                
+t1                  int                                     10                  3860                4                   NULL                
+t10                 int                                     2                   3864                4                   NULL                
+t11                 int                                                         3868                4                   NULL                
+t12                 int                                                         3872                4                   NULL                
+t13                 int                                                         3876                4                   NULL                
+t14                 int                                     5                   3880                4                   NULL                
+t15                 int                                                         3884                4                   NULL                
+t16                 int                                     6                   3888                4                   NULL                
+t17                 int                                                         3892                4                   NULL                
+t18                 int                                                         3896                4                   NULL                
+t19                 int                                     1                   3900                4                   NULL                
+t2                  int                                     20                  3904                4                   NULL                
+t20                 int                                                         3908                4                   NULL                
+t21                 int                                     2                   3912                4                   NULL                
+t22                 int                                                         3916                4                   NULL                
+t23                 int                                                         3920                4                   NULL                
+t24                 int                                     3                   3924                4                   NULL                
+t25                 int                                                         3928                4                   NULL                
+t26                 int                                                         3932                4                   NULL                
+t27                 int                                                         3936                4                   NULL                
+t28                 int                                     0                   3940                4                   NULL                
+t29                 int                                                         3944                4                   NULL                
+t3                  int                                     5                   3948                4                   NULL                
+t30                 int                                     0                   3952                4                   NULL                
+t31                 int                                                         3956                4                   NULL                
+t32                 int                                                         3960                4                   NULL                
+t33                 int                                     0                   3964                4                   NULL                
+t34                 int                                                         3968                4                   NULL                
+t35                 int                                                         3972                4                   NULL                
+t36                 ptr(ptr(float))                                             3976                4                   NULL                
+t37                 ptr(float)                                                  3980                4                   NULL                
+t38                 float                                                       3984                8                   NULL                
+t39                 int                                                         3992                4                   NULL                
+t4                  int                                     10                  3996                4                   NULL                
+t40                 ptr(ptr(float))                                             4000                4                   NULL                
+t41                 ptr(float)                                                  4004                4                   NULL                
+t42                 float                                                       4008                8                   NULL                
+t43                 ptr(float)                                                  4016                4                   NULL                
+t44                 float                                                       4020                8                   NULL                
+t45                 ptr(float)                                                  4028                4                   NULL                
+t46                 float                                                       4032                8                   NULL                
+t47                 int                                     9                   4040                4                   NULL                
+t48                 int                                                         4044                4                   NULL                
+t49                 int                                     19                  4048                4                   NULL                
+t5                  int                                     15                  4052                4                   NULL                
+t50                 int                                                         4056                4                   NULL                
+t51                 int                                                         4060                4                   NULL                
+t52                 int                                                         4064                4                   NULL                
+t53                 float                                                       4068                8                   NULL                
+t54                 float                                                       4076                8                   NULL                
+t55                 ptr(float)                                                  4084                4                   NULL                
+t56                 float                                                       4088                8                   NULL                
+t57                 int                                     0                   4096                4                   NULL                
+t6                  int                                     5                   4100                4                   NULL                
+t7                  int                                                         4104                4                   NULL                
+t8                  int                                     1                   4108                4                   NULL                
+t9                  int                                                         4112                4                   NULL                
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+
+1   : main
+2   : 	t0 = 10
+3   : 	t1 = 10
+4   : 	t2 = 20
+5   : 	t3 = 5
+6   : 	t4 = 10
+7   : 	t5 = 15
+8   : 	t6 = 5
+9   : 	t7 = t6 * 4
+10  : 	t8 = 1
+11  : 	t9 = t8 * 80
+12  : 	t10 = 2
+13  : 	t12 = t10 * 4
+14  : 	t11 = t9 + t12
+15  : 	t13 = a2[t11]
+16  : 	a1[t7] = t13
+17  : 	t14 = 5
+18  : 	t15 = t14 * 80
+19  : 	t16 = 6
+20  : 	t18 = t16 * 4
+21  : 	t17 = t15 + t18
+22  : 	t19 = 1
+23  : 	t20 = t19 * 600
+24  : 	t21 = 2
+25  : 	t23 = t21 * 60
+26  : 	t22 = t20 + t23
+27  : 	t24 = 3
+28  : 	t26 = t24 * 4
+29  : 	t25 = t22 + t26
+30  : 	t27 = a3[t25]
+31  : 	a2[t17] = t27
+32  : 	t28 = 0
+33  : 	t29 = t28 * 600
+34  : 	t30 = 0
+35  : 	t32 = t30 * 60
+36  : 	t31 = t29 + t32
+37  : 	t33 = 0
+38  : 	t35 = t33 * 4
+39  : 	t34 = t31 + t35
+40  : 	t36 = *f3
+41  : 	t37 = *t36
+42  : 	t38 = *t37
+43  : 	t39 = Float_TO_Int(t38)
+44  : 	a3[t34] = t39
+45  : 	t40 = *f3
+46  : 	t41 = *t40
+47  : 	t42 = *t41
+48  : 	t43 = *f2
+49  : 	t44 = *t43
+50  : 	*t42 = t44
+51  : 	t45 = *f2
+52  : 	t46 = *t45
+53  : 	t47 = 9
+54  : 	t48 = t47 * 80
+55  : 	t49 = 19
+56  : 	t51 = t49 * 4
+57  : 	t50 = t48 + t51
+58  : 	t52 = a2[t50]
+59  : 	t53 = INT_TO_Float(t52)
+60  : 	*t46 = t53
+61  : 	t54 = *f1
+62  : 	t55 = *f2
+63  : 	t56 = *t55
+64  : 	*t54 = t56
+65  : 	t57 = 0
+66  : 	return t57
