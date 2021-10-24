@@ -1293,11 +1293,17 @@ change_scope:
                     }
 	            ;
 
+/*
+
+Declarations
+
+*/
+
 direct_declarator:
                     IDENTIFIER 
                         { 
                             yyinfo("direct_declarator => IDENTIFIER"); 
-                            $$ = $1->update(new SymbolType(currentType));
+                            $$ = $1->update(new SymbolType(currentType)); // update type to the last type seen
                             currentSymbol = $$;
                         }
                     | LEFT_PARENTHESES declarator RIGHT_PARENTHESES
@@ -1379,6 +1385,7 @@ direct_declarator:
                                 // set type of return value
                                 currentTable->lookup("return")->update($1->type);
                             }
+                            // move back to the global table and set the nested table for the function
                             $1->nestedTable = currentTable;
                             currentTable->parent = globalTable;
                             changeTable(globalTable);
@@ -1397,6 +1404,7 @@ direct_declarator:
                                 // set type of return value
                                 currentTable->lookup("return")->update($1->type);
                             }
+                            // move back to the global table and set the nested table for the function
                             $1->nestedTable = currentTable;
                             currentTable->parent = globalTable;
                             changeTable(globalTable);
@@ -1849,7 +1857,7 @@ jump_statement:
                         yyinfo("jump_statement => return expression_opt ;"); 
                         $$ = new Statement();
                         if($2->symbol != NULL) {
-                            emit("return", $2->symbol->name);
+                            emit("return", $2->symbol->name); // emit the current symbol name at return if it exists otherwise empty
                         } else {
                             emit("return", "");
                         }
