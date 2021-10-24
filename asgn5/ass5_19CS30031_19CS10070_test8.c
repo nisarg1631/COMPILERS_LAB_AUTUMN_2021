@@ -1,7 +1,8 @@
-int add_loop(int a[],int n)
+int add_loop(int* a,int n)
 {
     int csum=0;
-	for (int i=0;i<n;i++)
+    int i;
+	for (i=0;i<n;i++)
         csum=csum+a[i];
     return csum;
 }
