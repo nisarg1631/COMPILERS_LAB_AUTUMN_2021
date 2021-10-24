@@ -6,6 +6,16 @@
     void yyinfo(string);
 %}
 
+/*
+    intVal, floatVal, charVal, stringVal for storing constants entered by user in code
+    idetifierVal for storing name of identifier
+    unaryOperator for storing the unary operator encountered
+    instructionNumber for backpatching
+    parameterCount for storing number of parameters passed to function
+    symbolType to store most recent type encountered
+    expression, statement and array types and symbols with their usual meanings as discussed in class
+*/
+
 %union {
     int intVal;
     char *floatVal;
@@ -59,6 +69,11 @@
 %token _BOOL
 %token _COMPLEX
 %token _IMAGINARY
+
+/*
+IDENTIFIER points to its entry in the symbol table
+The remaining are constants from the code
+*/
 
 %token<symbol> IDENTIFIER
 %token<intVal> INTEGER_CONSTANT
@@ -177,6 +192,7 @@
     init_declarator 
     declarator
 
+// Instruction number for backpatching
 %type <instructionNumber> 
     M
 
@@ -184,11 +200,17 @@
 
 /* Expressions */
 
+/*
+For constants we simply create a temporary with that initial value and create a new expression 
+with the symbol pointing to the newly generated temporary, for identifiers it points to the
+identifier which in itself is a symbol
+*/
+
 primary_expression: 
                     IDENTIFIER 
                         { 
                             yyinfo("primary_expression => IDENTIFIER");
-                            $$ = new Expression();
+                            $$ = new Expression(); // create new non boolean expression and symbol is the identifier
                             $$->symbol = $1;
                             $$->type = Expression::NONBOOLEAN; 
                         }
@@ -230,6 +252,7 @@ primary_expression:
 postfix_expression:
                     primary_expression
                         { 
+                            // create new array with the same symbol as the primary expression
                             yyinfo("postfix_expression => primary_expression"); 
                             $$ = new Array();
                             $$->symbol = $1->symbol;
@@ -238,14 +261,16 @@ postfix_expression:
                         }
                     | postfix_expression LEFT_SQUARE_BRACKET expression RIGHT_SQUARE_BRACKET
                         { 
+                            // this is an array expression, create a new array
                             yyinfo("postfix_expression => postfix_expression [ expression ]"); 
                             $$ = new Array();
-                            $$->symbol = $1->symbol;
-                            $$->subArrayType = $1->subArrayType->arrayType;
-                            $$->temp = gentemp(SymbolType::INT);
-                            $$->type = Array::ARRAY;
+                            $$->symbol = $1->symbol;    // same symbol as before
+                            $$->subArrayType = $1->subArrayType->arrayType; // as we are indexing we go one level deeper
+                            $$->temp = gentemp(SymbolType::INT); // temporary to compute location
+                            $$->type = Array::ARRAY;    // type will be array
 
                             if($1->type == Array::ARRAY) {
+                                // postfix_expression is already array so multiply size of subarray with expression and add
                                 Symbol *sym = gentemp(SymbolType::INT);
                                 emit("*", sym->name, $3->symbol->name, toString($$->subArrayType->getSize()));
                                 emit("+", $$->temp->name, $1->temp->name, sym->name);
@@ -256,6 +281,7 @@ postfix_expression:
                         }
                     | postfix_expression LEFT_PARENTHESES argument_expression_list_opt RIGHT_PARENTHESES
                         { 
+                            // function call, number of parameters stored in argument_expression_list_opt
                             yyinfo("postfix_expression => postfix_expression ( argument_expression_list_opt )"); 
                             $$ = new Array();
                             $$->symbol = gentemp($1->symbol->type->type);
@@ -271,6 +297,7 @@ postfix_expression:
                         }
                     | postfix_expression INCREMENT
                         { 
+                            // post increment, first generate temporary with old value, then add 1
                             yyinfo("postfix_expression => postfix_expression ++");
                             $$ = new Array();
                             $$->symbol = gentemp($1->symbol->type->type);
@@ -279,6 +306,7 @@ postfix_expression:
                         }
                     | postfix_expression DECREMENT
                         { 
+                            // post decrement, first generate temporary with old value, then subtract 1
                             yyinfo("postfix_expression => postfix_expression --"); 
                             $$ = new Array();
                             $$->symbol = gentemp($1->symbol->type->type);
@@ -296,7 +324,7 @@ postfix_expression:
                     ;
 
 
-
+// simply equate number of parameters
 argument_expression_list_opt:
                                 argument_expression_list
                                     { 
@@ -305,6 +333,7 @@ argument_expression_list_opt:
                                     }
                                 | 
                                     { 
+                                        // empty so 0 params
                                         yyinfo("argument_expression_list_opt => epsilon");
                                         $$ = 0;
                                     }
@@ -313,12 +342,14 @@ argument_expression_list_opt:
 argument_expression_list:
                             assignment_expression
                                 { 
+                                    // first param, initialise param count to 1
                                     yyinfo("argument_expression_list => assignment_expression"); 
                                     emit("param", $1->symbol->name);
                                     $$ = 1;
                                 }
                             | argument_expression_list COMMA assignment_expression
                                 { 
+                                    // one new param, add 1 to param count
                                     yyinfo("argument_expression_list => argument_expression_list , assignment_expression");
                                     emit("param", $3->symbol->name);
                                     $$ = $1 + 1; 
@@ -333,12 +364,14 @@ unary_expression:
                         }
                     | INCREMENT unary_expression
                         { 
+                            // pre increment, no new temporary simply add 1
                             yyinfo("unary_expression => ++ unary_expression"); 
                             $$ = $2;
                             emit("+", $2->symbol->name, $2->symbol->name, toString(1));
                         }
                     | DECREMENT unary_expression
                         { 
+                            // pre decrement, no new temporary simply subtract 1
                             yyinfo("unary_expression => -- unary_expression"); 
                             $$ = $2;
                             emit("-", $2->symbol->name, $2->symbol->name, toString(1));
@@ -347,11 +380,14 @@ unary_expression:
                         { 
                             yyinfo("unary_expression => unary_operator cast_expression");
                             if(strcmp($1, "&") == 0) {
+                                // addressing, this generates a pointer, the subArray type will thus be the symbol type of the cast_expression
                                 $$ = new Array();
                                 $$->symbol = gentemp(SymbolType::POINTER);
                                 $$->symbol->type->arrayType = $2->symbol->type;
                                 emit("=&", $$->symbol->name, $2->symbol->name);
                             } else if(strcmp($1, "*") == 0) {
+                                // dereferncing, this generates a pointer, a new temporary generated with type as the subarray type of the cast_expression
+                                // the subArray type will thus be one level deeper that of the cast_expression
                                 $$ = new Array();
                                 $$->symbol = $2->symbol;
                                 $$->temp = gentemp($2->temp->type->arrayType->type);
@@ -361,6 +397,7 @@ unary_expression:
                             } else if(strcmp($1, "+") == 0) {
                                 $$ = $2;
                             } else { // for -, ~ and !
+                                // simply apply the operator on cast_expression
                                 $$ = new Array();
                                 $$->symbol = gentemp($2->symbol->type->type);
                                 emit($1, $$->symbol->name, $2->symbol->name);
