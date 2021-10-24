@@ -10,6 +10,7 @@ int tableCount, temporaryCount;
 // Implementation of symbol type class
 SymbolType::SymbolType(typeEnum type, SymbolType *arrayType, int width) : type(type), width(width), arrayType(arrayType) {}
 
+// Implementation of sizes for symbol types
 int SymbolType::getSize()
 {
     if (type == CHAR)
@@ -24,6 +25,7 @@ int SymbolType::getSize()
         return 0;
 }
 
+// Function to print symbol type
 string SymbolType::toString()
 {
     if(this->type == SymbolType::VOID)
@@ -49,13 +51,18 @@ SymbolTable::SymbolTable(string name, SymbolTable *parent) : name(name), parent(
 
 Symbol *SymbolTable::lookup(string name)
 {
+
+    // If the symbol is present in the current table, return it
     auto it = (this)->symbols.find(name);
     if (it != (this)->symbols.end())
         return &(it->second);
+    
+    // If the symbol is not present in the current table, check the parent table
     Symbol *ret_ptr = nullptr;
     if (this->parent != NULL)
         ret_ptr = this->parent->lookup(name);
 
+    // if the symbol is not present in the parent table, insert it in the current table and return
     if (this == currentTable && !ret_ptr)
     {
         this->symbols.insert({name, *(new Symbol(name))});
@@ -64,34 +71,35 @@ Symbol *SymbolTable::lookup(string name)
     return ret_ptr;
 }
 
-// CHECK THIS PART
+// Update the symbol table and its children with offsets
 void SymbolTable::update()
 {
-    vector<SymbolTable *> visited;
+    vector<SymbolTable *> visited; // vector to keep track of children tables to visit
     int offset;
-    for (auto &map_entry : (this)->symbols)
+    for (auto &map_entry : (this)->symbols)  // for all symbols in the table
     {
-        if (map_entry.first == (this->symbols).begin()->first)
+        if (map_entry.first == (this->symbols).begin()->first)  // if the symbol is the first one in the table then set offset of it to 0
         {
             map_entry.second.offset = 0;
             offset = map_entry.second.size;
         }
-        else
+        else    // else update the offset of the symbol and update the offset by adding the symbols width
         {
             map_entry.second.offset = offset;
             offset += map_entry.second.size;
         }
-        if (map_entry.second.nestedTable)
+        if (map_entry.second.nestedTable)  // remember children table
         {
             visited.push_back(map_entry.second.nestedTable);
         }
     }
-    for (auto &table : visited)
+    for (auto &table : visited)  // update children table
     {
         table->update();
     }
 }
 
+// Function to print the symbol table and its children
 void SymbolTable::print()
 {
     cout << string(140, '=') << endl;
