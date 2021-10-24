@@ -23,63 +23,63 @@ class Statement;
 // Symbol type class ( type safe representation for the type of a symbol )
 class SymbolType {
     public:
-        enum typeEnum {VOID, CHAR, INT, FLOAT, POINTER, FUNCTION, ARRAY, BLOCK} type;
-        int width;
-        SymbolType *arrayType;
+        enum typeEnum {VOID, CHAR, INT, FLOAT, POINTER, FUNCTION, ARRAY, BLOCK} type;  // type of the symbol, scoped enum for safe comparisons
+        int width;   // width of the symbol
+        SymbolType *arrayType;  // type of the array elements
 
-        SymbolType(typeEnum, SymbolType * = NULL, int = 1);
-        int getSize();
-        string toString();
+        SymbolType(typeEnum, SymbolType * = NULL, int = 1);  // constructor
+        int getSize();  // returns the size(width) of the symbol
+        string toString(); // returns the string representation of the type
 };
 
 // Symbol table class
 class SymbolTable {
     public:
-        string name;
+        string name;  // name of the symbol table
         map<string, Symbol> symbols;    // list of all symbols in this table, mapped by their names for fast access
         SymbolTable *parent;            // parent symbol table of this symbol table
         
-        SymbolTable(string = "NULL", SymbolTable * = NULL);
-        Symbol *lookup(string);
-        void print();
-        void update();
+        SymbolTable(string = "NULL", SymbolTable * = NULL); // constructor
+        Symbol *lookup(string); // returns the symbol with the given name, adds new entry if not found
+        void print();  // prints the symbol table
+        void update(); // updates the symbol table
 };
 
 // Symbol class ( represents a single symbol in the symbol table )
 class Symbol {
     public:
-        string name;
-        int size, offset;
-        SymbolType *type;
-        SymbolTable *nestedTable;
-        string initialValue;
+        string name;  // name of the symbol
+        int size, offset; // size and offset of the symbol
+        SymbolType *type;  // type of the symbol
+        SymbolTable *nestedTable;  // pointer to the symbol table if it is a nested entry
+        string initialValue;  // initial value of the symbol
         bool isFunction; // flag to indicate if the symbol represents a function or not
                          // if it does represent a function the return type will be given by the type attribute
 
-        Symbol(string, SymbolType::typeEnum = SymbolType::INT, string = "");
-        Symbol *update(SymbolType *);
-        Symbol *convert(SymbolType::typeEnum);
+        Symbol(string, SymbolType::typeEnum = SymbolType::INT, string = "");  // constructor
+        Symbol *update(SymbolType *);  // updates the symbol with the given type
+        Symbol *convert(SymbolType::typeEnum);  // converts the symbol to the given type
 };
 
 // Quad class ( represents a 3-address quad )
 class Quad {
     public:
-        string op, arg1, arg2, result;
+        string op, arg1, arg2, result;  // parameters of the quad
 
-        Quad(string, string, string = "=", string = "");
-        Quad(string, int, string = "=", string = "");
-        void print();
+        Quad(string, string, string = "=", string = "");  // constructor
+        Quad(string, int, string = "=", string = ""); // constructor
+        void print();  // prints the quad
 };
 
 // Expression attributes
 class Expression {
     public:
-        Symbol *symbol;
-        enum typeEnum {NONBOOLEAN, BOOLEAN} type;
-        list<int> trueList, falseList, nextList;
+        Symbol *symbol;  // symbol of the expression
+        enum typeEnum {NONBOOLEAN, BOOLEAN} type;  // type of the expression scoped enum
+        list<int> trueList, falseList, nextList;  // lists of quad numbers for next, true and false jumps
 
-        void toInt();
-        void toBool();
+        void toInt();  // converts the expression to an integer
+        void toBool();  // converts the expression to a boolean
 };
 
 // Array attributes
@@ -98,34 +98,34 @@ class Statement {
 };
 
 // Emit functions for generating quads
-void emit(string, string, string = "", string = "");
-void emit(string, string, int, string = "");
+void emit(string, string, string = "", string = "");  // emits a quad with the given parameters
+void emit(string, string, int, string = "");  // emits a quad with the given parameters
 
 // Backpatching functions
-void backpatch(list<int>, int);
-list<int> makeList(int);
-list<int> merge(list<int>, list<int>);
+void backpatch(list<int>, int);  // backpatches the list of quads with the given address
+list<int> makeList(int);  // makes a list with the given number
+list<int> merge(list<int>, list<int>); // merges the two lists
 
 // Other helper functions
 
-int nextInstruction(); 
-Symbol *gentemp(SymbolType::typeEnum, string = "");
-void changeTable(SymbolTable *);
+int nextInstruction();  // returns the next instruction number
+Symbol *gentemp(SymbolType::typeEnum, string = "");  // generates a new temporary symbol
+void changeTable(SymbolTable *);  // changes the current symbol table to the given one
 
 // Type checking and conversions
-bool typeCheck(Symbol *&, Symbol *&);
+bool typeCheck(Symbol *&, Symbol *&);  // checks if the two symbols have the same type
 
 // Utility functions
-string toString(int);
-string toString(float);
-string toString(char);
+string toString(int);  // returns the string representation of the given integer
+string toString(float);  // returns the string representation of the given float
+string toString(char);  // returns the string representation of the given character
 
 // Global variables
-extern vector<Quad *> quadArray;
-extern SymbolTable *currentTable, *globalTable;
-extern Symbol *currentSymbol;
-extern SymbolType::typeEnum currentType;
-extern int tableCount, temporaryCount;
+extern vector<Quad *> quadArray; // array of quads
+extern SymbolTable *currentTable, *globalTable; // current and global symbol tables
+extern Symbol *currentSymbol;  // current symbol
+extern SymbolType::typeEnum currentType;  // current type
+extern int tableCount, temporaryCount; // counters for symbol table and temporary symbols
 
 extern int yyparse();
 
