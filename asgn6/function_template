@@ -1,0 +1,23 @@
+    .globl	test
+	.type	test, @function
+test: 
+.LFB0:
+	.cfi_startproc
+	pushq 	%rbp
+	.cfi_def_cfa_offset 8
+	.cfi_offset 5, -8
+	movq 	%rsp, %rbp
+	.cfi_def_cfa_register 5
+	subq	$28, %rsp
+	movq	%rdi, -20(%rbp)
+
+	movl	-20(%rbp), %eax
+    
+	movq 	%rbp, %rsp
+	popq 	%rbp
+	.cfi_restore 5
+	.cfi_def_cfa 4, 4
+	ret
+	.cfi_endproc
+.LFE0:
+	.size	test, .-test
