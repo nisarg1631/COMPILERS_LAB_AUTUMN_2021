@@ -8,6 +8,9 @@ SymbolType::typeEnum currentType;  // Current Type
 int tableCount, temporaryCount;  // Counts of number of tables and number of temps generated
 vector<string> stringLiterals;
 
+// Implementation of activation record class
+ActivationRecord::ActivationRecord() : totalDisplacement(0), displacement(map<string, int>()) {}  // start with an initial displacement of 0
+
 // Implementation of symbol type class
 SymbolType::SymbolType(typeEnum type, SymbolType *arrayType, int width) : type(type), width(width), arrayType(arrayType) {}
 
@@ -79,6 +82,7 @@ Symbol *SymbolTable::lookup(string name)
 // Update the symbol table and its children with offsets
 void SymbolTable::update()
 {
+    // first update the current table
     vector<SymbolTable *> visited; // vector to keep track of children tables to visit
     int offset;
     for (auto &map_entry : (this)->symbols)  // for all symbols in the table
@@ -98,7 +102,38 @@ void SymbolTable::update()
             visited.push_back(map_entry.second.nestedTable);
         }
     }
-    for (auto &table : visited)  // update children table
+
+    // now prepare activation record for the current table
+
+    activationRecord = new ActivationRecord();
+
+    // first stack the parameters
+    for (auto map_entry : (this)->symbols)
+    {
+        if (map_entry.second.category == Symbol::PARAMETER)
+        {
+            if(map_entry.second.size != 0)
+            {
+                activationRecord->totalDisplacement -= map_entry.second.size;
+                activationRecord->displacement[map_entry.second.name] = activationRecord->totalDisplacement;
+            }
+        }
+    }
+    // now stack the local variables and the temporaries
+    for (auto map_entry : (this)->symbols)
+    {
+        if ((map_entry.second.category == Symbol::LOCAL && map_entry.second.name != "return") || map_entry.second.category == Symbol::TEMPORARY)
+        {
+            if(map_entry.second.size != 0)
+            {
+                activationRecord->totalDisplacement -= map_entry.second.size;
+                activationRecord->displacement[map_entry.second.name] = activationRecord->totalDisplacement;
+            }
+        }
+    }
+    
+    // update children table
+    for (auto &table : visited)
     {
         table->update();
     }

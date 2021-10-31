@@ -23,13 +23,13 @@ libass2_19CS30031.a: ass2_19CS30031.o
 	ar -rcs libass2_19CS30031.a ass2_19CS30031.o
 
 ass2_19CS30031.o: ass2_19CS30031.c myl.h
-	gcc -Wall -c ass2_19CS30031.c
+	gcc -c ass2_19CS30031.c
 
 clean:
 	rm libass2_19CS30031.a ass2_19CS30031.o parser.out ass6_19CS30031_19CS10070_translator.o ass6_19CS30031_19CS10070_target_translator.o lex.yy.* y.tab.* y.output
 
 test: parser.out libass2_19CS30031.a
 	@echo "Running tests"
-	./parser.out < ass6_19CS30031_19CS10070_test1.c > ass6_19CS30031_19CS10070_quads1.out
-	./parser.out < ass6_19CS30031_19CS10070_test2.c > ass6_19CS30031_19CS10070_quads2.out
+	./parser.out ass6_19CS30031_19CS10070_test1 > ass6_19CS30031_19CS10070_quads1.out
+	./parser.out ass6_19CS30031_19CS10070_test2 > ass6_19CS30031_19CS10070_quads2.out
 	@echo "Tests complete\n"

@@ -1,10 +1,7 @@
-int g1 = 5, g2 = 6;
-char *str = "heylo";
-char g3 = 'a';
-
 void prinStr(char *str);
 void prinInt(int i);
-int fib(int n) {
+int fib(char c,int d,int b,int *a) {
+    int n;
     if(n==1)
         prinInt(1);
     else 
@@ -14,6 +11,11 @@ int fib(int n) {
 int main() {
     int i;
     char *str2 = "heylo2";
+    char fgh;
+
+    int a,b,c,d;
+    fib(fgh,b,c,&a);
+
     if(i == 0) {
         prinInt(6);
     } else {

@@ -20,6 +20,16 @@ class Quad;
 class Expression;
 class Array;
 class Statement;
+class ActivationRecord;
+
+// AR class, used to store important information such as displacements of symbols, total displacement from base pointer, 
+class ActivationRecord {
+    public:
+        map<string, int> displacement;
+        int totalDisplacement;
+
+        ActivationRecord();
+};
 
 // Symbol type class ( type safe representation for the type of a symbol )
 class SymbolType {
@@ -39,11 +49,13 @@ class SymbolTable {
         string name;  // name of the symbol table
         map<string, Symbol> symbols;    // list of all symbols in this table, mapped by their names for fast access
         SymbolTable *parent;            // parent symbol table of this symbol table
+        ActivationRecord *activationRecord;           // activation record of this symbol table
+        vector<string> parameters;    // list of parameters of the function, if any, in order
         
         SymbolTable(string = "NULL", SymbolTable * = NULL); // constructor
         Symbol *lookup(string); // returns the symbol with the given name, adds new entry if not found
         void print();  // prints the symbol table
-        void update(); // updates the symbol table
+        void update(); // updates the symbol table as well as creates the activation record
 };
 
 // Symbol class ( represents a single symbol in the symbol table )

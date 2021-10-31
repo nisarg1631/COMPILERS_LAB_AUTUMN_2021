@@ -1498,6 +1498,7 @@ parameter_declaration:
                             { 
                                 yyinfo("parameter_declaration => declaration_specifiers declarator");
                                 $2->category = Symbol::PARAMETER; 
+                                currentTable->parameters.push_back($2->name);
                             }
                         | declaration_specifiers
                             { 
