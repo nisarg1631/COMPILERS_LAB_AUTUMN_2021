@@ -32,4 +32,6 @@ test: parser.out libass2_19CS30031.a
 	@echo "Running tests"
 	./parser.out ass6_19CS30031_19CS10070_test1 > ass6_19CS30031_19CS10070_quads1.out
 	./parser.out ass6_19CS30031_19CS10070_test2 > ass6_19CS30031_19CS10070_quads2.out
+
+	gcc ass6_19CS30031_19CS10070_test1.s -L. -lass2_19CS30031 -no-pie -o test1
 	@echo "Tests complete\n"

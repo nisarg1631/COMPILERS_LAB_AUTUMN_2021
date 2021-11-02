@@ -11,7 +11,7 @@
 %x MULTI_LINE_COMMENT_BODY
 %x SINGLE_LINE_COMMENT_BODY
 
-ESCAPE_SEQUENCE         "\\\'"|"\\\""|"\\?"|"\\\\"|"\\a"|"\\b"|"\\f"|"\\n"|"\\r"|"\\t"|"\\v"
+ESCAPE_SEQUENCE         "\\\'"|"\\\""|"\\?"|"\\\\"|"\\a"|"\\b"|"\\f"|"\\n"|"\\r"|"\\t"|"\\v"|"\\0"
 
 IDENTIFIER              [A-Za-z_][A-Za-z0-9_]*
 

@@ -11,23 +11,84 @@ map<int, string> arg3SizeRegMap = { {1, "dl"}, {4, "edx"}, {8, "rdx"} };
 map<int, string> arg4SizeRegMap = { {1, "cl"}, {4, "ecx"}, {8, "rcx"} };
 map<int, map<int, string>> argNum2RegMap = { {1, arg1SizeRegMap}, {2, arg2SizeRegMap}, {3, arg3SizeRegMap}, {4, arg4SizeRegMap} };
 
+map<char, int> escapeCharactersAsciiValues = { 
+    {'n', 10}, 
+    {'t', 9},
+    {'r', 13}, 
+    {'b', 8}, 
+    {'f', 12}, 
+    {'v', 11}, 
+    {'a', 7}, 
+    {'0', 0}
+};
+
+int getAsciiValue(string charConst) {
+    if(charConst.length() == 3) {
+        return (int)charConst[1];
+    }
+    else {
+        // escaped character
+        if(escapeCharactersAsciiValues.find(charConst[2]) != escapeCharactersAsciiValues.end()) {
+            return escapeCharactersAsciiValues[charConst[2]];
+        }
+        else {
+            return (int)charConst[2];
+        }
+    }
+}
+
 string getReg(string paramName, int paramNum, int size) {
     string reg = argNum2RegMap[paramNum][size];
     return "%" + reg;
 }
 
+string getStackLoc(string paramName) {
+    if(currentAR->displacement.count(paramName))
+        return toString(currentAR->displacement[paramName]) + "(%rbp)";
+    else // global variable
+        return paramName;
+}
+
+// register to stack
 void loadParam(string paramName, int paramNum) {
-    int size = currentTable->lookup(paramName)->size;
-    string reg = getReg(paramName, paramNum, size);
+    Symbol *symbol = currentTable->lookup(paramName);
+    int size = symbol->size;
+    SymbolType::typeEnum type = symbol->type->type;
     string movIns = "";
-    if (size == 1) {
+    // if it is an array just store the address
+    if(type == SymbolType::ARRAY) {
+        movIns = "movq";
+        size = 8;
+    } else if (size == 1) {
         movIns = "movb";
     } else if (size == 4) {
         movIns = "movl";
     } else if (size == 8) {
         movIns = "movq";
     }
-    assemblyFile << "\t" << setw(8) << movIns << reg << ", " << currentAR->displacement[paramName] << "(%rbp)" << endl;
+    string reg = getReg(paramName, paramNum, size);
+    assemblyFile << "\t" << setw(8) << movIns << reg << ", " << getStackLoc(paramName) << endl;
+}
+
+// stack to register
+void storeParam(string paramName, int paramNum) {
+    Symbol *symbol = currentTable->lookup(paramName);
+    int size = symbol->size;
+    SymbolType::typeEnum type = symbol->type->type;
+    string movIns = "";
+    // if it is an array just store the address
+    if(type == SymbolType::ARRAY) {
+        movIns = "leaq";
+        size = 8;
+    } else if (size == 1) {
+        movIns = "movb";
+    } else if (size == 4) {
+        movIns = "movl";
+    } else if (size == 8) {
+        movIns = "movq";
+    }
+    string reg = getReg(paramName, paramNum, size);
+    assemblyFile << "\t" << setw(8) << movIns << getStackLoc(paramName) << ", " << reg << endl;
 }
 
 void translate() {
@@ -88,7 +149,11 @@ void translate() {
     }
 
 
-    bool inTextSpace = false;
+    bool inTextSpace = false; // whether we are currently inside a function body or in the global space
+    string globalStringTemp;
+    int globalIntTemp, globalCharTemp; // for char simply hold the ascii value
+    string functionEndLabel;
+    int paramCount = 0; // variable to keep track of number of parameters for function calls
     quadNum = 1;
     for(auto &quad:quadArray) {
 
@@ -100,6 +165,9 @@ void translate() {
 
             currentTable = globalTable->lookup(quad->result)->nestedTable;
             currentAR = currentTable->activationRecord;
+            
+            functionEndLabel = labelMap[quadNum];
+            functionEndLabel[3] = 'E';
 
             // function prologue
             assemblyFile << "\t" << setw(8) << ".globl" << quad->result << endl;
@@ -119,6 +187,7 @@ void translate() {
                 loadParam(param, paramNum);
                 paramNum++;
             }
+
         } else if(quad->op == "labelend") {
             // function epilogue
             assemblyFile << labelMap[quadNum] << ":" << endl;
@@ -130,11 +199,239 @@ void translate() {
             assemblyFile << "\t" << setw(8) << ".size" << quad->result << ", .-" << quad->result << endl;
 
             inTextSpace = false;
+
         } else {
             if(inTextSpace) {
                 // process the function instructions
+                string op = quad->op;
+                string result = quad->result;
+                string arg1 = quad->arg1;
+                string arg2 = quad->arg2;
+
+                if(labelMap.count(quadNum)) {
+                    assemblyFile << labelMap[quadNum] << ":" << endl;
+                }
+
+                if(op == "=") {
+                    // first check if arg1 is a constant
+                    if(isdigit(arg1[0])) {
+                        // integer constant
+                        assemblyFile << "\t" << setw(8) << "movl" << "$" << arg1 << ", " << getStackLoc(result) << endl;
+                    } else if(arg1[0] == '\''){
+                        // character constant
+                        assemblyFile << "\t" << setw(8) << "movb" << "$" << getAsciiValue(arg1) << ", " << getStackLoc(result) << endl;
+                    } else {
+                        // variable
+                        // check the size of arg1 in the current table and apply the corresponding move from arg1 to result via the appropriate register
+                        int sz = currentTable->lookup(arg1)->size;
+                        if(sz == 1) {
+                            assemblyFile << "\t" << setw(8) << "movb" << getStackLoc(arg1) << ", %al" << endl;
+                            assemblyFile << "\t" << setw(8) << "movb" << "%al, " << getStackLoc(result) << endl;
+                        } else if(sz == 4) {
+                            assemblyFile << "\t" << setw(8) << "movl" << getStackLoc(arg1) << ", %eax" << endl;
+                            assemblyFile << "\t" << setw(8) << "movl" << "%eax, " << getStackLoc(result) << endl;
+                        } else if(sz == 8) {
+                            assemblyFile << "\t" << setw(8) << "movq" << getStackLoc(arg1) << ", %rax" << endl;
+                            assemblyFile << "\t" << setw(8) << "movq" << "%rax, " << getStackLoc(result) << endl;
+                        }
+                    }
+                } else if(op == "=str") {
+                    assemblyFile << "\t" << setw(8) << "movq" << "$.LC" << arg1 << ", " << getStackLoc(result) << endl;
+                } else if(op == "param") {
+                    paramCount++;
+                    storeParam(result, paramCount);
+                } else if(op == "call") {
+                    // call function
+                    paramCount = 0;
+                    assemblyFile << "\t" << setw(8) << "call" << arg1 << endl;
+                    // check the size of result in the current table and apply the corresponding move from appropriate return register to result
+                    int sz = currentTable->lookup(result)->size;
+                    if(sz == 1) {
+                        assemblyFile << "\t" << setw(8) << "movb" << "%al, " << getStackLoc(result) << endl;
+                    } else if(sz == 4) {
+                        assemblyFile << "\t" << setw(8) << "movl" << "%eax, " << getStackLoc(result) << endl;
+                    } else if(sz == 8) {
+                        assemblyFile << "\t" << setw(8) << "movq" << "%rax, " << getStackLoc(result) << endl;
+                    }
+                } else if(op == "return") {
+                    // return from function
+                    if(!result.empty()) {
+                        // check the size of result in the current table and apply the corresponding move from result to return register
+                        int sz = currentTable->lookup(result)->size;
+                        if(sz == 1) {
+                            assemblyFile << "\t" << setw(8) << "movb" << getStackLoc(result) << ", %al" << endl;
+                        } else if(sz == 4) {
+                            assemblyFile << "\t" << setw(8) << "movl" << getStackLoc(result) << ", %eax" << endl;
+                        } else if(sz == 8) {
+                            assemblyFile << "\t" << setw(8) << "movq" << getStackLoc(result) << ", %rax" << endl;
+                        }
+                    }
+                    if(quadArray[quadNum]->op != "labelend") // if the next quad is not a labelend, then we need to jump to the function end
+                        assemblyFile << "\t" << setw(8) << "jmp" << functionEndLabel << endl;
+                } else if(op == "goto") {
+                    // unconditional jump
+                    assemblyFile << "\t" << setw(8) << "jmp" << labelMap[stoi(result)] << endl;
+                } else if(op == "==") {
+                    // check if arg1 == arg2
+                    assemblyFile << "\t" << setw(8) << "movl" << getStackLoc(arg2) << ", " << "%eax" << endl;
+                    assemblyFile << "\t" << setw(8) << "cmpl" << "%eax" << ", " << getStackLoc(arg1) << endl;
+                    assemblyFile << "\t" << setw(8) << "je" << labelMap[stoi(result)] << endl;
+                } else if(op == "!=") {
+                    // check if arg1 != arg2
+                    assemblyFile << "\t" << setw(8) << "movl" << getStackLoc(arg2) << ", " << "%eax" << endl;
+                    assemblyFile << "\t" << setw(8) << "cmpl" << "%eax" << ", " << getStackLoc(arg1) << endl;
+                    assemblyFile << "\t" << setw(8) << "jne" << labelMap[stoi(result)] << endl;
+                } else if(op == ">") {
+                    // check if arg1 > arg2
+                    assemblyFile << "\t" << setw(8) << "movl" << getStackLoc(arg2) << ", " << "%eax" << endl;
+                    assemblyFile << "\t" << setw(8) << "cmpl" << "%eax" << ", " << getStackLoc(arg1) << endl;
+                    assemblyFile << "\t" << setw(8) << "jg" << labelMap[stoi(result)] << endl;
+                } else if(op == "<") {
+                    // check if arg1 < arg2
+                    assemblyFile << "\t" << setw(8) << "movl" << getStackLoc(arg2) << ", " << "%eax" << endl;
+                    assemblyFile << "\t" << setw(8) << "cmpl" << "%eax" << ", " << getStackLoc(arg1) << endl;
+                    assemblyFile << "\t" << setw(8) << "jl" << labelMap[stoi(result)] << endl;
+                } else if(op == ">=") {
+                    // check if arg1 >= arg2
+                    assemblyFile << "\t" << setw(8) << "movl" << getStackLoc(arg2) << ", " << "%eax" << endl;
+                    assemblyFile << "\t" << setw(8) << "cmpl" << "%eax" << ", " << getStackLoc(arg1) << endl;
+                    assemblyFile << "\t" << setw(8) << "jge" << labelMap[stoi(result)] << endl;
+                } else if(op == "<=") {
+                    // check if arg1 <= arg2
+                    assemblyFile << "\t" << setw(8) << "movl" << getStackLoc(arg2) << ", " << "%eax" << endl;
+                    assemblyFile << "\t" << setw(8) << "cmpl" << "%eax" << ", " << getStackLoc(arg1) << endl;
+                    assemblyFile << "\t" << setw(8) << "jle" << labelMap[stoi(result)] << endl;
+                } else if(op == "+") {
+                    // result = arg1 + arg2
+                    if(result == arg1) {
+                        // increment arg1
+                        assemblyFile << "\t" << setw(8) << "incl" << getStackLoc(arg1) << endl;
+                    } else {
+                        assemblyFile << "\t" << setw(8) << "movl" << getStackLoc(arg1) << ", " << "%eax" << endl;
+                        assemblyFile << "\t" << setw(8) << "addl" << getStackLoc(arg2) << ", " << "%eax" << endl;
+                        assemblyFile << "\t" << setw(8) << "movl" << "%eax" << ", " << getStackLoc(result) << endl;
+                    }
+                } else if(op == "-") {
+                    // result = arg1 - arg2
+                    if(result == arg1) {
+                        // decrement arg1
+                        assemblyFile << "\t" << setw(8) << "decl" << getStackLoc(arg1) << endl;
+                    }
+                    else {
+                        assemblyFile << "\t" << setw(8) << "movl" << getStackLoc(arg1) << ", " << "%eax" << endl;
+                        assemblyFile << "\t" << setw(8) << "subl" << getStackLoc(arg2) << ", " << "%eax" << endl;
+                        assemblyFile << "\t" << setw(8) << "movl" << "%eax" << ", " << getStackLoc(result) << endl;
+                    }
+                } else if(op == "*") {
+                    // result = arg1 * arg2
+                    assemblyFile << "\t" << setw(8) << "movl" << getStackLoc(arg1) << ", " << "%eax" << endl;
+                    if(isdigit(arg2[0])) {
+                        assemblyFile << "\t" << setw(8) << "imull" << "$" + getStackLoc(arg2) << ", " << "%eax" << endl;
+                    } else { 
+                        assemblyFile << "\t" << setw(8) << "imull" << getStackLoc(arg2) << ", " << "%eax" << endl;
+                    }
+                    assemblyFile << "\t" << setw(8) << "movl" << "%eax" << ", " << getStackLoc(result) << endl;
+                } else if(op == "/") {
+                    // result = arg1  / arg2
+                    assemblyFile << "\t" << setw(8) << "movl" << getStackLoc(arg1) << ", " << "%eax" << endl;
+                    assemblyFile << "\t" << setw(8) << "cdq" << endl;
+                    assemblyFile << "\t" << setw(8) << "idivl" << getStackLoc(arg2) << endl;
+                    assemblyFile << "\t" << setw(8) << "movl" << "%eax" << ", " << getStackLoc(result) << endl;
+                } else if(op == "%") {
+                    // result = arg1 % arg2
+                    assemblyFile << "\t" << setw(8) << "movl" << getStackLoc(arg1) << ", " << "%eax" << endl;
+                    assemblyFile << "\t" << setw(8) << "cdq" << endl;
+                    assemblyFile << "\t" << setw(8) << "idivl" << getStackLoc(arg2) << endl;
+                    assemblyFile << "\t" << setw(8) << "movl" << "%edx" << ", " << getStackLoc(result) << endl;
+                } else if(op == "=[]") {
+                    // result = arg1[arg2]
+                    Symbol *symbol = currentTable->lookup(arg1);
+                    if(symbol->category == Symbol::PARAMETER) {
+                        assemblyFile << "\t" << setw(8) << "movl" << getStackLoc(arg2) << ", " << "%eax" << endl;
+                        assemblyFile << "\t" << setw(8) << "cltq" << endl;
+                        assemblyFile << "\t" << setw(8) << "addq" << getStackLoc(arg1) << ", " << "%rax" << endl;
+                        assemblyFile << "\t" << setw(8) << "movl" << "(%rax)" << ", " << "%eax" << endl;
+                        assemblyFile << "\t" << setw(8) << "movl" << "%eax" << ", " << getStackLoc(result) << endl;
+                    } else {
+                        assemblyFile << "\t" << setw(8) << "movl" << getStackLoc(arg2) << ", " << "%eax" << endl;
+                        assemblyFile << "\t" << setw(8) << "cltq" << endl;
+                        assemblyFile << "\t" << setw(8) << "movl" << currentAR->displacement[arg1] << "(%rbp, %rax, 1)" << ", " << "%eax" << endl;
+                        assemblyFile << "\t" << setw(8) << "movl" << "%eax" << ", " << getStackLoc(result) << endl;
+                    }
+                } else if(op == "[]=") {
+                    // result[arg1] = arg2
+                    Symbol *symbol = currentTable->lookup(result);
+                    if(symbol->category == Symbol::PARAMETER) {
+                        assemblyFile << "\t" << setw(8) << "movl" << getStackLoc(arg1) << ", " << "%eax" << endl;
+                        assemblyFile << "\t" << setw(8) << "cltq" << endl;
+                        assemblyFile << "\t" << setw(8) << "addq" << getStackLoc(result) << ", " << "%rax" << endl;
+                        assemblyFile << "\t" << setw(8) << "movl" << getStackLoc(arg2) << ", " << "%ebx" << endl;
+                        assemblyFile << "\t" << setw(8) << "movl" << "%ebx" << ", " << "(%rax)" << endl;
+                    } else {
+                        assemblyFile << "\t" << setw(8) << "movl" << getStackLoc(arg1) << ", " << "%eax" << endl;
+                        assemblyFile << "\t" << setw(8) << "cltq" << endl;
+                        assemblyFile << "\t" << setw(8) << "movl" << getStackLoc(arg2) << ", " << "%ebx" << endl;
+                        assemblyFile << "\t" << setw(8) << "movl" << "%ebx" << ", " << currentAR->displacement[result] << "(%rbp, %rax, 1)" << endl;
+                    }
+                } else if(op == "=&") {
+                    // result = &arg1
+                    assemblyFile << "\t" << setw(8) << "leaq" << getStackLoc(arg1) << ", " << "%rax" << endl;
+                    assemblyFile << "\t" << setw(8) << "movq" << "%rax" << ", " << getStackLoc(result) << endl;
+                } else if(op == "=*") {
+                    // result = *arg1
+                    assemblyFile << "\t" << setw(8) << "movq" << getStackLoc(arg1) << ", " << "%rax" << endl;
+                    assemblyFile << "\t" << setw(8) << "movl" << "(%rax)" << ", " << "%eax" << endl;
+                    assemblyFile << "\t" << setw(8) << "movl" << "%eax" << ", " << getStackLoc(result) << endl;
+                } else if(op == "=-") {
+                    // result = -arg1
+                    assemblyFile << "\t" << setw(8) << "movl" << getStackLoc(arg1) << ", " << "%eax" << endl;
+                    assemblyFile << "\t" << setw(8) << "negl" << "%eax" << endl;
+                    assemblyFile << "\t" << setw(8) << "movl" << "%eax" << ", " << getStackLoc(result) << endl;
+                } else if(op == "*=") {
+                    // *result = arg1
+                    assemblyFile << "\t" << setw(8) << "movl" << getStackLoc(arg1) << ", " << "%eax" << endl;
+                    assemblyFile << "\t" << setw(8) << "movq" << getStackLoc(result) << ", " << "%rbx" << endl;
+                    assemblyFile << "\t" << setw(8) << "movl" << "%eax" << ", " << "(%rbx)" << endl;
+                }
+
             } else {
                 // process the global assignments
+                currentSymbol = globalTable->lookup(quad->result);
+
+                // first store the assignment value, this removes the need of temporaries, sort of a peep hole optimisation
+                if(currentSymbol->category == Symbol::TEMPORARY) {
+                    if(currentSymbol->type->type == SymbolType::INT) {
+                        globalIntTemp = stoi(quad->arg1);
+                    } else if(currentSymbol->type->type == SymbolType::CHAR) {
+                        globalCharTemp = getAsciiValue(quad->arg1);
+                    } else if(currentSymbol->type->type == SymbolType::POINTER) {
+                        globalStringTemp = ".LC" + quad->arg1;
+                    }
+                } else {
+                    if(currentSymbol->type->type == SymbolType::INT) {
+                        assemblyFile << "\t" << setw(8) << ".globl" << currentSymbol->name << endl;
+                        assemblyFile << "\t" << setw(8) << ".data" << endl;
+                        assemblyFile << "\t" << setw(8) << ".align" << 4 << endl;
+                        assemblyFile << "\t" << setw(8) << ".type" << currentSymbol->name << ", @object" << endl;
+                        assemblyFile << "\t" << setw(8) << ".size" << currentSymbol->name << ", 4" << endl;
+                        assemblyFile << currentSymbol->name << ":" << endl;
+                        assemblyFile << "\t" << setw(8) << ".long" << globalIntTemp << endl;
+                    } else if(currentSymbol->type->type == SymbolType::CHAR) {
+                        assemblyFile << "\t" << setw(8) << ".globl" << currentSymbol->name << endl;
+                        assemblyFile << "\t" << setw(8) << ".data" << endl;
+                        assemblyFile << "\t" << setw(8) << ".type" << currentSymbol->name << ", @object" << endl;
+                        assemblyFile << "\t" << setw(8) << ".size" << currentSymbol->name << ", 1" << endl;
+                        assemblyFile << currentSymbol->name << ":" << endl;
+                        assemblyFile << "\t" << setw(8) << ".byte" << globalCharTemp << endl;
+                    } else if(currentSymbol->type->type == SymbolType::POINTER) {
+                        assemblyFile << "\t" << ".section	.data.rel.local" << endl;
+                        assemblyFile << "\t" << setw(8) << ".align" << 8 << endl;
+                        assemblyFile << "\t" << setw(8) << ".type" << currentSymbol->name << ", @object" << endl;
+                        assemblyFile << "\t" << setw(8) << ".size" << currentSymbol->name << ", 8" << endl;
+                        assemblyFile << currentSymbol->name << ":" << endl;
+                        assemblyFile << "\t" << setw(8) << ".quad" << globalStringTemp << endl;
+                    }
+                }
             }
         }
 
