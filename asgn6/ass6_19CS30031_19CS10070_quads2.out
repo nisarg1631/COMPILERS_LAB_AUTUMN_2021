@@ -1,0 +1,237 @@
+============================================================================================================================================
+Table Name: global		 Parent Name: None
+============================================================================================================================================
+Name                Type                                    Category            Initial Value       Offset              Size                Child               
+
+fillFib             void                                    function                                0                   0                   fillFib             
+main                int                                     function                                0                   4                   main                
+printInt            int                                     function                                4                   4                   printInt            
+printStr            int                                     function                                8                   4                   printStr            
+readInt             int                                     function                                12                  4                   readInt             
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+
+============================================================================================================================================
+Table Name: fillFib		 Parent Name: global
+============================================================================================================================================
+Name                Type                                    Category            Initial Value       Offset              Size                Child               
+
+fib                 ptr(int)                                parameter                               0                   8                   NULL                
+i                   int                                     local                                   8                   4                   NULL                
+n                   int                                     parameter                               12                  4                   NULL                
+t0                  int                                     temporary           0                   16                  4                   NULL                
+t1                  int                                     temporary                               20                  4                   NULL                
+t10                 int                                     temporary                               24                  4                   NULL                
+t11                 int                                     temporary                               28                  4                   NULL                
+t12                 int                                     temporary                               32                  4                   NULL                
+t13                 int                                     temporary           2                   36                  4                   NULL                
+t14                 int                                     temporary                               40                  4                   NULL                
+t15                 int                                     temporary                               44                  4                   NULL                
+t16                 int                                     temporary                               48                  4                   NULL                
+t17                 int                                     temporary                               52                  4                   NULL                
+t2                  int                                     temporary           0                   56                  4                   NULL                
+t3                  int                                     temporary                               60                  4                   NULL                
+t4                  int                                     temporary           0                   64                  4                   NULL                
+t5                  int                                     temporary           1                   68                  4                   NULL                
+t6                  int                                     temporary                               72                  4                   NULL                
+t7                  int                                     temporary           1                   76                  4                   NULL                
+t8                  int                                     temporary                               80                  4                   NULL                
+t9                  int                                     temporary           1                   84                  4                   NULL                
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+
+============================================================================================================================================
+Table Name: main		 Parent Name: global
+============================================================================================================================================
+Name                Type                                    Category            Initial Value       Offset              Size                Child               
+
+fib                 array(15, int)                          local                                   0                   60                  NULL                
+i                   int                                     local                                   60                  4                   NULL                
+return              int                                     local                                   64                  4                   NULL                
+t18                 ptr(char)                               temporary           "\n#### TEST 2 (1-D Arrays) ####"68                  8                   NULL                
+t19                 int                                     temporary                               76                  4                   NULL                
+t20                 int                                     temporary           15                  80                  4                   NULL                
+t21                 int                                     temporary           15                  84                  4                   NULL                
+t22                 void                                    temporary                               88                  0                   NULL                
+t23                 ptr(char)                               temporary           "\nFibonacci Series: "88                  8                   NULL                
+t24                 int                                     temporary                               96                  4                   NULL                
+t25                 int                                     temporary           0                   100                 4                   NULL                
+t26                 int                                     temporary           15                  104                 4                   NULL                
+t27                 int                                     temporary                               108                 4                   NULL                
+t28                 int                                     temporary                               112                 4                   NULL                
+t29                 int                                     temporary                               116                 4                   NULL                
+t30                 int                                     temporary                               120                 4                   NULL                
+t31                 ptr(char)                               temporary           " "                 124                 8                   NULL                
+t32                 int                                     temporary                               132                 4                   NULL                
+t33                 int                                     temporary           5                   136                 4                   NULL                
+t34                 int                                     temporary           0                   140                 4                   NULL                
+t35                 int                                     temporary                               144                 4                   NULL                
+t36                 char                                    temporary           'a'                 148                 1                   NULL                
+t37                 int                                     temporary           1                   149                 4                   NULL                
+t38                 int                                     temporary                               153                 4                   NULL                
+t39                 char                                    temporary           'e'                 157                 1                   NULL                
+t40                 int                                     temporary           2                   158                 4                   NULL                
+t41                 int                                     temporary                               162                 4                   NULL                
+t42                 char                                    temporary           'i'                 166                 1                   NULL                
+t43                 int                                     temporary           3                   167                 4                   NULL                
+t44                 int                                     temporary                               171                 4                   NULL                
+t45                 char                                    temporary           'o'                 175                 1                   NULL                
+t46                 int                                     temporary           4                   176                 4                   NULL                
+t47                 int                                     temporary                               180                 4                   NULL                
+t48                 char                                    temporary           'u'                 184                 1                   NULL                
+t49                 ptr(char)                               temporary           "\nAscii values of vowels: "185                 8                   NULL                
+t50                 int                                     temporary                               193                 4                   NULL                
+t51                 int                                     temporary           0                   197                 4                   NULL                
+t52                 int                                     temporary           5                   201                 4                   NULL                
+t53                 int                                     temporary                               205                 4                   NULL                
+t54                 int                                     temporary                               209                 4                   NULL                
+t55                 char                                    temporary                               213                 1                   NULL                
+t56                 int                                     temporary                               214                 4                   NULL                
+t57                 ptr(char)                               temporary           " "                 218                 8                   NULL                
+t58                 int                                     temporary                               226                 4                   NULL                
+t59                 ptr(char)                               temporary           "\n\n"              230                 8                   NULL                
+t60                 int                                     temporary                               238                 4                   NULL                
+t61                 int                                     temporary           0                   242                 4                   NULL                
+vowels              array(5, char)                          local                                   246                 5                   NULL                
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+
+============================================================================================================================================
+Table Name: printInt		 Parent Name: global
+============================================================================================================================================
+Name                Type                                    Category            Initial Value       Offset              Size                Child               
+
+n                   int                                     parameter                               0                   4                   NULL                
+return              int                                     local                                   4                   4                   NULL                
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+
+============================================================================================================================================
+Table Name: printStr		 Parent Name: global
+============================================================================================================================================
+Name                Type                                    Category            Initial Value       Offset              Size                Child               
+
+return              int                                     local                                   0                   4                   NULL                
+s                   ptr(char)                               parameter                               4                   8                   NULL                
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+
+============================================================================================================================================
+Table Name: readInt		 Parent Name: global
+============================================================================================================================================
+Name                Type                                    Category            Initial Value       Offset              Size                Child               
+
+eP                  ptr(int)                                parameter                               0                   8                   NULL                
+return              int                                     local                                   8                   4                   NULL                
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+
+1   : Function start: fillFib
+2   : 	t0 = 0
+3   : 	i = t0
+4   : 	if i < n goto 9
+5   : 	goto 35
+6   : 	t1 = i
+7   : 	i = i + 1
+8   : 	goto 4
+9   : 	t2 = 0
+10  : 	if i == t2 goto 12
+11  : 	goto 16
+12  : 	t3 = i * 4
+13  : 	t4 = 0
+14  : 	fib[t3] = t4
+15  : 	goto 6
+16  : 	t5 = 1
+17  : 	if i == t5 goto 19
+18  : 	goto 23
+19  : 	t6 = i * 4
+20  : 	t7 = 1
+21  : 	fib[t6] = t7
+22  : 	goto 6
+23  : 	t8 = i * 4
+24  : 	t9 = 1
+25  : 	t10 = i - t9
+26  : 	t11 = t10 * 4
+27  : 	t12 = fib[t11]
+28  : 	t13 = 2
+29  : 	t14 = i - t13
+30  : 	t15 = t14 * 4
+31  : 	t16 = fib[t15]
+32  : 	t17 = t12 + t16
+33  : 	fib[t8] = t17
+34  : 	goto 6
+35  : Function end: fillFib
+36  : Function start: main
+37  : 	t18 = "\n#### TEST 2 (1-D Arrays) ####"
+38  : 	param t18
+39  : 	t19 = call printStr, 1
+40  : 	t20 = 15
+41  : 	param fib
+42  : 	t21 = 15
+43  : 	param t21
+44  : 	t22 = call fillFib, 2
+45  : 	t23 = "\nFibonacci Series: "
+46  : 	param t23
+47  : 	t24 = call printStr, 1
+48  : 	t25 = 0
+49  : 	i = t25
+50  : 	t26 = 15
+51  : 	if i < t26 goto 56
+52  : 	goto 64
+53  : 	t27 = i
+54  : 	i = i + 1
+55  : 	goto 50
+56  : 	t28 = i * 4
+57  : 	t29 = fib[t28]
+58  : 	param t29
+59  : 	t30 = call printInt, 1
+60  : 	t31 = " "
+61  : 	param t31
+62  : 	t32 = call printStr, 1
+63  : 	goto 53
+64  : 	t33 = 5
+65  : 	t34 = 0
+66  : 	t35 = t34 * 1
+67  : 	t36 = 'a'
+68  : 	vowels[t35] = t36
+69  : 	t37 = 1
+70  : 	t38 = t37 * 1
+71  : 	t39 = 'e'
+72  : 	vowels[t38] = t39
+73  : 	t40 = 2
+74  : 	t41 = t40 * 1
+75  : 	t42 = 'i'
+76  : 	vowels[t41] = t42
+77  : 	t43 = 3
+78  : 	t44 = t43 * 1
+79  : 	t45 = 'o'
+80  : 	vowels[t44] = t45
+81  : 	t46 = 4
+82  : 	t47 = t46 * 1
+83  : 	t48 = 'u'
+84  : 	vowels[t47] = t48
+85  : 	t49 = "\nAscii values of vowels: "
+86  : 	param t49
+87  : 	t50 = call printStr, 1
+88  : 	t51 = 0
+89  : 	i = t51
+90  : 	t52 = 5
+91  : 	if i < t52 goto 96
+92  : 	goto 104
+93  : 	t53 = i
+94  : 	i = i + 1
+95  : 	goto 90
+96  : 	t54 = i * 1
+97  : 	t55 = vowels[t54]
+98  : 	param t55
+99  : 	t56 = call printInt, 1
+100 : 	t57 = " "
+101 : 	param t57
+102 : 	t58 = call printStr, 1
+103 : 	goto 93
+104 : 	t59 = "\n\n"
+105 : 	param t59
+106 : 	t60 = call printStr, 1
+107 : 	t61 = 0
+108 : 	return t61
+109 : Function end: main

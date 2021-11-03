@@ -1,0 +1,307 @@
+============================================================================================================================================
+Table Name: global		 Parent Name: None
+============================================================================================================================================
+Name                Type                                    Category            Initial Value       Offset              Size                Child               
+
+main                int                                     function                                0                   4                   main                
+printInt            int                                     function                                4                   4                   printInt            
+printStr            int                                     function                                8                   4                   printStr            
+readInt             int                                     function                                12                  4                   readInt             
+testChar            char                                    function                                16                  1                   testChar            
+testCharPtr         ptr(char)                               function                                17                  8                   testCharPtr         
+testInt             int                                     function                                25                  4                   testInt             
+testIntPtr          ptr(int)                                function                                29                  8                   testIntPtr          
+testVoid            void                                    function                                37                  0                   testVoid            
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+
+============================================================================================================================================
+Table Name: main		 Parent Name: global
+============================================================================================================================================
+Name                Type                                    Category            Initial Value       Offset              Size                Child               
+
+c                   char                                    local               'm'                 0                   1                   NULL                
+cPtr                ptr(char)                               local                                   1                   8                   NULL                
+n                   int                                     local               10                  9                   4                   NULL                
+nPtr                ptr(int)                                local                                   13                  8                   NULL                
+retChar             char                                    local                                   21                  1                   NULL                
+retCharPtr          ptr(char)                               local                                   22                  8                   NULL                
+retInt              int                                     local                                   30                  4                   NULL                
+retIntPtr           ptr(int)                                local                                   34                  8                   NULL                
+retStr              ptr(char)                               local                                   42                  8                   NULL                
+return              int                                     local                                   50                  4                   NULL                
+str                 ptr(char)                               local               "Hello World, I am a string."54                  8                   NULL                
+t10                 int                                     temporary                               62                  4                   NULL                
+t11                 ptr(char)                               temporary           "Failed"            66                  8                   NULL                
+t12                 int                                     temporary                               74                  4                   NULL                
+t13                 ptr(char)                               temporary           "\nTesting integer pointer return: "78                  8                   NULL                
+t14                 int                                     temporary                               86                  4                   NULL                
+t15                 ptr(int)                                temporary                               90                  8                   NULL                
+t16                 ptr(char)                               temporary           "Passed"            98                  8                   NULL                
+t17                 int                                     temporary                               106                 4                   NULL                
+t18                 ptr(char)                               temporary           "Failed"            110                 8                   NULL                
+t19                 int                                     temporary                               118                 4                   NULL                
+t2                  ptr(char)                               temporary           "\n#### TEST 3 (Function calls and returns) ####"122                 8                   NULL                
+t20                 char                                    temporary           'm'                 130                 1                   NULL                
+t21                 ptr(char)                               temporary                               131                 8                   NULL                
+t22                 ptr(char)                               temporary           "\nTesting character value return: "139                 8                   NULL                
+t23                 int                                     temporary                               147                 4                   NULL                
+t24                 char                                    temporary                               151                 1                   NULL                
+t25                 ptr(char)                               temporary           "Passed"            152                 8                   NULL                
+t26                 int                                     temporary                               160                 4                   NULL                
+t27                 ptr(char)                               temporary           "Failed"            164                 8                   NULL                
+t28                 int                                     temporary                               172                 4                   NULL                
+t29                 ptr(char)                               temporary           "\nTesting character pointer return: "176                 8                   NULL                
+t3                  int                                     temporary                               184                 4                   NULL                
+t30                 int                                     temporary                               188                 4                   NULL                
+t31                 ptr(char)                               temporary                               192                 8                   NULL                
+t32                 ptr(char)                               temporary           "Passed"            200                 8                   NULL                
+t33                 int                                     temporary                               208                 4                   NULL                
+t34                 ptr(char)                               temporary           "Failed"            212                 8                   NULL                
+t35                 int                                     temporary                               220                 4                   NULL                
+t36                 ptr(char)                               temporary           "Hello World, I am a string."224                 8                   NULL                
+t37                 ptr(char)                               temporary           "\nTesting string return: "232                 8                   NULL                
+t38                 int                                     temporary                               240                 4                   NULL                
+t39                 ptr(char)                               temporary                               244                 8                   NULL                
+t4                  int                                     temporary           10                  252                 4                   NULL                
+t40                 ptr(char)                               temporary           "Passed"            256                 8                   NULL                
+t41                 int                                     temporary                               264                 4                   NULL                
+t42                 ptr(char)                               temporary           "Failed"            268                 8                   NULL                
+t43                 int                                     temporary                               276                 4                   NULL                
+t44                 ptr(char)                               temporary           " [ Passed string: "280                 8                   NULL                
+t45                 int                                     temporary                               288                 4                   NULL                
+t46                 int                                     temporary                               292                 4                   NULL                
+t47                 ptr(char)                               temporary           " ], "              296                 8                   NULL                
+t48                 int                                     temporary                               304                 4                   NULL                
+t49                 ptr(char)                               temporary           "[ Returned string: "308                 8                   NULL                
+t5                  ptr(int)                                temporary                               316                 8                   NULL                
+t50                 int                                     temporary                               324                 4                   NULL                
+t51                 int                                     temporary                               328                 4                   NULL                
+t52                 ptr(char)                               temporary           " ]"                332                 8                   NULL                
+t53                 int                                     temporary                               340                 4                   NULL                
+t54                 ptr(char)                               temporary           "\nTesting void return: "344                 8                   NULL                
+t55                 int                                     temporary                               352                 4                   NULL                
+t56                 void                                    temporary                               356                 0                   NULL                
+t57                 ptr(char)                               temporary           "\n\n"              356                 8                   NULL                
+t58                 int                                     temporary                               364                 4                   NULL                
+t59                 int                                     temporary           0                   368                 4                   NULL                
+t6                  ptr(char)                               temporary           "\nTesting integer value return: "372                 8                   NULL                
+t7                  int                                     temporary                               380                 4                   NULL                
+t8                  int                                     temporary                               384                 4                   NULL                
+t9                  ptr(char)                               temporary           "Passed"            388                 8                   NULL                
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+
+============================================================================================================================================
+Table Name: printInt		 Parent Name: global
+============================================================================================================================================
+Name                Type                                    Category            Initial Value       Offset              Size                Child               
+
+n                   int                                     parameter                               0                   4                   NULL                
+return              int                                     local                                   4                   4                   NULL                
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+
+============================================================================================================================================
+Table Name: printStr		 Parent Name: global
+============================================================================================================================================
+Name                Type                                    Category            Initial Value       Offset              Size                Child               
+
+return              int                                     local                                   0                   4                   NULL                
+s                   ptr(char)                               parameter                               4                   8                   NULL                
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+
+============================================================================================================================================
+Table Name: readInt		 Parent Name: global
+============================================================================================================================================
+Name                Type                                    Category            Initial Value       Offset              Size                Child               
+
+eP                  ptr(int)                                parameter                               0                   8                   NULL                
+return              int                                     local                                   8                   4                   NULL                
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+
+============================================================================================================================================
+Table Name: testChar		 Parent Name: global
+============================================================================================================================================
+Name                Type                                    Category            Initial Value       Offset              Size                Child               
+
+c                   char                                    parameter                               0                   1                   NULL                
+return              char                                    local                                   1                   1                   NULL                
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+
+============================================================================================================================================
+Table Name: testCharPtr		 Parent Name: global
+============================================================================================================================================
+Name                Type                                    Category            Initial Value       Offset              Size                Child               
+
+cPtr                ptr(char)                               parameter                               0                   8                   NULL                
+return              ptr(char)                               local                                   8                   8                   NULL                
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+
+============================================================================================================================================
+Table Name: testInt		 Parent Name: global
+============================================================================================================================================
+Name                Type                                    Category            Initial Value       Offset              Size                Child               
+
+num                 int                                     parameter                               0                   4                   NULL                
+return              int                                     local                                   4                   4                   NULL                
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+
+============================================================================================================================================
+Table Name: testIntPtr		 Parent Name: global
+============================================================================================================================================
+Name                Type                                    Category            Initial Value       Offset              Size                Child               
+
+numPtr              ptr(int)                                parameter                               0                   8                   NULL                
+return              ptr(int)                                local                                   8                   8                   NULL                
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+
+============================================================================================================================================
+Table Name: testVoid		 Parent Name: global
+============================================================================================================================================
+Name                Type                                    Category            Initial Value       Offset              Size                Child               
+
+t0                  ptr(char)                               temporary           "\nHello World, I am a void function. I don't return anything."0                   8                   NULL                
+t1                  int                                     temporary                               8                   4                   NULL                
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+
+1   : Function start: testInt
+2   : 	return num
+3   : Function end: testInt
+4   : Function start: testIntPtr
+5   : 	return numPtr
+6   : Function end: testIntPtr
+7   : Function start: testChar
+8   : 	return c
+9   : Function end: testChar
+10  : Function start: testCharPtr
+11  : 	return cPtr
+12  : Function end: testCharPtr
+13  : Function start: testVoid
+14  : 	t0 = "\nHello World, I am a void function. I don't return anything."
+15  : 	param t0
+16  : 	t1 = call printStr, 1
+17  : 	return 
+18  : Function end: testVoid
+19  : Function start: main
+20  : 	t2 = "\n#### TEST 3 (Function calls and returns) ####"
+21  : 	param t2
+22  : 	t3 = call printStr, 1
+23  : 	t4 = 10
+24  : 	n = t4
+25  : 	t5 = &n
+26  : 	nPtr = t5
+27  : 	t6 = "\nTesting integer value return: "
+28  : 	param t6
+29  : 	t7 = call printStr, 1
+30  : 	param n
+31  : 	t8 = call testInt, 1
+32  : 	retInt = t8
+33  : 	if retInt == n goto 35
+34  : 	goto 39
+35  : 	t9 = "Passed"
+36  : 	param t9
+37  : 	t10 = call printStr, 1
+38  : 	goto 42
+39  : 	t11 = "Failed"
+40  : 	param t11
+41  : 	t12 = call printStr, 1
+42  : 	t13 = "\nTesting integer pointer return: "
+43  : 	param t13
+44  : 	t14 = call printStr, 1
+45  : 	param nPtr
+46  : 	t15 = call testIntPtr, 1
+47  : 	retIntPtr = t15
+48  : 	if retIntPtr == nPtr goto 50
+49  : 	goto 54
+50  : 	t16 = "Passed"
+51  : 	param t16
+52  : 	t17 = call printStr, 1
+53  : 	goto 57
+54  : 	t18 = "Failed"
+55  : 	param t18
+56  : 	t19 = call printStr, 1
+57  : 	t20 = 'm'
+58  : 	c = t20
+59  : 	t21 = &c
+60  : 	cPtr = t21
+61  : 	t22 = "\nTesting character value return: "
+62  : 	param t22
+63  : 	t23 = call printStr, 1
+64  : 	param c
+65  : 	t24 = call testChar, 1
+66  : 	retChar = t24
+67  : 	if retChar == c goto 69
+68  : 	goto 73
+69  : 	t25 = "Passed"
+70  : 	param t25
+71  : 	t26 = call printStr, 1
+72  : 	goto 76
+73  : 	t27 = "Failed"
+74  : 	param t27
+75  : 	t28 = call printStr, 1
+76  : 	t29 = "\nTesting character pointer return: "
+77  : 	param t29
+78  : 	t30 = call printStr, 1
+79  : 	param cPtr
+80  : 	t31 = call testCharPtr, 1
+81  : 	retCharPtr = t31
+82  : 	if retCharPtr == cPtr goto 84
+83  : 	goto 88
+84  : 	t32 = "Passed"
+85  : 	param t32
+86  : 	t33 = call printStr, 1
+87  : 	goto 91
+88  : 	t34 = "Failed"
+89  : 	param t34
+90  : 	t35 = call printStr, 1
+91  : 	t36 = "Hello World, I am a string."
+92  : 	str = t36
+93  : 	t37 = "\nTesting string return: "
+94  : 	param t37
+95  : 	t38 = call printStr, 1
+96  : 	param str
+97  : 	t39 = call testCharPtr, 1
+98  : 	retStr = t39
+99  : 	if retStr == str goto 101
+100 : 	goto 105
+101 : 	t40 = "Passed"
+102 : 	param t40
+103 : 	t41 = call printStr, 1
+104 : 	goto 108
+105 : 	t42 = "Failed"
+106 : 	param t42
+107 : 	t43 = call printStr, 1
+108 : 	t44 = " [ Passed string: "
+109 : 	param t44
+110 : 	t45 = call printStr, 1
+111 : 	param str
+112 : 	t46 = call printStr, 1
+113 : 	t47 = " ], "
+114 : 	param t47
+115 : 	t48 = call printStr, 1
+116 : 	t49 = "[ Returned string: "
+117 : 	param t49
+118 : 	t50 = call printStr, 1
+119 : 	param retStr
+120 : 	t51 = call printStr, 1
+121 : 	t52 = " ]"
+122 : 	param t52
+123 : 	t53 = call printStr, 1
+124 : 	t54 = "\nTesting void return: "
+125 : 	param t54
+126 : 	t55 = call printStr, 1
+127 : 	t56 = call testVoid, 0
+128 : 	t57 = "\n\n"
+129 : 	param t57
+130 : 	t58 = call printStr, 1
+131 : 	t59 = 0
+132 : 	return t59
+133 : Function end: main

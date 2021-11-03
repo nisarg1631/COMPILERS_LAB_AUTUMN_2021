@@ -9,6 +9,7 @@
 #include <list>
 #include <functional>
 #include <iomanip>
+#include <stack>
 #include <string.h>
 using namespace std;
 

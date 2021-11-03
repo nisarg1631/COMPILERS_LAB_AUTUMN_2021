@@ -1,0 +1,284 @@
+============================================================================================================================================
+Table Name: global		 Parent Name: None
+============================================================================================================================================
+Name                Type                                    Category            Initial Value       Offset              Size                Child               
+
+main                int                                     function                                0                   4                   main                
+printInt            int                                     function                                4                   4                   printInt            
+printStr            int                                     function                                8                   4                   printStr            
+readInt             int                                     function                                12                  4                   readInt             
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+
+============================================================================================================================================
+Table Name: main		 Parent Name: global
+============================================================================================================================================
+Name                Type                                    Category            Initial Value       Offset              Size                Child               
+
+n1                  int                                     local                                   0                   4                   NULL                
+n2                  int                                     local                                   4                   4                   NULL                
+return              int                                     local                                   8                   4                   NULL                
+t0                  ptr(char)                               temporary           "\n#### TEST 7 (Conditional operators) ####\n"12                  8                   NULL                
+t1                  int                                     temporary                               20                  4                   NULL                
+t10                 int                                     temporary           6                   24                  4                   NULL                
+t11                 ptr(char)                               temporary           "\nTesting != operator: "28                  8                   NULL                
+t12                 int                                     temporary                               36                  4                   NULL                
+t13                 ptr(char)                               temporary           "Passed"            40                  8                   NULL                
+t14                 int                                     temporary                               48                  4                   NULL                
+t15                 ptr(char)                               temporary           "Failed"            52                  8                   NULL                
+t16                 int                                     temporary                               60                  4                   NULL                
+t17                 int                                     temporary           1                   64                  4                   NULL                
+t18                 int                                     temporary                               68                  4                   NULL                
+t19                 int                                     temporary           3                   72                  4                   NULL                
+t2                  int                                     temporary           5                   76                  4                   NULL                
+t20                 ptr(char)                               temporary           "\nTesting < operator (strictly less): "80                  8                   NULL                
+t21                 int                                     temporary                               88                  4                   NULL                
+t22                 ptr(char)                               temporary           "Passed"            92                  8                   NULL                
+t23                 int                                     temporary                               100                 4                   NULL                
+t24                 ptr(char)                               temporary           "Failed"            104                 8                   NULL                
+t25                 int                                     temporary                               112                 4                   NULL                
+t26                 int                                     temporary           1                   116                 4                   NULL                
+t27                 int                                     temporary                               120                 4                   NULL                
+t28                 ptr(char)                               temporary           "\nTesting < operator (equality): "124                 8                   NULL                
+t29                 int                                     temporary                               132                 4                   NULL                
+t3                  int                                     temporary           5                   136                 4                   NULL                
+t30                 ptr(char)                               temporary           "Failed"            140                 8                   NULL                
+t31                 int                                     temporary                               148                 4                   NULL                
+t32                 ptr(char)                               temporary           "Passed"            152                 8                   NULL                
+t33                 int                                     temporary                               160                 4                   NULL                
+t34                 ptr(char)                               temporary           "\nTesting <= operator (equality): "164                 8                   NULL                
+t35                 int                                     temporary                               172                 4                   NULL                
+t36                 ptr(char)                               temporary           "Passed"            176                 8                   NULL                
+t37                 int                                     temporary                               184                 4                   NULL                
+t38                 ptr(char)                               temporary           "Failed"            188                 8                   NULL                
+t39                 int                                     temporary                               196                 4                   NULL                
+t4                  ptr(char)                               temporary           "\nTesting == operator: "200                 8                   NULL                
+t40                 int                                     temporary           2                   208                 4                   NULL                
+t41                 int                                     temporary                               212                 4                   NULL                
+t42                 ptr(char)                               temporary           "\nTesting <= operator (strictly less): "216                 8                   NULL                
+t43                 int                                     temporary                               224                 4                   NULL                
+t44                 ptr(char)                               temporary           "Passed"            228                 8                   NULL                
+t45                 int                                     temporary                               236                 4                   NULL                
+t46                 ptr(char)                               temporary           "Failed"            240                 8                   NULL                
+t47                 int                                     temporary                               248                 4                   NULL                
+t48                 int                                     temporary           7                   252                 4                   NULL                
+t49                 ptr(char)                               temporary           "\nTesting > operator (strictly greater): "256                 8                   NULL                
+t5                  int                                     temporary                               264                 4                   NULL                
+t50                 int                                     temporary                               268                 4                   NULL                
+t51                 ptr(char)                               temporary           "Passed"            272                 8                   NULL                
+t52                 int                                     temporary                               280                 4                   NULL                
+t53                 ptr(char)                               temporary           "Failed"            284                 8                   NULL                
+t54                 int                                     temporary                               292                 4                   NULL                
+t55                 int                                     temporary           7                   296                 4                   NULL                
+t56                 ptr(char)                               temporary           "\nTesting > operator (equality): "300                 8                   NULL                
+t57                 int                                     temporary                               308                 4                   NULL                
+t58                 ptr(char)                               temporary           "Failed"            312                 8                   NULL                
+t59                 int                                     temporary                               320                 4                   NULL                
+t6                  ptr(char)                               temporary           "Passed"            324                 8                   NULL                
+t60                 ptr(char)                               temporary           "Passed"            332                 8                   NULL                
+t61                 int                                     temporary                               340                 4                   NULL                
+t62                 ptr(char)                               temporary           "\nTesting >= operator (equality): "344                 8                   NULL                
+t63                 int                                     temporary                               352                 4                   NULL                
+t64                 ptr(char)                               temporary           "Passed"            356                 8                   NULL                
+t65                 int                                     temporary                               364                 4                   NULL                
+t66                 ptr(char)                               temporary           "Failed"            368                 8                   NULL                
+t67                 int                                     temporary                               376                 4                   NULL                
+t68                 int                                     temporary           8                   380                 4                   NULL                
+t69                 ptr(char)                               temporary           "\nTesting >= operator (strictly greater): "384                 8                   NULL                
+t7                  int                                     temporary                               392                 4                   NULL                
+t70                 int                                     temporary                               396                 4                   NULL                
+t71                 ptr(char)                               temporary           "Passed"            400                 8                   NULL                
+t72                 int                                     temporary                               408                 4                   NULL                
+t73                 ptr(char)                               temporary           "Failed"            412                 8                   NULL                
+t74                 int                                     temporary                               420                 4                   NULL                
+t75                 ptr(char)                               temporary           "\n\n"              424                 8                   NULL                
+t76                 int                                     temporary                               432                 4                   NULL                
+t77                 int                                     temporary           0                   436                 4                   NULL                
+t8                  ptr(char)                               temporary           "Failed"            440                 8                   NULL                
+t9                  int                                     temporary                               448                 4                   NULL                
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+
+============================================================================================================================================
+Table Name: printInt		 Parent Name: global
+============================================================================================================================================
+Name                Type                                    Category            Initial Value       Offset              Size                Child               
+
+n                   int                                     parameter                               0                   4                   NULL                
+return              int                                     local                                   4                   4                   NULL                
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+
+============================================================================================================================================
+Table Name: printStr		 Parent Name: global
+============================================================================================================================================
+Name                Type                                    Category            Initial Value       Offset              Size                Child               
+
+return              int                                     local                                   0                   4                   NULL                
+s                   ptr(char)                               parameter                               4                   8                   NULL                
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+
+============================================================================================================================================
+Table Name: readInt		 Parent Name: global
+============================================================================================================================================
+Name                Type                                    Category            Initial Value       Offset              Size                Child               
+
+eP                  ptr(int)                                parameter                               0                   8                   NULL                
+return              int                                     local                                   8                   4                   NULL                
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+
+1   : Function start: main
+2   : 	t0 = "\n#### TEST 7 (Conditional operators) ####\n"
+3   : 	param t0
+4   : 	t1 = call printStr, 1
+5   : 	t2 = 5
+6   : 	n1 = t2
+7   : 	t3 = 5
+8   : 	n2 = t3
+9   : 	t4 = "\nTesting == operator: "
+10  : 	param t4
+11  : 	t5 = call printStr, 1
+12  : 	if n1 == n2 goto 14
+13  : 	goto 18
+14  : 	t6 = "Passed"
+15  : 	param t6
+16  : 	t7 = call printStr, 1
+17  : 	goto 21
+18  : 	t8 = "Failed"
+19  : 	param t8
+20  : 	t9 = call printStr, 1
+21  : 	t10 = 6
+22  : 	n2 = t10
+23  : 	t11 = "\nTesting != operator: "
+24  : 	param t11
+25  : 	t12 = call printStr, 1
+26  : 	if n1 != n2 goto 28
+27  : 	goto 32
+28  : 	t13 = "Passed"
+29  : 	param t13
+30  : 	t14 = call printStr, 1
+31  : 	goto 35
+32  : 	t15 = "Failed"
+33  : 	param t15
+34  : 	t16 = call printStr, 1
+35  : 	t17 = 1
+36  : 	t18 = - t17
+37  : 	n1 = t18
+38  : 	t19 = 3
+39  : 	n2 = t19
+40  : 	t20 = "\nTesting < operator (strictly less): "
+41  : 	param t20
+42  : 	t21 = call printStr, 1
+43  : 	if n1 < n2 goto 45
+44  : 	goto 49
+45  : 	t22 = "Passed"
+46  : 	param t22
+47  : 	t23 = call printStr, 1
+48  : 	goto 52
+49  : 	t24 = "Failed"
+50  : 	param t24
+51  : 	t25 = call printStr, 1
+52  : 	t26 = 1
+53  : 	t27 = - t26
+54  : 	n2 = t27
+55  : 	t28 = "\nTesting < operator (equality): "
+56  : 	param t28
+57  : 	t29 = call printStr, 1
+58  : 	if n1 < n2 goto 60
+59  : 	goto 64
+60  : 	t30 = "Failed"
+61  : 	param t30
+62  : 	t31 = call printStr, 1
+63  : 	goto 67
+64  : 	t32 = "Passed"
+65  : 	param t32
+66  : 	t33 = call printStr, 1
+67  : 	t34 = "\nTesting <= operator (equality): "
+68  : 	param t34
+69  : 	t35 = call printStr, 1
+70  : 	if n1 <= n2 goto 72
+71  : 	goto 76
+72  : 	t36 = "Passed"
+73  : 	param t36
+74  : 	t37 = call printStr, 1
+75  : 	goto 79
+76  : 	t38 = "Failed"
+77  : 	param t38
+78  : 	t39 = call printStr, 1
+79  : 	t40 = 2
+80  : 	t41 = - t40
+81  : 	n1 = t41
+82  : 	t42 = "\nTesting <= operator (strictly less): "
+83  : 	param t42
+84  : 	t43 = call printStr, 1
+85  : 	if n1 <= n2 goto 87
+86  : 	goto 91
+87  : 	t44 = "Passed"
+88  : 	param t44
+89  : 	t45 = call printStr, 1
+90  : 	goto 94
+91  : 	t46 = "Failed"
+92  : 	param t46
+93  : 	t47 = call printStr, 1
+94  : 	t48 = 7
+95  : 	n1 = t48
+96  : 	t49 = "\nTesting > operator (strictly greater): "
+97  : 	param t49
+98  : 	t50 = call printStr, 1
+99  : 	if n1 > n2 goto 101
+100 : 	goto 105
+101 : 	t51 = "Passed"
+102 : 	param t51
+103 : 	t52 = call printStr, 1
+104 : 	goto 108
+105 : 	t53 = "Failed"
+106 : 	param t53
+107 : 	t54 = call printStr, 1
+108 : 	t55 = 7
+109 : 	n2 = t55
+110 : 	t56 = "\nTesting > operator (equality): "
+111 : 	param t56
+112 : 	t57 = call printStr, 1
+113 : 	if n1 > n2 goto 115
+114 : 	goto 119
+115 : 	t58 = "Failed"
+116 : 	param t58
+117 : 	t59 = call printStr, 1
+118 : 	goto 122
+119 : 	t60 = "Passed"
+120 : 	param t60
+121 : 	t61 = call printStr, 1
+122 : 	t62 = "\nTesting >= operator (equality): "
+123 : 	param t62
+124 : 	t63 = call printStr, 1
+125 : 	if n1 >= n2 goto 127
+126 : 	goto 131
+127 : 	t64 = "Passed"
+128 : 	param t64
+129 : 	t65 = call printStr, 1
+130 : 	goto 134
+131 : 	t66 = "Failed"
+132 : 	param t66
+133 : 	t67 = call printStr, 1
+134 : 	t68 = 8
+135 : 	n1 = t68
+136 : 	t69 = "\nTesting >= operator (strictly greater): "
+137 : 	param t69
+138 : 	t70 = call printStr, 1
+139 : 	if n1 >= n2 goto 141
+140 : 	goto 145
+141 : 	t71 = "Passed"
+142 : 	param t71
+143 : 	t72 = call printStr, 1
+144 : 	goto 148
+145 : 	t73 = "Failed"
+146 : 	param t73
+147 : 	t74 = call printStr, 1
+148 : 	t75 = "\n\n"
+149 : 	param t75
+150 : 	t76 = call printStr, 1
+151 : 	t77 = 0
+152 : 	return t77
+153 : Function end: main

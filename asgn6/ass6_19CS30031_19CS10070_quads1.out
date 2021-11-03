@@ -1,0 +1,372 @@
+============================================================================================================================================
+Table Name: global		 Parent Name: None
+============================================================================================================================================
+Name                Type                                    Category            Initial Value       Offset              Size                Child               
+
+main                int                                     function                                0                   4                   main                
+printInt            int                                     function                                4                   4                   printInt            
+printStr            int                                     function                                8                   4                   printStr            
+readInt             int                                     function                                12                  4                   readInt             
+testIncDec          void                                    function                                16                  0                   testIncDec          
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+
+============================================================================================================================================
+Table Name: main		 Parent Name: global
+============================================================================================================================================
+Name                Type                                    Category            Initial Value       Offset              Size                Child               
+
+n1                  int                                     local                                   0                   4                   NULL                
+n10                 int                                     local                                   4                   4                   NULL                
+n11                 int                                     local                                   8                   4                   NULL                
+n12                 int                                     local                                   12                  4                   NULL                
+n13                 int                                     local                                   16                  4                   NULL                
+n2                  int                                     local                                   20                  4                   NULL                
+n3                  int                                     local                                   24                  4                   NULL                
+n4                  int                                     local                                   28                  4                   NULL                
+n5                  int                                     local                                   32                  4                   NULL                
+n6                  int                                     local                                   36                  4                   NULL                
+n7                  int                                     local                                   40                  4                   NULL                
+n8                  int                                     local                                   44                  4                   NULL                
+n9                  int                                     local                                   48                  4                   NULL                
+return              int                                     local                                   52                  4                   NULL                
+t10                 ptr(char)                               temporary           "\nn1 = "           56                  8                   NULL                
+t100                ptr(char)                               temporary           ", Value after call = "64                  8                   NULL                
+t101                int                                     temporary                               72                  4                   NULL                
+t102                int                                     temporary                               76                  4                   NULL                
+t103                ptr(char)                               temporary           "\nTest post decrement: "80                  8                   NULL                
+t104                int                                     temporary                               88                  4                   NULL                
+t105                int                                     temporary                               92                  4                   NULL                
+t106                void                                    temporary                               96                  0                   NULL                
+t107                ptr(char)                               temporary           ", Value after call = "96                  8                   NULL                
+t108                int                                     temporary                               104                 4                   NULL                
+t109                int                                     temporary                               108                 4                   NULL                
+t11                 int                                     temporary                               112                 4                   NULL                
+t110                ptr(char)                               temporary           "\n\n"              116                 8                   NULL                
+t111                int                                     temporary                               124                 4                   NULL                
+t112                int                                     temporary           0                   128                 4                   NULL                
+t12                 int                                     temporary                               132                 4                   NULL                
+t13                 ptr(char)                               temporary           "\nn2 = "           136                 8                   NULL                
+t14                 int                                     temporary                               144                 4                   NULL                
+t15                 int                                     temporary                               148                 4                   NULL                
+t16                 ptr(char)                               temporary           "\nn3 = "           152                 8                   NULL                
+t17                 int                                     temporary                               160                 4                   NULL                
+t18                 int                                     temporary                               164                 4                   NULL                
+t19                 ptr(char)                               temporary           "\nn4 = "           168                 8                   NULL                
+t20                 int                                     temporary                               176                 4                   NULL                
+t21                 int                                     temporary                               180                 4                   NULL                
+t22                 int                                     temporary                               184                 4                   NULL                
+t23                 int                                     temporary                               188                 4                   NULL                
+t24                 int                                     temporary                               192                 4                   NULL                
+t25                 int                                     temporary                               196                 4                   NULL                
+t26                 int                                     temporary                               200                 4                   NULL                
+t27                 ptr(char)                               temporary           "\nn1 + n2 = "      204                 8                   NULL                
+t28                 int                                     temporary                               212                 4                   NULL                
+t29                 int                                     temporary                               216                 4                   NULL                
+t3                  ptr(char)                               temporary           "\n#### TEST 1 (Arithmetic operators) ####"220                 8                   NULL                
+t30                 ptr(char)                               temporary           "\nn1 - n2 = "      228                 8                   NULL                
+t31                 int                                     temporary                               236                 4                   NULL                
+t32                 int                                     temporary                               240                 4                   NULL                
+t33                 ptr(char)                               temporary           "\nn1 * n2 = "      244                 8                   NULL                
+t34                 int                                     temporary                               252                 4                   NULL                
+t35                 int                                     temporary                               256                 4                   NULL                
+t36                 ptr(char)                               temporary           "\nn1 / n2 = "      260                 8                   NULL                
+t37                 int                                     temporary                               268                 4                   NULL                
+t38                 int                                     temporary                               272                 4                   NULL                
+t39                 ptr(char)                               temporary           "\nn1 % n2 = "      276                 8                   NULL                
+t4                  int                                     temporary                               284                 4                   NULL                
+t40                 int                                     temporary                               288                 4                   NULL                
+t41                 int                                     temporary                               292                 4                   NULL                
+t42                 int                                     temporary                               296                 4                   NULL                
+t43                 int                                     temporary                               300                 4                   NULL                
+t44                 int                                     temporary                               304                 4                   NULL                
+t45                 int                                     temporary                               308                 4                   NULL                
+t46                 int                                     temporary           10                  312                 4                   NULL                
+t47                 int                                     temporary                               316                 4                   NULL                
+t48                 int                                     temporary                               320                 4                   NULL                
+t49                 int                                     temporary                               324                 4                   NULL                
+t5                  int                                     temporary           30                  328                 4                   NULL                
+t50                 int                                     temporary                               332                 4                   NULL                
+t51                 int                                     temporary           10                  336                 4                   NULL                
+t52                 int                                     temporary                               340                 4                   NULL                
+t53                 int                                     temporary                               344                 4                   NULL                
+t54                 int                                     temporary                               348                 4                   NULL                
+t55                 int                                     temporary                               352                 4                   NULL                
+t56                 int                                     temporary           0                   356                 4                   NULL                
+t57                 int                                     temporary                               360                 4                   NULL                
+t58                 int                                     temporary                               364                 4                   NULL                
+t59                 int                                     temporary                               368                 4                   NULL                
+t6                  int                                     temporary           16                  372                 4                   NULL                
+t60                 int                                     temporary                               376                 4                   NULL                
+t61                 int                                     temporary                               380                 4                   NULL                
+t62                 int                                     temporary           15                  384                 4                   NULL                
+t63                 int                                     temporary                               388                 4                   NULL                
+t64                 ptr(char)                               temporary           "\n-n1 + n2 - n3 + n4 + 10 = "392                 8                   NULL                
+t65                 int                                     temporary                               400                 4                   NULL                
+t66                 int                                     temporary                               404                 4                   NULL                
+t67                 ptr(char)                               temporary           "\nn1 * n2 / n3 + n4 - 10 = "408                 8                   NULL                
+t68                 int                                     temporary                               416                 4                   NULL                
+t69                 int                                     temporary                               420                 4                   NULL                
+t7                  int                                     temporary           7                   424                 4                   NULL                
+t70                 ptr(char)                               temporary           "\nn1 + n2 * n3 / n4 - 0 = "428                 8                   NULL                
+t71                 int                                     temporary                               436                 4                   NULL                
+t72                 int                                     temporary                               440                 4                   NULL                
+t73                 ptr(char)                               temporary           "\n(n1 + n2) * (n3 / n4) - 15 = "444                 8                   NULL                
+t74                 int                                     temporary                               452                 4                   NULL                
+t75                 int                                     temporary                               456                 4                   NULL                
+t76                 ptr(char)                               temporary           "\n-n3 = "          460                 8                   NULL                
+t77                 int                                     temporary                               468                 4                   NULL                
+t78                 int                                     temporary                               472                 4                   NULL                
+t79                 int                                     temporary                               476                 4                   NULL                
+t8                  int                                     temporary           22                  480                 4                   NULL                
+t80                 ptr(char)                               temporary           "\n-n4 = "          484                 8                   NULL                
+t81                 int                                     temporary                               492                 4                   NULL                
+t82                 int                                     temporary                               496                 4                   NULL                
+t83                 int                                     temporary                               500                 4                   NULL                
+t84                 ptr(char)                               temporary           "\nTest pre increment: "504                 8                   NULL                
+t85                 int                                     temporary                               512                 4                   NULL                
+t86                 void                                    temporary                               516                 0                   NULL                
+t87                 ptr(char)                               temporary           ", Value after call = "516                 8                   NULL                
+t88                 int                                     temporary                               524                 4                   NULL                
+t89                 int                                     temporary                               528                 4                   NULL                
+t9                  int                                     temporary                               532                 4                   NULL                
+t90                 ptr(char)                               temporary           "\nTest post increment: "536                 8                   NULL                
+t91                 int                                     temporary                               544                 4                   NULL                
+t92                 int                                     temporary                               548                 4                   NULL                
+t93                 void                                    temporary                               552                 0                   NULL                
+t94                 ptr(char)                               temporary           ", Value after call = "552                 8                   NULL                
+t95                 int                                     temporary                               560                 4                   NULL                
+t96                 int                                     temporary                               564                 4                   NULL                
+t97                 ptr(char)                               temporary           "\nTest pre decrement: "568                 8                   NULL                
+t98                 int                                     temporary                               576                 4                   NULL                
+t99                 void                                    temporary                               580                 0                   NULL                
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+
+============================================================================================================================================
+Table Name: printInt		 Parent Name: global
+============================================================================================================================================
+Name                Type                                    Category            Initial Value       Offset              Size                Child               
+
+n                   int                                     parameter                               0                   4                   NULL                
+return              int                                     local                                   4                   4                   NULL                
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+
+============================================================================================================================================
+Table Name: printStr		 Parent Name: global
+============================================================================================================================================
+Name                Type                                    Category            Initial Value       Offset              Size                Child               
+
+return              int                                     local                                   0                   4                   NULL                
+s                   ptr(char)                               parameter                               4                   8                   NULL                
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+
+============================================================================================================================================
+Table Name: readInt		 Parent Name: global
+============================================================================================================================================
+Name                Type                                    Category            Initial Value       Offset              Size                Child               
+
+eP                  ptr(int)                                parameter                               0                   8                   NULL                
+return              int                                     local                                   8                   4                   NULL                
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+
+============================================================================================================================================
+Table Name: testIncDec		 Parent Name: global
+============================================================================================================================================
+Name                Type                                    Category            Initial Value       Offset              Size                Child               
+
+n                   int                                     parameter                               0                   4                   NULL                
+t0                  ptr(char)                               temporary           "Value passed to function = "4                   8                   NULL                
+t1                  int                                     temporary                               12                  4                   NULL                
+t2                  int                                     temporary                               16                  4                   NULL                
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+
+1   : Function start: testIncDec
+2   : 	t0 = "Value passed to function = "
+3   : 	param t0
+4   : 	t1 = call printStr, 1
+5   : 	param n
+6   : 	t2 = call printInt, 1
+7   : Function end: testIncDec
+8   : Function start: main
+9   : 	t3 = "\n#### TEST 1 (Arithmetic operators) ####"
+10  : 	param t3
+11  : 	t4 = call printStr, 1
+12  : 	t5 = 30
+13  : 	n1 = t5
+14  : 	t6 = 16
+15  : 	n2 = t6
+16  : 	t7 = 7
+17  : 	n3 = t7
+18  : 	t8 = 22
+19  : 	t9 = - t8
+20  : 	n4 = t9
+21  : 	t10 = "\nn1 = "
+22  : 	param t10
+23  : 	t11 = call printStr, 1
+24  : 	param n1
+25  : 	t12 = call printInt, 1
+26  : 	t13 = "\nn2 = "
+27  : 	param t13
+28  : 	t14 = call printStr, 1
+29  : 	param n2
+30  : 	t15 = call printInt, 1
+31  : 	t16 = "\nn3 = "
+32  : 	param t16
+33  : 	t17 = call printStr, 1
+34  : 	param n3
+35  : 	t18 = call printInt, 1
+36  : 	t19 = "\nn4 = "
+37  : 	param t19
+38  : 	t20 = call printStr, 1
+39  : 	param n4
+40  : 	t21 = call printInt, 1
+41  : 	t22 = n1 + n2
+42  : 	n5 = t22
+43  : 	t23 = n1 - n2
+44  : 	n6 = t23
+45  : 	t24 = n1 * n2
+46  : 	n7 = t24
+47  : 	t25 = n1 / n2
+48  : 	n8 = t25
+49  : 	t26 = n1 % n2
+50  : 	n9 = t26
+51  : 	t27 = "\nn1 + n2 = "
+52  : 	param t27
+53  : 	t28 = call printStr, 1
+54  : 	param n5
+55  : 	t29 = call printInt, 1
+56  : 	t30 = "\nn1 - n2 = "
+57  : 	param t30
+58  : 	t31 = call printStr, 1
+59  : 	param n6
+60  : 	t32 = call printInt, 1
+61  : 	t33 = "\nn1 * n2 = "
+62  : 	param t33
+63  : 	t34 = call printStr, 1
+64  : 	param n7
+65  : 	t35 = call printInt, 1
+66  : 	t36 = "\nn1 / n2 = "
+67  : 	param t36
+68  : 	t37 = call printStr, 1
+69  : 	param n8
+70  : 	t38 = call printInt, 1
+71  : 	t39 = "\nn1 % n2 = "
+72  : 	param t39
+73  : 	t40 = call printStr, 1
+74  : 	param n9
+75  : 	t41 = call printInt, 1
+76  : 	t42 = - n1
+77  : 	t43 = t42 + n2
+78  : 	t44 = t43 - n3
+79  : 	t45 = t44 + n4
+80  : 	t46 = 10
+81  : 	t47 = t45 + t46
+82  : 	n10 = t47
+83  : 	t48 = n1 * n2
+84  : 	t49 = t48 / n3
+85  : 	t50 = t49 + n4
+86  : 	t51 = 10
+87  : 	t52 = t50 - t51
+88  : 	n11 = t52
+89  : 	t53 = n2 * n3
+90  : 	t54 = t53 / n4
+91  : 	t55 = n1 + t54
+92  : 	t56 = 0
+93  : 	t57 = t55 - t56
+94  : 	n12 = t57
+95  : 	t58 = n1 + n2
+96  : 	t59 = - n3
+97  : 	t60 = t59 / n4
+98  : 	t61 = t58 * t60
+99  : 	t62 = 15
+100 : 	t63 = t61 - t62
+101 : 	n13 = t63
+102 : 	t64 = "\n-n1 + n2 - n3 + n4 + 10 = "
+103 : 	param t64
+104 : 	t65 = call printStr, 1
+105 : 	param n10
+106 : 	t66 = call printInt, 1
+107 : 	t67 = "\nn1 * n2 / n3 + n4 - 10 = "
+108 : 	param t67
+109 : 	t68 = call printStr, 1
+110 : 	param n11
+111 : 	t69 = call printInt, 1
+112 : 	t70 = "\nn1 + n2 * n3 / n4 - 0 = "
+113 : 	param t70
+114 : 	t71 = call printStr, 1
+115 : 	param n12
+116 : 	t72 = call printInt, 1
+117 : 	t73 = "\n(n1 + n2) * (n3 / n4) - 15 = "
+118 : 	param t73
+119 : 	t74 = call printStr, 1
+120 : 	param n13
+121 : 	t75 = call printInt, 1
+122 : 	t76 = "\n-n3 = "
+123 : 	param t76
+124 : 	t77 = call printStr, 1
+125 : 	t78 = - n3
+126 : 	param t78
+127 : 	t79 = call printInt, 1
+128 : 	t80 = "\n-n4 = "
+129 : 	param t80
+130 : 	t81 = call printStr, 1
+131 : 	t82 = - n4
+132 : 	param t82
+133 : 	t83 = call printInt, 1
+134 : 	t84 = "\nTest pre increment: "
+135 : 	param t84
+136 : 	t85 = call printStr, 1
+137 : 	n1 = n1 + 1
+138 : 	param n1
+139 : 	t86 = call testIncDec, 1
+140 : 	t87 = ", Value after call = "
+141 : 	param t87
+142 : 	t88 = call printStr, 1
+143 : 	param n1
+144 : 	t89 = call printInt, 1
+145 : 	t90 = "\nTest post increment: "
+146 : 	param t90
+147 : 	t91 = call printStr, 1
+148 : 	t92 = n1
+149 : 	n1 = n1 + 1
+150 : 	param t92
+151 : 	t93 = call testIncDec, 1
+152 : 	t94 = ", Value after call = "
+153 : 	param t94
+154 : 	t95 = call printStr, 1
+155 : 	param n1
+156 : 	t96 = call printInt, 1
+157 : 	t97 = "\nTest pre decrement: "
+158 : 	param t97
+159 : 	t98 = call printStr, 1
+160 : 	n1 = n1 - 1
+161 : 	param n1
+162 : 	t99 = call testIncDec, 1
+163 : 	t100 = ", Value after call = "
+164 : 	param t100
+165 : 	t101 = call printStr, 1
+166 : 	param n1
+167 : 	t102 = call printInt, 1
+168 : 	t103 = "\nTest post decrement: "
+169 : 	param t103
+170 : 	t104 = call printStr, 1
+171 : 	t105 = n1
+172 : 	n1 = n1 - 1
+173 : 	param t105
+174 : 	t106 = call testIncDec, 1
+175 : 	t107 = ", Value after call = "
+176 : 	param t107
+177 : 	t108 = call printStr, 1
+178 : 	param n1
+179 : 	t109 = call printInt, 1
+180 : 	t110 = "\n\n"
+181 : 	param t110
+182 : 	t111 = call printStr, 1
+183 : 	t112 = 0
+184 : 	return t112
+185 : Function end: main

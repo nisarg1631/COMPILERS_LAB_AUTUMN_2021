@@ -1,24 +1,41 @@
+int printStr(char *s);
+int readInt(int *eP);
+int printInt(int n);
+
+void fillFib(int *fib, int n) {
+    int i;
+    for (i = 0; i < n; i++) {
+        if (i == 0) {
+            fib[i] = 0;
+        } else if (i == 1) {
+            fib[i] = 1;
+        } else {
+            fib[i] = fib[i - 1] + fib[i - 2];
+        }
+    }
+}
+
 int main() {
-    int i, j, k;
-
-    // for loop
-    for(i = 0; i < j; i++) {
-        for(j = 0; j < k && j < 5; ++j, ++k)
-            k = j;
+    printStr("\n#### TEST 2 (1-D Arrays) ####");
+    int fib[15];
+    fillFib(fib, 15);
+    int i;
+    printStr("\nFibonacci Series: ");
+    for (i = 0; i < 15; i++) {
+        printInt(fib[i]);
+        printStr(" ");
     }
-
-    // while loop
-    while(i < j || i < k) {
-        j--;
+    char vowels[5];
+    vowels[0] = 'a';
+    vowels[1] = 'e';
+    vowels[2] = 'i';
+    vowels[3] = 'o';
+    vowels[4] = 'u';
+    printStr("\nAscii values of vowels: ");
+    for (i = 0; i < 5; i++) {
+        printInt(vowels[i]);
+        printStr(" ");
     }
-
-    // do while loop
-    do {
-        i = k++;
-        // nested while
-        while(i < j)
-            j--;
-    }while(k <= 10);
-
+    printStr("\n\n");
     return 0;
 }

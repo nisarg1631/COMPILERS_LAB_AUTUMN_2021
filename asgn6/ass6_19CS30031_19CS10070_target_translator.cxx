@@ -99,6 +99,7 @@ void translate() {
 
     assemblyFile << endl;
     // activation records
+    assemblyFile << "#\t" << "Allocation of function variables and temporaries on the stack:\n" << endl;
     for(auto &symbol : globalTable->symbols) {
         if(symbol.second.category == Symbol::FUNCTION) {
             assemblyFile << "#\t" << symbol.second.name << endl;
@@ -153,7 +154,8 @@ void translate() {
     string globalStringTemp;
     int globalIntTemp, globalCharTemp; // for char simply hold the ascii value
     string functionEndLabel;
-    int paramCount = 0; // variable to keep track of number of parameters for function calls
+    stack<string> params; // stack to store the params for function calls, especially helpful for nested function calls
+                            // of the type fun1(fun2(arg1, arg2), fun3(arg3, arg4))
     quadNum = 1;
     for(auto &quad:quadArray) {
 
@@ -238,11 +240,16 @@ void translate() {
                 } else if(op == "=str") {
                     assemblyFile << "\t" << setw(8) << "movq" << "$.LC" << arg1 << ", " << getStackLoc(result) << endl;
                 } else if(op == "param") {
-                    paramCount++;
-                    storeParam(result, paramCount);
+                    params.push(result);
                 } else if(op == "call") {
                     // call function
-                    paramCount = 0;
+                    int paramCount = stoi(arg2);
+                    while (paramCount) {
+                        storeParam(params.top(), paramCount);
+                        params.pop();
+                        paramCount--;
+                    }
+                    
                     assemblyFile << "\t" << setw(8) << "call" << arg1 << endl;
                     // check the size of result in the current table and apply the corresponding move from appropriate return register to result
                     int sz = currentTable->lookup(result)->size;
@@ -271,36 +278,38 @@ void translate() {
                 } else if(op == "goto") {
                     // unconditional jump
                     assemblyFile << "\t" << setw(8) << "jmp" << labelMap[stoi(result)] << endl;
-                } else if(op == "==") {
+                } else if(op == "==" or op == "!=" or op == "<" or op == "<=" or op == ">" or op == ">=") {
                     // check if arg1 == arg2
-                    assemblyFile << "\t" << setw(8) << "movl" << getStackLoc(arg2) << ", " << "%eax" << endl;
-                    assemblyFile << "\t" << setw(8) << "cmpl" << "%eax" << ", " << getStackLoc(arg1) << endl;
-                    assemblyFile << "\t" << setw(8) << "je" << labelMap[stoi(result)] << endl;
-                } else if(op == "!=") {
-                    // check if arg1 != arg2
-                    assemblyFile << "\t" << setw(8) << "movl" << getStackLoc(arg2) << ", " << "%eax" << endl;
-                    assemblyFile << "\t" << setw(8) << "cmpl" << "%eax" << ", " << getStackLoc(arg1) << endl;
-                    assemblyFile << "\t" << setw(8) << "jne" << labelMap[stoi(result)] << endl;
-                } else if(op == ">") {
-                    // check if arg1 > arg2
-                    assemblyFile << "\t" << setw(8) << "movl" << getStackLoc(arg2) << ", " << "%eax" << endl;
-                    assemblyFile << "\t" << setw(8) << "cmpl" << "%eax" << ", " << getStackLoc(arg1) << endl;
-                    assemblyFile << "\t" << setw(8) << "jg" << labelMap[stoi(result)] << endl;
-                } else if(op == "<") {
-                    // check if arg1 < arg2
-                    assemblyFile << "\t" << setw(8) << "movl" << getStackLoc(arg2) << ", " << "%eax" << endl;
-                    assemblyFile << "\t" << setw(8) << "cmpl" << "%eax" << ", " << getStackLoc(arg1) << endl;
-                    assemblyFile << "\t" << setw(8) << "jl" << labelMap[stoi(result)] << endl;
-                } else if(op == ">=") {
-                    // check if arg1 >= arg2
-                    assemblyFile << "\t" << setw(8) << "movl" << getStackLoc(arg2) << ", " << "%eax" << endl;
-                    assemblyFile << "\t" << setw(8) << "cmpl" << "%eax" << ", " << getStackLoc(arg1) << endl;
-                    assemblyFile << "\t" << setw(8) << "jge" << labelMap[stoi(result)] << endl;
-                } else if(op == "<=") {
-                    // check if arg1 <= arg2
-                    assemblyFile << "\t" << setw(8) << "movl" << getStackLoc(arg2) << ", " << "%eax" << endl;
-                    assemblyFile << "\t" << setw(8) << "cmpl" << "%eax" << ", " << getStackLoc(arg1) << endl;
-                    assemblyFile << "\t" << setw(8) << "jle" << labelMap[stoi(result)] << endl;
+                    int sz = currentTable->lookup(arg1)->size;
+                    string movins, cmpins, movreg;
+                    if(sz == 1) {
+                        movins = "movb";
+                        cmpins = "cmpb";
+                        movreg = "%al";
+                    } else if(sz == 4) {
+                        movins = "movl";
+                        cmpins = "cmpl";
+                        movreg = "%eax";
+                    } else if(sz == 8) {
+                        movins = "movq";
+                        cmpins = "cmpq";
+                        movreg = "%rax";
+                    }
+                    assemblyFile << "\t" << setw(8) << movins << getStackLoc(arg2) << ", " << movreg << endl;
+                    assemblyFile << "\t" << setw(8) << cmpins << movreg << ", " << getStackLoc(arg1) << endl;
+                    if(op == "==") {
+                        assemblyFile << "\t" << setw(8) << "je" << labelMap[stoi(result)] << endl;
+                    } else if(op == "!=") {
+                        assemblyFile << "\t" << setw(8) << "jne" << labelMap[stoi(result)] << endl;
+                    } else if(op == "<") {
+                        assemblyFile << "\t" << setw(8) << "jl" << labelMap[stoi(result)] << endl;
+                    } else if(op == "<=") {
+                        assemblyFile << "\t" << setw(8) << "jle" << labelMap[stoi(result)] << endl;
+                    } else if(op == ">") {
+                        assemblyFile << "\t" << setw(8) << "jg" << labelMap[stoi(result)] << endl;
+                    } else if(op == ">=") {
+                        assemblyFile << "\t" << setw(8) << "jge" << labelMap[stoi(result)] << endl;
+                    }
                 } else if(op == "+") {
                     // result = arg1 + arg2
                     if(result == arg1) {

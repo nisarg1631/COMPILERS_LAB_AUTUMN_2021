@@ -1,0 +1,288 @@
+============================================================================================================================================
+Table Name: global		 Parent Name: None
+============================================================================================================================================
+Name                Type                                    Category            Initial Value       Offset              Size                Child               
+
+main                int                                     function                                0                   4                   main                
+max                 int                                     function                                4                   4                   max                 
+printInt            int                                     function                                8                   4                   printInt            
+printStr            int                                     function                                12                  4                   printStr            
+readInt             int                                     function                                16                  4                   readInt             
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+
+============================================================================================================================================
+Table Name: main		 Parent Name: global
+============================================================================================================================================
+Name                Type                                    Category            Initial Value       Offset              Size                Child               
+
+ep                  int                                     local                                   0                   4                   NULL                
+i                   int                                     local                                   4                   4                   NULL                
+iters               int                                     local                                   8                   4                   NULL                
+j                   int                                     local                                   12                  4                   NULL                
+n                   int                                     local               9                   16                  4                   NULL                
+pow2                int                                     local               1                   20                  4                   NULL                
+return              int                                     local                                   24                  4                   NULL                
+t0                  ptr(char)                               temporary           "\n#### TEST 5 (Loops) ####\n"28                  8                   NULL                
+t1                  int                                     temporary                               36                  4                   NULL                
+t10                 int                                     temporary           1                   40                  4                   NULL                
+t11                 int                                     temporary                               44                  4                   NULL                
+t12                 int                                     temporary                               48                  4                   NULL                
+t13                 int                                     temporary           1                   52                  4                   NULL                
+t14                 int                                     temporary                               56                  4                   NULL                
+t15                 int                                     temporary                               60                  4                   NULL                
+t16                 int                                     temporary                               64                  4                   NULL                
+t17                 int                                     temporary           1                   68                  4                   NULL                
+t18                 int                                     temporary                               72                  4                   NULL                
+t19                 int                                     temporary           1                   76                  4                   NULL                
+t2                  ptr(char)                               temporary           "\nPattern printing using FOR loop:"80                  8                   NULL                
+t20                 int                                     temporary           2                   88                  4                   NULL                
+t21                 int                                     temporary                               92                  4                   NULL                
+t22                 int                                     temporary           1                   96                  4                   NULL                
+t23                 int                                     temporary                               100                 4                   NULL                
+t24                 int                                     temporary                               104                 4                   NULL                
+t25                 int                                     temporary           1                   108                 4                   NULL                
+t26                 int                                     temporary                               112                 4                   NULL                
+t27                 int                                     temporary                               116                 4                   NULL                
+t28                 int                                     temporary                               120                 4                   NULL                
+t29                 int                                     temporary           1                   124                 4                   NULL                
+t3                  int                                     temporary                               128                 4                   NULL                
+t30                 int                                     temporary                               132                 4                   NULL                
+t31                 int                                     temporary                               136                 4                   NULL                
+t32                 int                                     temporary                               140                 4                   NULL                
+t33                 int                                     temporary                               144                 4                   NULL                
+t34                 int                                     temporary                               148                 4                   NULL                
+t35                 ptr(char)                               temporary           " "                 152                 8                   NULL                
+t36                 int                                     temporary                               160                 4                   NULL                
+t37                 ptr(char)                               temporary           "\n"                164                 8                   NULL                
+t38                 int                                     temporary                               172                 4                   NULL                
+t39                 ptr(char)                               temporary           "\n"                176                 8                   NULL                
+t4                  ptr(char)                               temporary           "\n\n"              184                 8                   NULL                
+t40                 int                                     temporary                               192                 4                   NULL                
+t41                 int                                     temporary           1                   196                 4                   NULL                
+t42                 ptr(char)                               temporary           "\nPowers of 2 using WHILE loop: "200                 8                   NULL                
+t43                 int                                     temporary                               208                 4                   NULL                
+t44                 int                                     temporary           1024                212                 4                   NULL                
+t45                 int                                     temporary                               216                 4                   NULL                
+t46                 ptr(char)                               temporary           " "                 220                 8                   NULL                
+t47                 int                                     temporary                               228                 4                   NULL                
+t48                 int                                     temporary           2                   232                 4                   NULL                
+t49                 int                                     temporary                               236                 4                   NULL                
+t5                  int                                     temporary                               240                 4                   NULL                
+t50                 ptr(char)                               temporary           "\n\n"              244                 8                   NULL                
+t51                 int                                     temporary                               252                 4                   NULL                
+t52                 int                                     temporary           0                   256                 4                   NULL                
+t53                 ptr(char)                               temporary           "\nTesting DO-WHILE loop:"260                 8                   NULL                
+t54                 int                                     temporary                               268                 4                   NULL                
+t55                 int                                     temporary           0                   272                 4                   NULL                
+t56                 ptr(char)                               temporary           "\nEntered do-while loop. Enter number of times you wish to run the loop after this: "276                 8                   NULL                
+t57                 int                                     temporary                               284                 4                   NULL                
+t58                 ptr(int)                                temporary                               288                 8                   NULL                
+t59                 int                                     temporary                               296                 4                   NULL                
+t6                  int                                     temporary           9                   300                 4                   NULL                
+t60                 int                                     temporary           0                   304                 4                   NULL                
+t61                 ptr(char)                               temporary           "\nInvalid input. Exiting...\n\n"308                 8                   NULL                
+t62                 int                                     temporary                               316                 4                   NULL                
+t63                 int                                     temporary           0                   320                 4                   NULL                
+t64                 ptr(char)                               temporary           "\nIteration "      324                 8                   NULL                
+t65                 int                                     temporary                               332                 4                   NULL                
+t66                 int                                     temporary                               336                 4                   NULL                
+t67                 ptr(char)                               temporary           "\n"                340                 8                   NULL                
+t68                 int                                     temporary                               348                 4                   NULL                
+t69                 int                                     temporary                               352                 4                   NULL                
+t7                  int                                     temporary           1                   356                 4                   NULL                
+t70                 ptr(char)                               temporary           "\n\n"              360                 8                   NULL                
+t71                 int                                     temporary                               368                 4                   NULL                
+t72                 int                                     temporary           0                   372                 4                   NULL                
+t8                  int                                     temporary           2                   376                 4                   NULL                
+t9                  int                                     temporary                               380                 4                   NULL                
+x1                  int                                     local                                   384                 4                   NULL                
+x2                  int                                     local                                   388                 4                   NULL                
+y1                  int                                     local                                   392                 4                   NULL                
+y2                  int                                     local                                   396                 4                   NULL                
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+
+============================================================================================================================================
+Table Name: max		 Parent Name: global
+============================================================================================================================================
+Name                Type                                    Category            Initial Value       Offset              Size                Child               
+
+num1                int                                     parameter                               0                   4                   NULL                
+num2                int                                     parameter                               4                   4                   NULL                
+return              int                                     local                                   8                   4                   NULL                
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+
+============================================================================================================================================
+Table Name: printInt		 Parent Name: global
+============================================================================================================================================
+Name                Type                                    Category            Initial Value       Offset              Size                Child               
+
+n                   int                                     parameter                               0                   4                   NULL                
+return              int                                     local                                   4                   4                   NULL                
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+
+============================================================================================================================================
+Table Name: printStr		 Parent Name: global
+============================================================================================================================================
+Name                Type                                    Category            Initial Value       Offset              Size                Child               
+
+return              int                                     local                                   0                   4                   NULL                
+s                   ptr(char)                               parameter                               4                   8                   NULL                
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+
+============================================================================================================================================
+Table Name: readInt		 Parent Name: global
+============================================================================================================================================
+Name                Type                                    Category            Initial Value       Offset              Size                Child               
+
+eP                  ptr(int)                                parameter                               0                   8                   NULL                
+return              int                                     local                                   8                   4                   NULL                
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+
+1   : Function start: max
+2   : 	if num1 > num2 goto 4
+3   : 	goto 6
+4   : 	return num1
+5   : 	goto 7
+6   : 	return num2
+7   : Function end: max
+8   : Function start: main
+9   : 	t0 = "\n#### TEST 5 (Loops) ####\n"
+10  : 	param t0
+11  : 	t1 = call printStr, 1
+12  : 	t2 = "\nPattern printing using FOR loop:"
+13  : 	param t2
+14  : 	t3 = call printStr, 1
+15  : 	t4 = "\n\n"
+16  : 	param t4
+17  : 	t5 = call printStr, 1
+18  : 	t6 = 9
+19  : 	n = t6
+20  : 	t7 = 1
+21  : 	i = t7
+22  : 	t8 = 2
+23  : 	t9 = t8 * n
+24  : 	t10 = 1
+25  : 	t11 = t9 - t10
+26  : 	if i <= t11 goto 31
+27  : 	goto 77
+28  : 	t12 = i
+29  : 	i = i + 1
+30  : 	goto 22
+31  : 	t13 = 1
+32  : 	t14 = n + t13
+33  : 	t15 = t14 - i
+34  : 	x1 = t15
+35  : 	t16 = i - n
+36  : 	t17 = 1
+37  : 	t18 = t16 + t17
+38  : 	x2 = t18
+39  : 	t19 = 1
+40  : 	j = t19
+41  : 	t20 = 2
+42  : 	t21 = t20 * n
+43  : 	t22 = 1
+44  : 	t23 = t21 - t22
+45  : 	if j <= t23 goto 50
+46  : 	goto 73
+47  : 	t24 = j
+48  : 	j = j + 1
+49  : 	goto 41
+50  : 	t25 = 1
+51  : 	t26 = n + t25
+52  : 	t27 = t26 - j
+53  : 	y1 = t27
+54  : 	t28 = j - n
+55  : 	t29 = 1
+56  : 	t30 = t28 + t29
+57  : 	y2 = t30
+58  : 	param x1
+59  : 	param x2
+60  : 	t31 = call max, 2
+61  : 	param t31
+62  : 	param y1
+63  : 	param y2
+64  : 	t32 = call max, 2
+65  : 	param t32
+66  : 	t33 = call max, 2
+67  : 	param t33
+68  : 	t34 = call printInt, 1
+69  : 	t35 = " "
+70  : 	param t35
+71  : 	t36 = call printStr, 1
+72  : 	goto 47
+73  : 	t37 = "\n"
+74  : 	param t37
+75  : 	t38 = call printStr, 1
+76  : 	goto 28
+77  : 	t39 = "\n"
+78  : 	param t39
+79  : 	t40 = call printStr, 1
+80  : 	t41 = 1
+81  : 	pow2 = t41
+82  : 	t42 = "\nPowers of 2 using WHILE loop: "
+83  : 	param t42
+84  : 	t43 = call printStr, 1
+85  : 	t44 = 1024
+86  : 	if pow2 <= t44 goto 88
+87  : 	goto 97
+88  : 	param pow2
+89  : 	t45 = call printInt, 1
+90  : 	t46 = " "
+91  : 	param t46
+92  : 	t47 = call printStr, 1
+93  : 	t48 = 2
+94  : 	t49 = pow2 * t48
+95  : 	pow2 = t49
+96  : 	goto 85
+97  : 	t50 = "\n\n"
+98  : 	param t50
+99  : 	t51 = call printStr, 1
+100 : 	t52 = 0
+101 : 	i = t52
+102 : 	t53 = "\nTesting DO-WHILE loop:"
+103 : 	param t53
+104 : 	t54 = call printStr, 1
+105 : 	t55 = 0
+106 : 	if i == t55 goto 108
+107 : 	goto 125
+108 : 	t56 = "\nEntered do-while loop. Enter number of times you wish to run the loop after this: "
+109 : 	param t56
+110 : 	t57 = call printStr, 1
+111 : 	t58 = &ep
+112 : 	param t58
+113 : 	t59 = call readInt, 1
+114 : 	iters = t59
+115 : 	t60 = 0
+116 : 	if ep != t60 goto 118
+117 : 	goto 133
+118 : 	t61 = "\nInvalid input. Exiting...\n\n"
+119 : 	param t61
+120 : 	t62 = call printStr, 1
+121 : 	t63 = 0
+122 : 	return t63
+123 : 	goto 133
+124 : 	goto 133
+125 : 	t64 = "\nIteration "
+126 : 	param t64
+127 : 	t65 = call printStr, 1
+128 : 	param i
+129 : 	t66 = call printInt, 1
+130 : 	t67 = "\n"
+131 : 	param t67
+132 : 	t68 = call printStr, 1
+133 : 	t69 = i
+134 : 	i = i + 1
+135 : 	if t69 < iters goto 105
+136 : 	goto 137
+137 : 	t70 = "\n\n"
+138 : 	param t70
+139 : 	t71 = call printStr, 1
+140 : 	t72 = 0
+141 : 	return t72
+142 : Function end: main
